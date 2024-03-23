@@ -17,3 +17,5 @@ Players can meet a High Society member in Saint Denis that will send letters, an
 
 ## Stagecoach Robberies
 Players can rob stagecoaches across the county, if they find certain loot, the payout would be great. Difficult and lots of hordes of enemies.
+
+## Automatic Updating
