@@ -50,7 +50,8 @@ const bounties = [
 
 // Endpoint to fetch contract data
 app.get('/api/contracts', (req, res) => {
-  res.status(200).json(bounties)
+  //res.json(bounties);
+  res.send({ status: 200, data: bounties });
   successLog();
 });
 
