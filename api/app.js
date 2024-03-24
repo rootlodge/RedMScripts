@@ -4,6 +4,8 @@ const PORT = process.env.PORT || 3001;
 
 // Define your contract data
 const bounties = [
+  {ID: 1,  Coords: { x: -30.77, y: 1226.8, z: 172.92  }},
+  {ID: 1,  Coords: { x: -33.77, y: 1229.8, z: 172.92  }},
   {ID: 2,  Coords: { x: 489.53, y: 619.81, z: 111.7 }},
   {ID: 2,  Coords: { x: 516.53,   y: 621.81,   z: 111.7   }},
   {ID: 2,  Coords: { x: 516.53,   y: 619.81,   z: 111.7   }},
