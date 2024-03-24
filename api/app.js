@@ -51,7 +51,7 @@ const bounties = [
 // Endpoint to fetch contract data
 app.get('/api/contracts', (req, res) => {
   //res.json(bounties);
-  res.send({ data: bounties });
+  res.send({ bounties });
   successLog();
 });
 
