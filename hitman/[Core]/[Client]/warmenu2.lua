@@ -1,10 +1,10 @@
-if NUI.Theme.Dark then
+if Config.NUI.Theme.Dark then
   WarMenu = { }
   WarMenu.debug = false
 
 
   local menus = { }
-  local keys = { up = 0x6319DB71, down = 0x05CA7C52, left = 0xA65EBAB4, right = 0xDEB34313, select = 0xC7B5340A, back = 0x156F7119 }
+  local keys2 = { up = 0x6319DB71, down = 0x05CA7C52, left = 0xA65EBAB4, right = 0xDEB34313, select = 0xC7B5340A, back = 0x156F7119 }
 
   local optionCount = 0
 
@@ -281,13 +281,13 @@ if NUI.Theme.Dark then
 
 
 
-		if NUI.Position.Right then
+		if Config.NUI.Position.Right then
 			menus[id].x = 0.75
 			menus[id].y = 0.10
-		elseif NUI.Position.Left then
+		elseif Config.NUI.Position.Left then
 			menus[id].x = 0.05
 			menus[id].y = 0.10
-		elseif NUI.Position.Center then
+		elseif Config.NUI.Position.Center then
 			menus[id].x = 0.40
 			menus[id].y = 0.25
 		end
@@ -430,10 +430,10 @@ if NUI.Theme.Dark then
         if descText then
           menus[currentMenu].descText = descText
         end
-        if currentKey == keys.select then
+        if currentKey == keys2.select then
           PlaySoundFrontend("SELECT", "HUD_SHOP_SOUNDSET", 1)
           return true
-        elseif currentKey == keys.left or currentKey == keys.right then
+        elseif currentKey == keys2.left or currentKey == keys2.right then
           PlaySoundFrontend("SELECT", "HUD_SHOP_SOUNDSET", 1)
         end
       end
@@ -490,9 +490,9 @@ if NUI.Theme.Dark then
       callback(currentIndex, selectedIndex)
       return true
     elseif isCurrent then
-      if currentKey == keys.left then
+      if currentKey == keys2.left then
         if currentIndex > 1 then currentIndex = currentIndex - 1 else currentIndex = itemsCount end
-      elseif currentKey == keys.right then
+      elseif currentKey == keys2.right then
         if currentIndex < itemsCount then currentIndex = currentIndex + 1 else currentIndex = 1 end
       end
     else
@@ -524,27 +524,27 @@ if NUI.Theme.Dark then
           drawDescription(menus[currentMenu].descText)
         end
 
-        if isPressedKey(keys.down) then
+        if isPressedKey(keys2.down) then
           PlaySoundFrontend( "NAV_DOWN", "Ledger_Sounds", true )
           if menus[currentMenu].currentOption < optionCount then
             menus[currentMenu].currentOption = menus[currentMenu].currentOption + 1
           else
             menus[currentMenu].currentOption = 1
           end
-        elseif isPressedKey(keys.up) then
+        elseif isPressedKey(keys2.up) then
           PlaySoundFrontend( "NAV_UP", "Ledger_Sounds", true )
           if menus[currentMenu].currentOption > 1 then
             menus[currentMenu].currentOption = menus[currentMenu].currentOption - 1
           else
             menus[currentMenu].currentOption = optionCount
           end
-        elseif isPressedKey(keys.left) then
-          currentKey = keys.left
-        elseif isPressedKey(keys.right) then
-          currentKey = keys.right
-        elseif isPressedKey(keys.select) then
-          currentKey = keys.select
-        elseif isPressedKey(keys.back) then
+        elseif isPressedKey(keys2.left) then
+          currentKey = keys2.left
+        elseif isPressedKey(keys2.right) then
+          currentKey = keys2.right
+        elseif isPressedKey(keys2.select) then
+          currentKey = keys2.select
+        elseif isPressedKey(keys2.back) then
           if menus[menus[currentMenu].previousMenu] then
             PlaySoundFrontend( "BACK", "HUD_SHOP_SOUNDSET", true )
             setMenuVisible(menus[currentMenu].previousMenu, true)

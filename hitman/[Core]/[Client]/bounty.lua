@@ -130,7 +130,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
                 local ped = PlayerPedId()
                 local pCoords = GetEntityCoords(ped)
                 local dist = GetDistanceBetweenCoords(pCoords, eCoords)
-                local E = IsControlJustReleased(1, Keys['E'])
+                local E = IsControlJustReleased(1, Config.Keys['E'])
 
                 -- If close to killed target pick up evidence and head back.
                 if (dist <= 5) and E then
@@ -162,7 +162,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   end
 
   function GPStoBoards ()
-    bb2 = HandlerLocations[2]
+    bb2 = Config.HandlerLocations[2]
     StartGpsMultiRoute(6, true, true)
     AddPointToGpsMultiRoute(bb2.x, bb2.y, bb2.z)
     SetGpsMultiRouteRender(true)

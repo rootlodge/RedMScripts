@@ -46,3 +46,33 @@ function DrawText(text, x, y, fontscale, fontsize, r, g, b, alpha, textcentred, 
   SetTextFontForCurrentCommand(1)
   DisplayText(str, x, y)
 end
+
+function GetScreenCoordFromWorldCoord(worldX, worldY, worldZ)
+  local _worldX = worldX
+  local _worldY = worldY
+  local _worldZ = worldZ
+  local _screenX = 0
+  local _screenY = 0
+  local _onScreen = Citizen.InvokeNative(0xF9904D11F1ACBEC3, _worldX, _worldY, _worldZ, _screenX, _screenY)
+  return _onScreen, _screenX, _screenY
+end
+
+function GetClosestPlayer()
+  local players = GetActivePlayers()
+  local closestDistance = -1
+  local closestPlayer = -1
+  local playerPed = PlayerPedId()
+  local playerCoords = GetEntityCoords(playerPed)
+  for _,playerId in ipairs(players) do
+    local targetPed = GetPlayerPed(playerId)
+    if targetPed ~= playerPed then
+      local targetCoords = GetEntityCoords(targetPed)
+      local distance = #(playerCoords - targetCoords)
+      if closestDistance == -1 or closestDistance > distance then
+        closestPlayer = playerId
+        closestDistance = distance
+      end
+    end
+  end
+  return closestPlayer, closestDistance
+end

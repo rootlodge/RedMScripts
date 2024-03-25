@@ -23,7 +23,7 @@ end
 
 
 Citizen.CreateThread(function()
-  for _, board in ipairs(HandlerLocations) do
+  for _, board in ipairs(Config.HandlerLocations) do
       local blipName = board.City
       local blipHash = GetHashKey("blip_summer_guard") -- Replace with your blip style
       addBlipForCoords(blipName, blipHash, {board.x, board.y, board.z})
@@ -36,7 +36,7 @@ Citizen.CreateThread(function()
   while true do Wait(2000)
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
-    for k, v in pairs(HandlerLocations) do
+    for k, v in pairs(Config.HandlerLocations) do
 
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z)
 
@@ -47,7 +47,6 @@ Citizen.CreateThread(function()
         if (dist > 5) and InRange then
           InRange = false
           Location = nil
-          DrawText3D(coords.x, coords.y, coords.z, 'You have left the area')
           WarMenu.CloseMenu()
         end
 
@@ -55,8 +54,9 @@ Citizen.CreateThread(function()
         if (dist <= 5) and not InRange then
           InRange = true
           Location = v.City
-          DrawText3D(coords.x, coords.y, coords.z, 'You are in the area')
           TriggerEvent('RootLodge:HitContracts:C:StartMission')
+          Wait(1000)
+          
         end
       end
     end
@@ -68,7 +68,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   local ped = PlayerPedId()
   while InRange do Wait(1)
     local coords = GetEntityCoords(ped)
-    for k, v in pairs(HandlerLocations) do
+    for k, v in pairs(Config.HandlerLocations) do
       local x, y, z = v.x, v.y, v.z
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z)
 
@@ -79,13 +79,13 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
         -- Turn cirle green if in range
         if not OpenMenu then DrawCircle(x, y, z, 17, 217, 27, 50) end
         if not MenuOpen then DrawInfo('Press [ ~e~SPACE~q~ ] to open the menu', 0.5, 0.95, 0.75) end
-        if IsControlJustPressed(0, Keys['SPACEBAR']) then
+        if IsControlJustPressed(0, Config.Keys['SPACEBAR']) then
           MenuOpen = true
           ActiveMenu = 'BountyMenu'
           WarMenu.OpenMenu('BountyMenu')
         end
 
-        if IsControlJustPressed(0, Keys['BACKSPACE']) then
+        if IsControlJustPressed(0, Config.Keys['BACKSPACE']) then
           if ActiveMenu == 'BountyMenu' then WarMenu.CloseMenu() ActiveMenu = nil MenuOpen = false Location = nil
           elseif ActiveMenu == 'PVEMenu' then WarMenu.OpenMenu('BountyMenu') ActiveMenu = 'BountyMenu'
           elseif ActiveMenu == 'PVPMenu' then WarMenu.OpenMenu('BountyMenu') ActiveMenu = 'BountyMenu'

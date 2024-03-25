@@ -7,14 +7,54 @@
 -- Keep in mind if you change these, they may be overwritten with new updates & could cause issues. 
 -- iF CHANGING, make sure to revert to the original values and save the changed ones before updating.
 --------------------------------------------------------------------------------
-HandlerLocations = {
+Config = {}
+Config.locale = 'en'
+
+Config.HandlerLocations = {
   { City = 'Valentine Handler',    x = -274.8, y = 805.5, z = 119.3 },
   { City = 'Saint Denis Handler', x = 2513.4, y = -1305.2, z = 48.9 },
   { City = 'Blackwater Handler',   x = -758.0, y = -1266.0, z = 44.0 },
   -- { City = 'New Austin Handler', x = -274.8, y = 805.5, z = 119.3 },
 }
 
-
+Config.Languages = {
+  ['en'] = {
+    ['menu_title'] = 'Hitman Information Board',
+    ['menu_button'] = 'G',
+    ['menu_text'] = 'Press ~g~G~s~ to start a mission',
+  },
+  ['fr'] = {
+    ['menu_title'] = 'Tableau des contrats',
+    ['menu_button'] = 'G',
+    ['menu_text'] = 'Appuyez sur ~g~G~s~ pour commencer une mission',
+  },
+  ['de'] = {
+    ['menu_title'] = 'Hitman Information Board',
+    ['menu_button'] = 'G',
+    ['menu_text'] = 'Drücken Sie ~g~G~s~, um eine Mission zu starten',
+  },
+  ['es'] = {
+    ['menu_title'] = 'Tablero de información de Hitman',
+    ['menu_button'] = 'G',
+    ['menu_text'] = 'Presiona ~g~G~s~ para comenzar una misión',
+  },
+  ['ru'] = {
+    ['menu_title'] = 'Доска объявлений наемников',
+    ['menu_button'] = 'G',
+    ['menu_text'] = 'Нажмите ~g~G~s~, чтобы начать миссию',
+  },
+  ['pl'] = {
+    ['menu_title'] = 'Tablica ogłoszeń Hitmana',
+    ['menu_button'] = 'G',
+    ['menu_text'] = 'Naciśnij ~g~G~s~ aby rozpocząć misję',
+  },
+  ['es'] = {
+    ['menu_title'] = 'Tablero de información de Hitman',
+    ['menu_button'] = 'G',
+    ['menu_text'] = 'Presiona ~g~G~s~ para comenzar una misión',
+  },
+  -- Add more languages here
+}
 
 --------------------------------------------------------------------------------
 -- These are the NPC Contracts you can hunt. If you want to add
@@ -74,7 +114,7 @@ Contracts  = {
 --------------------------------------------------------------------------------
 -------- Don't touch this!!! It can create a disturbance in the force! ---------
 --------------------------------------------------------------------------------
-Keys = {
+Config.Keys = {
   -- Mouse buttons
   ["MOUSE1"] = 0x07CE1E61, ["MOUSE2"] = 0xF84FA74F, ["MOUSE3"] = 0xCEE12B50, ["MWUP"] = 0x3076E97C,
   -- keyboard

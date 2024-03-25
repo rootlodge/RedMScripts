@@ -16,14 +16,14 @@ RegisterServerEvent('RootLodge:HitContracts:S:CheckCharacter')
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 AddEventHandler('RootLodge:HitContracts:S:PayDay', function(KillCount)
-  local BPK = Payment.Money.BPK
-  local XPK = Payment.XP.XPK
-  local mMin = Payment.Money.Min
-  local mMax = Payment.Money.Max
-  local xMin = Payment.XP.Min
-  local xMax = Payment.XP.Max
-  local vMoney = Payment.Money.Static
-  local vEXP = Payment.XP.Static
+  local BPK = Config.Payment.Money.BPK
+  local XPK = Config.Payment.XP.XPK
+  local mMin = Config.Payment.Money.Min
+  local mMax = Config.Payment.Money.Max
+  local xMin = Config.Payment.XP.Min
+  local xMax = Config.Payment.XP.Max
+  local vMoney = Config.Payment.Money.Static
+  local vEXP = Config.Payment.XP.Static
 
   local Char = VorpCore.getUser(source).getUsedCharacter
 

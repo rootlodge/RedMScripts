@@ -7,13 +7,13 @@
 --------------------------------------------------------------------------------
 -- Same thing counts for the Themes. Only 1 can be activated at once!
 --------------------------------------------------------------------------------
-NUI = {
+Config.NUI = {
     Theme = { Dark = false, Red = true },
     Position = { Right = true, Left = false, Center = false }
   }
   
   --------------------------------------------------------------------------------
-  Payment = {
+  Config.Payment = {
     Money = {
       BPK = true,        -- true = Pay per kill  |  false = fixed amount per kill
       Min = 5,           -- Minimal money value a player can get per kill.
