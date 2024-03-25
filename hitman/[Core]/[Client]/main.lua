@@ -44,10 +44,12 @@ Citizen.CreateThread(function()
       if Location == v.City then
 
         -- Set user if out of range
-        if (dist > 5) and InRange then
+        if (dist > 3) and InRange then
           InRange = false
           Location = nil
           WarMenu.CloseMenu()
+          Wait(1000)
+          DrawTextLow('You left the area bucko', 0.5, 0.95, 0.75)
         end
 
         -- Set user if in range
@@ -55,8 +57,6 @@ Citizen.CreateThread(function()
           InRange = true
           Location = v.City
           TriggerEvent('RootLodge:HitContracts:C:StartMission')
-          Wait(1000)
-          
         end
       end
     end
