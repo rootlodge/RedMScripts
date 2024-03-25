@@ -8,6 +8,8 @@ Stagecoach Transporting - In progress
 Hitman Contracts (Illegal) - In Progress
 Stagecoach robberies - Coming soon
 
+## More Life
+Increased (or decreased) spawn rates for peds, animals, and wagons. 
 ## Postal Delivery
 Players can move mail from a post office to another post office.
 ## Stagecoach Transporting
@@ -20,3 +22,4 @@ Players can meet a High Society member in Saint Denis that will send letters, an
 Players can rob stagecoaches across the county, if they find certain loot, the payout would be great. Difficult and lots of hordes of enemies.
 
 ## Automatic Updating
+Coming soon!
