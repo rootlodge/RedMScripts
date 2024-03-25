@@ -8,6 +8,21 @@ Stagecoach Transporting - In progress
 Hitman Contracts (Illegal) - In Progress
 Stagecoach robberies - Coming soon
 
+## Installation
+Download the latest releases, extract unto the following names (name the folders this)
+hitman - for the Contracted Killing script
+morelife - for the More Life script
+postdelivery - for the Postal Delivery script
+
+then for each script you have downloaded, add `ensure (scriptname/foldername) to your resources.cfg file (or whereever you put them)
+
+
+OR IF ON LINUX AND FOR A MORE STREAMLINED PROCESS
+Ensure that git is downloaded 
+`gh repo clone rootlodge/RedMScripts`
+`chmod +x autoupdate.sh`
+Done!
+
 ## More Life
 Increased (or decreased) spawn rates for peds, animals, and wagons. 
 ## Postal Delivery
@@ -22,4 +37,4 @@ Players can meet a High Society member in Saint Denis that will send letters, an
 Players can rob stagecoaches across the county, if they find certain loot, the payout would be great. Difficult and lots of hordes of enemies.
 
 ## Automatic Updating
-Coming soon!
+Follow the steps in #Installation
