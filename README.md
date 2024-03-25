@@ -2,11 +2,23 @@
 QOL, jobs, and more in this RedM script!
 
 Jobs:
-More NPC's! Peds, animals, etc! - In Progress
-Postal Delivery - In Progress
-Stagecoach Transporting - In progress
-Hitman Contracts (Illegal) - In Progress
-Stagecoach robberies - Coming soon
+Postal Delivery
+More coming soon!
+
+## To Do
+- [ x ] More NPC's
+- [ ] Postal Delivery
+- [ ] Stagecoach Transporting
+- [ x ] Hitman Contracts
+- [ ] Stagecoach robberies
+- [ x ] Automatic Updating
+- [ x ] More Life
+- [ x ] More Life Config
+- [ ] Postal Delivery Config
+- [ ] Stagecoach Transporting Config
+- [ x ] Hitman Contracts Config
+- [ ] Stagecoach Robberies
+
 
 ## Installation
 Download the latest releases, extract unto the following names (name the folders this)
@@ -38,3 +50,26 @@ Players can rob stagecoaches across the county, if they find certain loot, the p
 
 ## Automatic Updating
 Follow the steps in #Installation
+
+
+
+
+## Resources Used
+https://redlookup.com/
+https://www.rdr2mods.com/wiki/ped-search/?pedtype=0&
+https://github.com/femga/rdr3_discoveries/tree/master/useful_info_from_rpfs/textures/blips
+https://rdr3natives.github.io/
+https://github.com/DevDokus/RedM-BountyHunter
+## To Do
+- [ ] More NPC's
+- [ ] Postal Delivery
+- [ ] Stagecoach Transporting
+- [ ] Hitman Contracts
+- [ ] Stagecoach robberies
+- [ ] Automatic Updating
+- [ ] More Life
+- [ ] More Life Config
+- [ ] Postal Delivery Config
+- [ ] Stagecoach Transporting Config
+- [ ] Hitman Contracts Config
+- [ ] Stagecoach Robberies

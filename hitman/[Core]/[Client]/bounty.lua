@@ -8,8 +8,10 @@ local Models = {
   "A_F_M_BlWTownfolk_01", "A_F_M_BlWTownfolk_02", "A_F_M_BlWUpperClass_01", "A_F_M_BtcHillbilly_01",
   "A_F_M_RhdTownfolk_01", "A_F_M_RhdTownfolk_02", "A_F_M_ROUGHTRAVELLERS_01", "A_F_M_SDChinatown_01",
   "A_F_M_SDSlums_02", "A_F_M_StrTownfolk_01", "A_F_M_TumTownfolk_01", "A_F_M_TumTownfolk_02",
-  "mp_dr_u_m_m_MISTAKENBOUNTIES_01",
+  "mp_dr_u_m_m_MISTAKENBOUNTIES_01", "A_M_M_BynSurvivalist_01", "U_M_O_BlWPoliceChief_01"
 }
+
+local Wagons = {}
 
 local Weapons = {
   0x772C8DD6, 0x169F59F7, 0xDB21AC8C, 0x6DFA071B,

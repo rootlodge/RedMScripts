@@ -1,7 +1,7 @@
 local config = {
-    pedFrequency = 6.0, -- Controls the amount of random peds walking/standing around (0.0 = None | 0.5 = Half as Many | 1.0 = Normal | 2.0 = Twice as Many)
-    trafficFrequency = 6.0, -- Controls the amount of vehicles driving around and also controls the amount of parked vehicles (0.0 = None | 0.5 = Half as Many| 1.0 = Normal | 2.0 = Twice as Many)
-    animalFrequency = 6.0, -- Controls the amount of animals walking/standing around (0.0 = None | 0.5 = Half as Many | 1.0 = Normal | 2.0 = Twice as Many)
+    pedFrequency = 32.0, -- Controls the amount of random peds walking/standing around (0.0 = None | 0.5 = Half as Many | 1.0 = Normal | 2.0 = Twice as Many)
+    trafficFrequency = 32.0, -- Controls the amount of vehicles driving around and also controls the amount of parked vehicles (0.0 = None | 0.5 = Half as Many| 1.0 = Normal | 2.0 = Twice as Many)
+    animalFrequency = 16.0, -- Controls the amount of animals walking/standing around (0.0 = None | 0.5 = Half as Many | 1.0 = Normal | 2.0 = Twice as Many)
 }
 
 -- Please do not edit below this line! --
