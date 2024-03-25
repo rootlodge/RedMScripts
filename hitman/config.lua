@@ -11,10 +11,10 @@ Config = {}
 Config.locale = 'en'
 
 Config.HandlerLocations = {
-  { City = 'Valentine Handler',    x = -274.8, y = 805.5, z = 119.3 },
-  { City = 'Saint Denis Handler', x = 2513.4, y = -1305.2, z = 48.9 },
-  { City = 'Blackwater Handler',   x = -758.0, y = -1266.0, z = 44.0 },
-  -- { City = 'New Austin Handler', x = -274.8, y = 805.5, z = 119.3 },
+  { City = 'Valentine Handler',    x = -277.69, y = 921.63, z = 128.29, w = 340.36, h = 340.36},
+  { City = 'Saint Denis Handler', x = 2513.4, y = -1305.2, z = 48.9, w = 340.36, h = 340.36},
+  { City = 'Blackwater Handler',   x = -758.0, y = -1266.0, z = 44.0, w = 340.36, h = 340.36},
+  -- { City = 'New Austin Handler', x = -274.8, y = 805.5, z = 119.3, w = 340.36, h = 340.36},
 }
 
 Config.Languages = {
@@ -71,6 +71,8 @@ Config.HandlerNPC = {
   --   ['NPC'] = 'A_M_M_BlWUpperClass_01',
   -- },
 }
+
+Config.HandlerScenario = `WORLD_HUMAN_SHOPKEEPER` -- This is the scenario the Handler will be in.
 
 --------------------------------------------------------------------------------
 -- These are the NPC Contracts you can hunt. If you want to add

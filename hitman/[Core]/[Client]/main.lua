@@ -96,29 +96,36 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   end
 end)
 
--- Spawn NPC's at the locations
+local iamalwaystrue = true
+-- Spawn NPC's at the locations, not interaction, freeze them and give them no tasks. use the config to spawn the npcs
 Citizen.CreateThread(function()
-  while true do
-      Wait(1000)
-      -- Iterate over each city in HandlerLocations
-      for _, location in ipairs(Config.HandlerLocations) do
-          local city = location.City
-          -- Check if the city matches a handler in HandlerNPC
-          local npcData = Config.HandlerNPC[city]
-          if npcData then
-              -- Spawn NPC at the location coordinates
-              local x, y, z = location.x, location.y, location.z
-              local heading = location.heading or 0
-              local npcPed = CreatePed(4, GetHashKey(npcData.NPC), x, y, z, heading, false, true)
-              SetEntityAsMissionEntity(npcPed, true, true)
-              SetEntityInvincible(npcPed, true)
-              FreezeEntityPosition(npcPed, true)
-          else
-              print("No NPC model specified for city: " .. city)
-          end
+  while true do Wait(1)
+    if iamalwaystrue then
+      for k, v in pairs(Config.HandlerLocations) do
+        local locx, locy, locz, locw = v.x, v.y, v.z, v.w
+        -- Wait 
+        Wait(1000)
+        -- Get Handler Location Coordinates per town
+        for q, p in pairs(Config.HandlerNPC[p.City]) do
+          -- get NPC from p.city
+          local npcname = p.NPC
+          local pedHash = GetHashKey(npcname)
+          print(npcname)
+          Wait(1000)
+          RequestModel(npcname)
+          while not HasModelLoaded(npcname) do Wait(100) end
+          spawnrec = CreatePed(npcname, locx, locy, locz, locw, false, true)
+          SetEntityAlpha(spawnrec, 255, false)
+			    SetPedRandomComponentVariation(spawnrec, 0)
+			    FreezeEntityPosition(spawnrec, true)
+			    SetEntityInvincible(spawnrec, true)			
+			    SetBlockingOfNonTemporaryEvents(spawnrec, true)
+          TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
+        end
       end
+    end
   end
-end)
+end
 
 -- Warmenu
 Citizen.CreateThread(function()
