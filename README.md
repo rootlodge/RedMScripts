@@ -2,6 +2,7 @@
 QOL, jobs, and more in this RedM script!
 
 Jobs:
+More NPC's! Peds, animals, etc! - In Progress
 Postal Delivery - In Progress
 Stagecoach Transporting - In progress
 Hitman Contracts (Illegal) - In Progress
