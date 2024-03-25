@@ -60,16 +60,3 @@ https://www.rdr2mods.com/wiki/ped-search/?pedtype=0&
 https://github.com/femga/rdr3_discoveries/tree/master/useful_info_from_rpfs/textures/blips
 https://rdr3natives.github.io/
 https://github.com/DevDokus/RedM-BountyHunter
-## To Do
-- [ ] More NPC's
-- [ ] Postal Delivery
-- [ ] Stagecoach Transporting
-- [ ] Hitman Contracts
-- [ ] Stagecoach robberies
-- [ ] Automatic Updating
-- [ ] More Life
-- [ ] More Life Config
-- [ ] Postal Delivery Config
-- [ ] Stagecoach Transporting Config
-- [ ] Hitman Contracts Config
-- [ ] Stagecoach Robberies
