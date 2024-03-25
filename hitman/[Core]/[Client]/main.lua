@@ -10,6 +10,7 @@ local MenuOpen = false
 local Location = nil
 
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
+RegisterNetEvent("RootLodge:HitContracts:C:ShowText")
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
@@ -75,8 +76,9 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 
       if (dist <= 2) then
         -- Turn cirle green if in range
+        TriggerEvent("RootLodge:HitContracts:C:ShowText", "YOU ARE SO CLOSE - DEV TESTING")
         if not OpenMenu then DrawCircle(x, y, z, 17, 217, 27, 50) end
-        if not MenuOpen then DrawInfo('Press [ ~e~SPACE~q~ ] to open the bounty menu', 0.5, 0.95, 0.75) end
+        if not MenuOpen then DrawInfo('Press [ ~e~SPACE~q~ ] to open the menu', 0.5, 0.95, 0.75) end
         if IsControlJustPressed(0, Keys['SPACEBAR']) then
           MenuOpen = true
           ActiveMenu = 'BountyMenu'
@@ -92,6 +94,14 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
       end
     end
   end
+end)
+
+
+AddEventHandler("RootLodge:HitContracts:ShowText", function(msg)
+  SetTextScale(0.5, 0.5)
+  local str = Citizen.InvokeNative(0xFA925AC00EB830B9, 10, "LITERAL_STRING", msg, Citizen.ResultAsLong())
+  Citizen.InvokeNative(0xFA233F8FE190514C, str)
+  Citizen.InvokeNative(0xE9990552DEC71600)
 end)
 
 -- Warmenu
