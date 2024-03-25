@@ -35,32 +35,18 @@ local SearchingBodies = false
 local GPSToBodyIsSet = false
 local SaveGuard = false
 local GPStoSDboardactive = false
+local alwaysfalse = false
+local alwaystrue = true
 --------------------------------------------------------------------------------
 
-AddEventHandler('RootLodge:BountyHunter:C:SetUpMission', function(_Job)
+AddEventHandler('RootLodge:BountyHunter:C:SetUpMission', function()
   -- Make sure this script does not execute twice.
   SaveGuard = true
   
-  -- See if any job is required.
-  local HasJob = false
-  local NeedJob = false
-  for k,v in pairs(Jobs) do
-    if v.Use == true then
-      NeedJob = true
-    end
-  end
 
-  -- Get all job names and check the user.
-  if NeedJob then
-    for k,v in pairs(Jobs) do
-      if v.Job == _Job then
-        HasJob = true
-      end
-    end
-  end
 
-  -- Stop the user if he/she does not have the correct jobs.
-  if NeedJob and not HasJob then Notify(Jobs.NoJob) return end
+  -- Stop the user
+  if alwaysfalse and not alwaystrue then Notify("Something has went terribly wrong. Please contact the server administrator!", 1000) return end
 
     -- Get a random bounty ID
     local rLoc = Bounties[math.random(#Bounties)]

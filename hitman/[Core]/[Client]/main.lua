@@ -138,7 +138,7 @@ function PVEMenu ()
 
   if hunt then
    Location = nil
-   TriggerServerEvent('RootLodge:BountyHunter:S:CheckJob')
+   TriggerServerEvent('RootLodge:BountyHunter:S:CheckCharacter')
   end
 
   if payment and (TotalKilled > 0)then

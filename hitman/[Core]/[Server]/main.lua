@@ -8,7 +8,7 @@ function Invoke(args, bool) Citizen.InvokeNative(args, bool) end
 --------------------------------------------------------------------------------
 -- Event Register
 RegisterServerEvent('RootLodge:BountyHunter:S:PayDay')
-RegisterServerEvent('RootLodge:BountyHunter:S:CheckJob')
+RegisterServerEvent('RootLodge:BountyHunter:S:CheckCharacter')
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
@@ -54,12 +54,11 @@ end)
 
 
 
-AddEventHandler('RootLodge:BountyHunter:S:CheckJob', function()
+AddEventHandler('RootLodge:BountyHunter:S:CheckCharacter', function()
   local User = VorpCore.getUser(source)
   if User ~= nil then
     local Character = User.getUsedCharacter
-    local _Job = Character.job
-    TriggerClientEvent('RootLodge:BountyHunter:C:SetUpMission', source, _Job)
+    TriggerClientEvent('RootLodge:BountyHunter:C:SetUpMission', source)
   end
 end)
 

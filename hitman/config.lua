@@ -13,20 +13,6 @@ NUI = {
 }
 
 --------------------------------------------------------------------------------
--- Here you can set if BountyHunter needs a job or not for it to work.
--- You can add multiple on this list. If set to true, the job is active
--- NoJob is simply the error you get when you dont have the correct job.
--- Make sure that you put every job on this line if you put them on the listz
--- NOTE: if you disable one of the jobs, make sure to edit the NoJob also!
--- Otherwise people will thet need a job that maybe doesn't exists.
---------------------------------------------------------------------------------
-Jobs = {
-  { Job = 'police', Use = false },
-  { Job = 'hunter', Use = false },
-  NoJob = 'You need the jobs ~e~Police~q~ or ~e~Hunter~q~ to hunt for bounties'
-}
-
---------------------------------------------------------------------------------
 Payment = {
   Money = {
     BPK = true,        -- true = Pay per kill  |  false = fixed amount per kill
