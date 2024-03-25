@@ -3,12 +3,15 @@
 --------------------------------------------------------------------------------
 -- Here you can add all HandlerLocations Menu locations.
 -- The City name does nothing! this is just a visual reference.
+-- x, y, z are the coordinates where the menu will be displayed.
+-- Keep in mind if you change these, they may be overwritten with new updates & could cause issues. 
+-- iF CHANGING, make sure to revert to the original values and save the changed ones before updating.
 --------------------------------------------------------------------------------
 HandlerLocations = {
-  { City = 'Valentine',    x = -274.8, y = 805.5, z = 119.3 },
-  { City = 'Saint Denis', x = 2513.4, y = -1305.2, z = 48.9 },
-  { City = 'Blackwater',   x = -758.0, y = -1266.0, z = 44.0 },
-  -- { City = 'Rhodes', x = -274.8, y = 805.5, z = 119.3 },
+  { City = 'Valentine Handler',    x = -274.8, y = 805.5, z = 119.3 },
+  { City = 'Saint Denis Handler', x = 2513.4, y = -1305.2, z = 48.9 },
+  { City = 'Blackwater Handler',   x = -758.0, y = -1266.0, z = 44.0 },
+  -- { City = 'New Austin Handler', x = -274.8, y = 805.5, z = 119.3 },
 }
 
 
