@@ -102,10 +102,13 @@ Citizen.CreateThread(function()
   while true do Wait(1)
     if iamalwaystrue then
       for k, v in pairs(Config.HandlerLocations) do
-        local locx, locy, locz, locw = v.x, v.y, v.z, v.w
+        local lovw = 0.0
+        local locx, locy, locz = v.x, v.y, v.z
         -- Get Handler Location Coordinates per town
-        for q, p in pairs(Config.HandlerNPC[p.City]) do
+        for q, p in pairs(Config.HandlerNPC.[p]) do
           -- get NPC from p.city
+          local cityname = P
+          print(cityname)
           local npcname = p.NPC
           local pedHash = GetHashKey(npcname)
           print(npcname)

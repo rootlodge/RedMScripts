@@ -69,7 +69,6 @@ print("https://rootlodge.com")
 print("https://discord.gg/3ZU6zj3")
 
 
-
 local devmode = true
 -- if devmode is true, the script will enable the ExecuteCommand("refresh") command by typing /devrefresh in the chat.
 RegisterCommand("devrefresh", function()
