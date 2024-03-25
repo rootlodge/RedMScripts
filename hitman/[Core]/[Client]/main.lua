@@ -23,7 +23,7 @@ end
 
 
 Citizen.CreateThread(function()
-  for _, board in ipairs(BountyBoards) do
+  for _, board in ipairs(HandlerLocations) do
       local blipName = board.City
       local blipHash = GetHashKey("blip_summer_guard") -- Replace with your blip style
       addBlipForCoords(blipName, blipHash, {board.x, board.y, board.z})
@@ -36,7 +36,7 @@ Citizen.CreateThread(function()
   while true do Wait(2000)
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
-    for k, v in pairs(BountyBoards) do
+    for k, v in pairs(HandlerLocations) do
 
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z)
 
@@ -66,7 +66,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   local ped = PlayerPedId()
   while InRange do Wait(1)
     local coords = GetEntityCoords(ped)
-    for k, v in pairs(BountyBoards) do
+    for k, v in pairs(HandlerLocations) do
       local x, y, z = v.x, v.y, v.z
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z)
 
