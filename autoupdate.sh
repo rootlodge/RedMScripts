@@ -13,9 +13,6 @@ cd $SCRIPT_DIR
 # Fetch updates from the Git repository
 git fetch origin
 
-# Checkout the latest version
-git checkout master
-
 # Pull the latest changes
 git pull origin master
 EOF
