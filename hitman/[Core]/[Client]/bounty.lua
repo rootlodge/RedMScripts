@@ -8,7 +8,7 @@ local Models = {
   "A_F_M_BlWTownfolk_01", "A_F_M_BlWTownfolk_02", "A_F_M_BlWUpperClass_01", "A_F_M_BtcHillbilly_01",
   "A_F_M_RhdTownfolk_01", "A_F_M_RhdTownfolk_02", "A_F_M_ROUGHTRAVELLERS_01", "A_F_M_SDChinatown_01",
   "A_F_M_SDSlums_02", "A_F_M_StrTownfolk_01", "A_F_M_TumTownfolk_01", "A_F_M_TumTownfolk_02",
-  "mp_dr_u_m_m_MISTAKENContracts_01",
+  "mp_dr_u_m_m_MISTAKENBOUNTIES_01",
 }
 
 local Weapons = {
