@@ -42,14 +42,14 @@ HandlerLocations = {
 
 
 --------------------------------------------------------------------------------
--- These are the NPC bounties you can hunt. If you want to add
+-- These are the NPC Contracts you can hunt. If you want to add
 -- new location/mission, just add the coordinates on the list.
 -- NOTE: that the IDs are what combines the enemies in a group.
 -- If ID 1 is selected by the randomizer, all enemies with
 -- ID 1 will be selected for the mission. The more enties
 -- on the same ID, there more you have to kill per mission.
 --------------------------------------------------------------------------------
-Bounties  = {
+Contracts  = {
   {ID = 1,  Coords = { x = -30.77,   y = 1226.8,   z = 172.92  }},
   {ID = 1,  Coords = { x = -33.77,   y = 1229.8,   z = 172.92  }},
   {ID = 2,  Coords = { x = 489.53,   y = 619.81,   z = 111.7   }},

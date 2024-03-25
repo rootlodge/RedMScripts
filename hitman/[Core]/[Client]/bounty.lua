@@ -26,7 +26,7 @@ RegisterNetEvent('RootLodge:HitContracts:C:SetUpMission')
 RegisterNetEvent('RootLodge:HitContracts:C:ResetTotalKills')
 --------------------------------------------------------------------------------
 TotalKilled = 0
-local ArrayBounties = {}
+local ArrayTargets = {}
 local CreateNPC = {}
 local NPCx, NPCy, NPCz = 0, 0, 0
 local InMission = false
@@ -48,10 +48,10 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   -- Stop the user
   if alwaysfalse and not alwaystrue then Notify("Something has went terribly wrong. Please contact the server administrator!", 1000) return end
 
-    -- Get a random bounty ID
-    local rLoc = Bounties[math.random(#Bounties)]
+    -- Get a random target/contract ID
+    local rLoc = Contracts[math.random(#Contracts)]
     -- Get all NPCs associated with this ID
-    for k, v in pairs(Bounties) do
+    for k, v in pairs(Contracts) do
       if v.ID == rLoc.ID then
         TotalEnemies = TotalEnemies + 1
         -- Get a random model for this NPC
@@ -68,7 +68,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
         SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
         TaskCombatPed(CreateNPC[k], PlayerPedId())
-        ArrayBounties[k] = CreateNPC[k]
+        ArrayTargets[k] = CreateNPC[k]
       end
     end
 
@@ -79,9 +79,9 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     -- Start the GPS
     --StartGpsMultiRoute(6, true, true)
 
-    -- Add the coordinates of the NPCs in ArrayBounties to the GPS route
-    --for k, v in pairs(ArrayBounties) do
-      --local npcCoords = GetEntityCoords(ArrayBounties[k])
+    -- Add the coordinates of the NPCs in ArrayTargets to the GPS route
+    --for k, v in pairs(ArrayTargets) do
+      --local npcCoords = GetEntityCoords(ArrayTargets[k])
       --AddPointToGpsMultiRoute(npcCoords.x, npcCoords.y, npcCoords.z)
     --end
 
@@ -89,33 +89,33 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     --SetGpsMultiRouteRender(true)
 
     Wait(1000)
-    Notify('Your Bounty is located on the map!', 5000)
+    Notify('Your target has been located. Check your map!', 5000)
     Wait(2000)
     Notify('We need them dead, not alive! But Dead!', 5000)
     Wait(1500)
-    Notify('You can stack bounties, just keep in mind', 5000)
+    Notify('You can stack Contracts, just keep in mind', 5000)
     Wait(1000)
-    Notify('that you lose the bounties if you died!', 5000)
+    Notify('that you lose the Contracts if you died!', 5000)
     InMission = true
     SaveGuard = false
     while InMission do Wait(1)
-      for k, v in pairs(ArrayBounties) do
+      for k, v in pairs(ArrayTargets) do
 
         if not GPSToBodyIsSet then
           GPSToBodyIsSet = true
           StartGpsMultiRoute(6, true, true)
-          local npcCoords = GetEntityCoords(ArrayBounties[k])
+          local npcCoords = GetEntityCoords(ArrayTargets[k])
           AddPointToGpsMultiRoute(npcCoords.x, npcCoords.y, npcCoords.z)
           SetGpsMultiRouteRender(true)
         end
 
         if IsEntityDead(v) then
-          local eCoords = GetEntityCoords(ArrayBounties[k])
+          local eCoords = GetEntityCoords(ArrayTargets[k])
 
-          if ArrayBounties[k] ~= nil then
+          if ArrayTargets[k] ~= nil then
             TotalEnemies = TotalEnemies - 1
             TotalKilled = TotalKilled + 1
-            ArrayBounties[k] = nil
+            ArrayTargets[k] = nil
             if TotalEnemies == 0 then
               SetGpsMultiRouteRender(false)
               TriggerEvent("vorp:TipRight", 'You managed to kill all targets', 5000)
@@ -156,7 +156,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
     for k, v in pairs(CreateNPC) do DeletePed(v) Wait(500) end
-    table.remove{CreateNPC} table.remove{ArrayBounties}
+    table.remove{CreateNPC} table.remove{ArrayTargets}
   end
 
   function GPStoBoards ()
