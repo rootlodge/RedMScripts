@@ -9,7 +9,7 @@ local ActiveMenu = nil
 local MenuOpen = false
 local Location = nil
 
-RegisterNetEvent('RootLodge:BountyHunter:C:StartMission')
+RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Citizen.CreateThread(function()
         if (dist <= 5) and not InRange then
           InRange = true
           Location = v.City
-          TriggerEvent('RootLodge:BountyHunter:C:StartMission')
+          TriggerEvent('RootLodge:HitContracts:C:StartMission')
         end
       end
     end
@@ -62,7 +62,7 @@ Citizen.CreateThread(function()
 end)
 
 -- Check players distance from the stores.
-AddEventHandler('RootLodge:BountyHunter:C:StartMission', function()
+AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   local ped = PlayerPedId()
   while InRange do Wait(1)
     local coords = GetEntityCoords(ped)
@@ -138,11 +138,11 @@ function PVEMenu ()
 
   if hunt then
    Location = nil
-   TriggerServerEvent('RootLodge:BountyHunter:S:CheckCharacter')
+   TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
   end
 
   if payment and (TotalKilled > 0)then
-    TriggerServerEvent('RootLodge:BountyHunter:S:PayDay', TotalKilled)
+    TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
     TotalKilled = 0
     SetGpsMultiRouteRender(false)
     Location = nil

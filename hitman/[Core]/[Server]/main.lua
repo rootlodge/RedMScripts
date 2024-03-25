@@ -7,15 +7,15 @@ function Wait(args) Citizen.Wait(args) end
 function Invoke(args, bool) Citizen.InvokeNative(args, bool) end
 --------------------------------------------------------------------------------
 -- Event Register
-RegisterServerEvent('RootLodge:BountyHunter:S:PayDay')
-RegisterServerEvent('RootLodge:BountyHunter:S:CheckCharacter')
+RegisterServerEvent('RootLodge:HitContracts:S:PayDay')
+RegisterServerEvent('RootLodge:HitContracts:S:CheckCharacter')
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-AddEventHandler('RootLodge:BountyHunter:S:PayDay', function(KillCount)
+AddEventHandler('RootLodge:HitContracts:S:PayDay', function(KillCount)
   local BPK = Payment.Money.BPK
   local XPK = Payment.XP.XPK
   local mMin = Payment.Money.Min
@@ -48,17 +48,17 @@ AddEventHandler('RootLodge:BountyHunter:S:PayDay', function(KillCount)
     xPay = vEXP
   end
 
-  TriggerClientEvent('RootLodge:BountyHunter:C:ResetTotalKills', source)
+  TriggerClientEvent('RootLodge:HitContracts:C:ResetTotalKills', source)
   TriggerClientEvent("vorp:TipRight", source, "You received $"..mPay..' and '..xPay..' XP', 5000)
 end)
 
 
 
-AddEventHandler('RootLodge:BountyHunter:S:CheckCharacter', function()
+AddEventHandler('RootLodge:HitContracts:S:CheckCharacter', function()
   local User = VorpCore.getUser(source)
   if User ~= nil then
     local Character = User.getUsedCharacter
-    TriggerClientEvent('RootLodge:BountyHunter:C:SetUpMission', source)
+    TriggerClientEvent('RootLodge:HitContracts:C:SetUpMission', source)
   end
 end)
 

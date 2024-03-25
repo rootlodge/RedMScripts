@@ -22,8 +22,8 @@ local Weapons = {
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
-RegisterNetEvent('RootLodge:BountyHunter:C:SetUpMission')
-RegisterNetEvent('RootLodge:BountyHunter:C:ResetTotalKills')
+RegisterNetEvent('RootLodge:HitContracts:C:SetUpMission')
+RegisterNetEvent('RootLodge:HitContracts:C:ResetTotalKills')
 --------------------------------------------------------------------------------
 TotalKilled = 0
 local ArrayBounties = {}
@@ -39,7 +39,7 @@ local alwaysfalse = false
 local alwaystrue = true
 --------------------------------------------------------------------------------
 
-AddEventHandler('RootLodge:BountyHunter:C:SetUpMission', function()
+AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   -- Make sure this script does not execute twice.
   SaveGuard = true
   
@@ -167,6 +167,6 @@ AddEventHandler('RootLodge:BountyHunter:C:SetUpMission', function()
     GPStoSDboardactive = true
   end
 
-  AddEventHandler('RootLodge:BountyHunter:C:ResetTotalKills', function()
+  AddEventHandler('RootLodge:HitContracts:C:ResetTotalKills', function()
     TotalKilled = 0
   end)
