@@ -44,12 +44,12 @@ Citizen.CreateThread(function()
       if Location == v.City then
 
         -- Set user if out of range
-        if (dist > 3) and InRange then
+        if (dist > 5) and InRange then
           InRange = false
           Location = nil
           WarMenu.CloseMenu()
           Wait(1000)
-          DrawTextLow('You left the area bucko', 0.5, 0.95, 0.75)
+          DrawInfo('You left the area bucko', 0.5, 0.95, 0.75)
         end
 
         -- Set user if in range
@@ -96,12 +96,28 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   end
 end)
 
-
-AddEventHandler("RootLodge:HitContracts:ShowText", function(msg)
-  SetTextScale(0.5, 0.5)
-  local str = Citizen.InvokeNative(0xFA925AC00EB830B9, 10, "LITERAL_STRING", msg, Citizen.ResultAsLong())
-  Citizen.InvokeNative(0xFA233F8FE190514C, str)
-  Citizen.InvokeNative(0xE9990552DEC71600)
+-- Spawn NPC's at the locations
+Citizen.CreateThread(function()
+  while true do
+      Wait(1000)
+      -- Iterate over each city in HandlerLocations
+      for _, location in ipairs(Config.HandlerLocations) do
+          local city = location.City
+          -- Check if the city matches a handler in HandlerNPC
+          local npcData = Config.HandlerNPC[city]
+          if npcData then
+              -- Spawn NPC at the location coordinates
+              local x, y, z = location.x, location.y, location.z
+              local heading = location.heading or 0
+              local npcPed = CreatePed(4, GetHashKey(npcData.NPC), x, y, z, heading, false, true)
+              SetEntityAsMissionEntity(npcPed, true, true)
+              SetEntityInvincible(npcPed, true)
+              FreezeEntityPosition(npcPed, true)
+          else
+              print("No NPC model specified for city: " .. city)
+          end
+      end
+  end
 end)
 
 -- Warmenu

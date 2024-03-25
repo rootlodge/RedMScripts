@@ -56,6 +56,22 @@ Config.Languages = {
   -- Add more languages here
 }
 
+Config.HandlerNPC = {
+  ['Valentine Handler'] = {
+    ['NPC'] = 'A_M_M_BlWUpperClass_01',
+  },
+  ['Saint Denis Handler'] = {
+    ['NPC'] = 'A_M_M_BiVFancyTravellers_01',
+  },
+  ['Blackwater Handler'] = {
+    ['NPC'] = 'A_M_M_GriSurvivalist_01',
+  },
+  -- Add more Handler NPC's here
+  -- ['New Austin Handler'] = {
+  --   ['NPC'] = 'A_M_M_BlWUpperClass_01',
+  -- },
+}
+
 --------------------------------------------------------------------------------
 -- These are the NPC Contracts you can hunt. If you want to add
 -- new location/mission, just add the coordinates on the list.
