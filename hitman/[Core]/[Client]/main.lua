@@ -10,7 +10,6 @@ local MenuOpen = false
 local Location = nil
 
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
-RegisterNetEvent("RootLodge:HitContracts:C:ShowText")
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
@@ -48,6 +47,7 @@ Citizen.CreateThread(function()
         if (dist > 5) and InRange then
           InRange = false
           Location = nil
+          DrawText3D(coords.x, coords.y, coords.z, 'You have left the area')
           WarMenu.CloseMenu()
         end
 
@@ -55,6 +55,7 @@ Citizen.CreateThread(function()
         if (dist <= 5) and not InRange then
           InRange = true
           Location = v.City
+          DrawText3D(coords.x, coords.y, coords.z, 'You are in the area')
           TriggerEvent('RootLodge:HitContracts:C:StartMission')
         end
       end
@@ -76,7 +77,6 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 
       if (dist <= 2) then
         -- Turn cirle green if in range
-        TriggerEvent("RootLodge:HitContracts:C:ShowText", "YOU ARE SO CLOSE - DEV TESTING")
         if not OpenMenu then DrawCircle(x, y, z, 17, 217, 27, 50) end
         if not MenuOpen then DrawInfo('Press [ ~e~SPACE~q~ ] to open the menu', 0.5, 0.95, 0.75) end
         if IsControlJustPressed(0, Keys['SPACEBAR']) then
