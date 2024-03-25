@@ -103,8 +103,6 @@ Citizen.CreateThread(function()
     if iamalwaystrue then
       for k, v in pairs(Config.HandlerLocations) do
         local locx, locy, locz, locw = v.x, v.y, v.z, v.w
-        -- Wait 
-        Wait(1000)
         -- Get Handler Location Coordinates per town
         for q, p in pairs(Config.HandlerNPC[p.City]) do
           -- get NPC from p.city
