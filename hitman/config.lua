@@ -29,10 +29,10 @@ Payment = {
   }
 }
 --------------------------------------------------------------------------------
--- Here you can add all BountyBoards Menu locations.
+-- Here you can add all HandlerLocations Menu locations.
 -- The City name does nothing! this is just a visual reference.
 --------------------------------------------------------------------------------
-BountyBoards = {
+HandlerLocations = {
   { City = 'Valentine',    x = -274.8, y = 805.5, z = 119.3 },
   { City = 'Saint Denis', x = 2513.4, y = -1305.2, z = 48.9 },
   { City = 'Blackwater',   x = -758.0, y = -1266.0, z = 44.0 },

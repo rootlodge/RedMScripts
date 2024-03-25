@@ -160,7 +160,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   end
 
   function GPStoBoards ()
-    bb2 = BountyBoards[2]
+    bb2 = HandlerLocations[2]
     StartGpsMultiRoute(6, true, true)
     AddPointToGpsMultiRoute(bb2.x, bb2.y, bb2.z)
     SetGpsMultiRouteRender(true)
