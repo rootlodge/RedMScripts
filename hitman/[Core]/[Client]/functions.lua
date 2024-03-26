@@ -22,17 +22,6 @@ function DrawInfo(text, x, y, size)
   SetScriptGfxDrawOrder(3)
 end
 
-function DrawTextOnScreen(text, x, y, font, color, scale, outline, centered)
-  SetTextFont(font)
-  SetTextScale(scale, scale)
-  SetTextColour(color[1], color[2], color[3], color[4])
-  SetTextOutline(outline)
-  SetTextCentre(centered)
-  BeginTextCommandDisplayText("STRING")
-  AddTextComponentSubstringPlayerName(text)
-  EndTextCommandDisplayText(x, y)
-end
-
 function GetScreenCoordFromWorldCoord(worldX, worldY, worldZ)
   local _worldX = worldX
   local _worldY = worldY
