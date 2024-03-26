@@ -54,6 +54,7 @@ Citizen.CreateThread(function()
           InRange = true
           Location = v.City
           TriggerEvent('RootLodge:HitContracts:C:StartMission')
+          CenterBottomNotify('Proceed with caution', 5000)
         end
       end
     end
