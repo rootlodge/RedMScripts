@@ -4,12 +4,9 @@
 function Wait(args) Citizen.Wait(args) end
 
 local Models = {
-  "MP_CHU_ROB_MILLESANI_MALES_01", "A_F_M_ARMCHOLERACORPSE_01",
-  "A_F_M_ARMTOWNFOLK_01", "A_F_M_ArmTownfolk_02", "A_F_M_AsbTownfolk_01", "A_F_M_BiVFancyTravellers_01",
-  "A_F_M_BlWTownfolk_01", "A_F_M_BlWTownfolk_02", "A_F_M_BlWUpperClass_01", "A_F_M_BtcHillbilly_01",
-  "A_F_M_RhdTownfolk_01", "A_F_M_RhdTownfolk_02", "A_F_M_ROUGHTRAVELLERS_01", "A_F_M_SDChinatown_01",
-  "A_F_M_SDSlums_02", "A_F_M_StrTownfolk_01", "A_F_M_TumTownfolk_01", "A_F_M_TumTownfolk_02",
-  "mp_dr_u_m_m_MISTAKENBOUNTIES_01", "A_M_M_BynSurvivalist_01", "U_M_O_BlWPoliceChief_01"
+  "MP_CHU_ROB_MILLESANI_MALES_01", "mp_dr_u_m_m_MISTAKENBOUNTIES_01", "A_M_M_BynSurvivalist_01", "U_M_O_BlWPoliceChief_01",
+  "A_M_M_HtlRoughTravellers_01", "A_M_M_JamesonGuard_01", "A_M_M_MOONSHINERS_01", "A_M_M_RkrFancyTravellers_01", "A_M_M_SkpPrisoner_01", "A_M_O_SDUpperClass_01", "CS_exconfedsleader_01",
+  "CS_NbxPoliceChiefFormal", "G_M_O_UniExConfeds_01", "S_M_M_Army_01", "RE_WEALTHYCOUPLE_MALES_01"
 }
 
 local Wagons = {}
