@@ -98,6 +98,42 @@ end)
 
 local iamalwaystrue = true
 
+Citizen.CreateThread(function()
+  while true do
+      Wait(1)
+      if iamalwaystrue then
+          for k, v in pairs(Config.HandlerLocations) do
+              local locx, locy, locz = v.x, v.y, v.z
+              local locw = 100.41544342041 -- Assuming this is the heading, adjust as needed
+
+              local spawned = false
+
+              for cityname, npcData in pairs(Config.HandlerNPC) do
+                  if cityname == v.City and not spawned then
+                      local npcname = npcData.NPC
+                      local pedHash = GetHashKey(npcname)
+
+                      RequestModel(pedHash)
+                      while not HasModelLoaded(pedHash) do
+                          Wait(100)
+                      end
+
+                      local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
+                      Citizen.InvokeNative(0x283978A15512B2FE, npc, true) -- SetRandomOutfitVariation
+                      SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
+                      SetEntityCanBeDamaged(spawnrec, false)
+                      SetEntityInvincible(spawnrec, true)
+                      Wait(1000)
+                      FreezeEntityPosition(spawnrec, true))
+                      SetBlockingOfNonTemporaryEvents(spawnrec, true)
+                      TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
+                      Wait(1000)
+                      spawned = true -- Mark as spawned for this location
+              end
+          end
+      end
+  end
+end)
 
 
 
