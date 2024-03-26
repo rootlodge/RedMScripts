@@ -99,7 +99,7 @@ local iamalwaystrue = true
 local npcSpawned = {} -- Table to track spawned NPCs for each city
 
 -- Function to spawn NPC for a given city
-local function SpawnNPC(cityName, npcName, locx, locy, locz, locw)
+function SpawnNPC(cityName, npcName, locx, locy, locz, locw)
     local pedHash = GetHashKey(npcName)
     RequestModel(pedHash)
     while not HasModelLoaded(pedHash) do
@@ -107,19 +107,22 @@ local function SpawnNPC(cityName, npcName, locx, locy, locz, locw)
     end
     local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
     Wait(1000)
-    SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
+    Citizen.InvokeNative(0x283978A15512B2FE, spawnrec, true) -- SetRandomOutfitVariation
+    Wait(100)
+    --SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
     SetEntityCanBeDamaged(spawnrec, false)
-    SetEntityInvincible(spawnrec, true)
+    --SetEntityInvincible(spawnrec, true)
     Wait(1000)
     FreezeEntityPosition(spawnrec, true)
     SetBlockingOfNonTemporaryEvents(spawnrec, true)
+    SetEntityVisible(spawnrec, true)
     --TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
     npcSpawned[cityName] = true -- Mark NPC as spawned for this city
     Wait(500)
 end
 
 -- Main function to handle NPC spawning
-local function HandleNPCSpawning()
+function HandleNPCSpawning()
     for k, v in pairs(Config.HandlerLocations) do
         local locx, locy, locz = v.x, v.y, v.z
 
