@@ -175,7 +175,6 @@ Citizen.CreateThread(function()
     while true do
         Wait(200)
         HandleNPCSpawning()
-        TriggerEvent('RootLodge:HitContracts:C:ShowPrompt', 'Hello test')
     end
 end)
 
