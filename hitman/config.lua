@@ -9,6 +9,7 @@
 --------------------------------------------------------------------------------
 Config = {}
 Config.locale = 'en'
+Config.DevMode = true
 
 Config.HandlerLocations = {
   { City = 'Valentine Handler',    x = -276.86, y = 921.46, z = 128.31},

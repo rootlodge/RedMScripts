@@ -167,3 +167,10 @@ function SetAndGetMissionStatus(result)
         return MissionStatus
     end
 end
+
+
+function devdebug(text)
+  if Config.DevMode then
+    print(text)
+  end
+end

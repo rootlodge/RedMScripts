@@ -67,9 +67,10 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
       Wait(1) -- It's critical to have a short wait to prevent freezing.
       local coords = GetEntityCoords(ped)
       local MissionStatus = SetAndGetMissionStatus() -- Assuming this function's scope is accessible here.
+      devdebug(MissionStatus)
 
       for _, v in pairs(Config.HandlerLocations) do
-          local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z, true)
+          local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z)
 
           if dist <= 4 then
               -- Checks if within 4 meters of the location.
@@ -89,6 +90,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 
               -- Getting paid.
               if IsControlJustPressed(0, Config.Keys['K']) then
+                devdebug(MissionStatus)
                   if TotalKilled > 0 then
                       TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
                       TotalKilled = 0
