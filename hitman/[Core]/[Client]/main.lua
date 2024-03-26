@@ -86,7 +86,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
               if IsControlJustPressed(0, Config.Keys['G']) then
                   Location = nil
                   TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
-                  simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 8000)
+                  simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 10000)
                   Wait(2000)
                   break -- Exit the loop to avoid multiple triggers.
               end
@@ -102,6 +102,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
                       MissionStatus = false
                       CenterBottomNotify("You've been paid for your hard work, partner!", 5000)
                       Wait(2000)
+                      break -- Exit the loop to avoid multiple triggers.
                   else
                       CenterBottomNotify("You've no recorded target excursions, partner!", 5000)
                   end
@@ -197,6 +198,14 @@ AddEventHandler("onResourceStop", function(resourceName)
       local blipName = board.City
       RemoveBlip(blipName)
   end
+
+  TotalEnemies = 0
+  TotalKilled = 0
+  SearchingBodies = false
+  MissionStatus = false
+  InMission = false
+  Location = nil
+  InRange = false
 
 end)
 

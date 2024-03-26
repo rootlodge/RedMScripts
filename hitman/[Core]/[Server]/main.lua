@@ -49,7 +49,7 @@ AddEventHandler('RootLodge:HitContracts:S:PayDay', function(KillCount)
   end
 
   TriggerClientEvent('RootLodge:HitContracts:C:ResetTotalKills', source)
-  VORPcore.NotifyRightTip(source, "You received $"..mPay..' and '..xPay..' XP', 5000)
+  VORPcore.NotifyRightTip(_source, "You received $"..mPay..' and '..xPay..' XP', 5000)
 end)
 
 AddEventHandler('RootLodge:HitContracts:S:CheckCharacter', function()
