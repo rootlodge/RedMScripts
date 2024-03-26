@@ -56,7 +56,7 @@ Citizen.CreateThread(function()
           TriggerEvent('RootLodge:HitContracts:C:StartMission')
           --check MissionSuccess from server event and if true, proceed
 
-          SetAndGetMissionStatus() and DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75) or DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
+          SetAndGetMissionStatus() and DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75) or DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75) end
         end
       end
     end
