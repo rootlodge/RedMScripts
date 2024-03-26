@@ -42,7 +42,7 @@ Citizen.CreateThread(function()
           tipNotification("Welcome to the Bounty Board", 5000)
           Wait(10000)
           simpleTopNotification("Welcome to the Bounty Board", "testing", 5000)
-          wait(10000)
+          Wait(10000)
           -- Add any additional logic here
           -- Notify Avanced function
           NotifyAvanced("Hello! Contract initited test", "satchel_textures", "tick", "COLOR_PURE_WHITE", 5000)
