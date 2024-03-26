@@ -97,36 +97,39 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 end)
 
 local iamalwaystrue = true
--- Spawn NPC's at the locations, not interaction, freeze them and give them no tasks. use the config to spawn the npcs
+
 Citizen.CreateThread(function()
-  while true do Wait(1)
-    if iamalwaystrue then
-      for k, v in pairs(Config.HandlerLocations) do
-        local lovw = 0.0
-        local locx, locy, locz = v.x, v.y, v.z
-        -- Get Handler Location Coordinates per town
-        for q, p in pairs(Config.HandlerNPC.[p]) do
-          -- get NPC from p.city
-          local cityname = P
-          print(cityname)
-          local npcname = p.NPC
-          local pedHash = GetHashKey(npcname)
-          print(npcname)
-          Wait(1000)
-          RequestModel(npcname)
-          while not HasModelLoaded(npcname) do Wait(100) end
-          spawnrec = CreatePed(npcname, locx, locy, locz, locw, false, true)
-          SetEntityAlpha(spawnrec, 255, false)
-			    SetPedRandomComponentVariation(spawnrec, 0)
-			    FreezeEntityPosition(spawnrec, true)
-			    SetEntityInvincible(spawnrec, true)			
-			    SetBlockingOfNonTemporaryEvents(spawnrec, true)
-          TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
+    while true do
+        Wait(1)
+        if iamalwaystrue then
+            for k, v in pairs(Config.HandlerLocations) do
+                local locx, locy, locz = v.x, v.y, v.z
+                local locw = 0.0 -- Assuming this is the heading, adjust as needed
+
+                for cityname, npcData in pairs(Config.HandlerNPC) do
+                    if cityname == v.City then
+                        local npcname = npcData.NPC
+                        local pedHash = GetHashKey(npcname)
+
+                        RequestModel(pedHash)
+                        while not HasModelLoaded(pedHash) do
+                            Wait(100)
+                        end
+
+                        local spawnrec = CreatePed(28, pedHash, locx, locy, locz, locw, false, true)
+                        SetEntityAlpha(spawnrec, 255, false)
+                        SetPedRandomComponentVariation(spawnrec, 0)
+                        FreezeEntityPosition(spawnrec, true)
+                        SetEntityInvincible(spawnrec, true)
+                        SetBlockingOfNonTemporaryEvents(spawnrec, true)
+                        TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, 0.0, -1, false, true)
+                    end
+                end
+            end
         end
-      end
     end
-  end
-end
+end)
+
 
 -- Warmenu
 Citizen.CreateThread(function()
