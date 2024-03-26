@@ -6,13 +6,12 @@ Postal Delivery
 More coming soon!
 
 ## To Do
-- [ x ] More NPC's
 - [ ] Postal Delivery
 - [ ] Stagecoach Transporting
 - [ x ] Hitman Contracts
 - [ ] Stagecoach robberies
 - [ x ] Automatic Updating
-- [ x ] More Life
+- [ ] More Life
 - [ x ] More Life Config
 - [ ] Postal Delivery Config
 - [ ] Stagecoach Transporting Config
@@ -23,7 +22,7 @@ More coming soon!
 ## Installation
 Download the latest releases, extract unto the following names (name the folders this)
 hitman - for the Contracted Killing script
-morelife - for the More Life script
+morelife - for the More Life script - Currently broken
 postdelivery - for the Postal Delivery script
 
 then for each script you have downloaded, add `ensure (scriptname/foldername) to your resources.cfg file (or whereever you put them)
@@ -36,7 +35,7 @@ Ensure that git is downloaded
 `chmod +x autoupdate.sh`
 Done!
 
-## More Life
+## More Life - Currently broken
 Increased (or decreased) spawn rates for peds, animals, and wagons. 
 ## Postal Delivery
 Players can move mail from a post office to another post office.
