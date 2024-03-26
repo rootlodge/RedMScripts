@@ -104,7 +104,7 @@ Citizen.CreateThread(function()
         if iamalwaystrue then
             for k, v in pairs(Config.HandlerLocations) do
                 local locx, locy, locz = v.x, v.y, v.z
-                local locw = 0.0 -- Assuming this is the heading, adjust as needed
+                local locw = 348.32 -- Assuming this is the heading, adjust as needed
 
                 for cityname, npcData in pairs(Config.HandlerNPC) do
                     if cityname == v.City then
