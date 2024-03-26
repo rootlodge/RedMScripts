@@ -119,7 +119,9 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
                   GPStoBoards()
                   Wait(3000)
                   CenterBottomNotify('Bring the evidence to the nearest handler!', 5000)
-                  SetAndGetMissionStatus(true)
+                  devdebug(TotalKilled)
+                  devdebug(TotalEnemies)
+                  MissionStatus = true
                   SearchingBodies = false
                 end
               end
@@ -129,7 +131,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
         if IsPlayerDead() then
           CenterBottomNotify('You have lost your target!', 4000)
-          SetAndGetMissionStatus(false)
+          MissionStatus = false
           StopMission()
           TotalKilled = 0
         end
@@ -139,7 +141,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
   function StopMission()
     InMission = false
-    SetAndGetMissionStatus(false)
+    MissionStatus = false
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
     for k, v in pairs(CreateNPC) do DeletePed(v) Wait(500) end

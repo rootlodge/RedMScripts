@@ -8,6 +8,7 @@ function Wait(args) Citizen.Wait(args) end
 -- Varables
 local InRange = false
 local Location = nil
+MissionStatus = false
 
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
 --------------------------------------------------------------------------------
@@ -67,7 +68,6 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   while InRange do 
       Wait(1) -- It's critical to have a short wait to prevent freezing.
       local coords = GetEntityCoords(ped)
-      local MissionStatus = SetAndGetMissionStatus() -- Assuming this function's scope is accessible here.
       devdebug(MissionStatus)
 
       for _, v in pairs(Config.HandlerLocations) do
@@ -86,6 +86,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
                   Location = nil
                   TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
                   simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 8000)
+                  Wait(2000)
                   break -- Exit the loop to avoid multiple triggers.
               end
 
@@ -97,8 +98,9 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
                       TotalKilled = 0
                       Location = nil
                       SetGpsMultiRouteRender(false)
-                      SetAndGetMissionStatus(false)
+                      MissionStatus = false
                       CenterBottomNotify("You've been paid for your hard work, partner!", 5000)
+                      Wait(2000)
                   else
                       CenterBottomNotify("You've no recorded target excursions, partner!", 5000)
                   end
