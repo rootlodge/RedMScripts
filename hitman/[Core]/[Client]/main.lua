@@ -30,25 +30,12 @@ Citizen.CreateThread(function()
   end
 end)
 
--- TESTING ONLY
+-- TESTING ONLY\
+-- use the topbigNotification function to display a notification
 Citizen.CreateThread(function()
-  local bountyText = "Press G to start bounty, or press K to receive payment"
-  local textColor = {255, 255, 255, 255} -- RGBA color (white)
-  local textFont = 0 -- Default font
-  local textSize = 0.5 -- Text size
-  local textOutline = true -- Draw text outline
-  local textCentered = true -- Center text on screen
-  local textX = 0.5 -- X position of the text
-  local textY = 0.9 -- Y position of the text
-  
   while true do
-      Citizen.Wait(0)
-      DrawTextOnScreen(bountyText, textX, textY, textFont, textColor, textSize, textOutline, textCentered)
-      if IsControlJustPressed(0, 47) then -- G key
-          -- Add your code for starting bounty here
-      elseif IsControlJustPressed(0, 311) then -- K key
-          -- Add your code for receiving payment here
-      end
+    Wait(1)
+    topbigNotification("Welcome to the Bounty Board", 5000)
   end
 end)
 
