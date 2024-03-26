@@ -106,14 +106,16 @@ local function SpawnNPC(cityName, npcName, locx, locy, locz, locw)
         Wait(100)
     end
     local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
+    Wait(1000)
     SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
     SetEntityCanBeDamaged(spawnrec, false)
     SetEntityInvincible(spawnrec, true)
-    Citizen.Wait(1000)
+    Wait(1000)
     FreezeEntityPosition(spawnrec, true)
     SetBlockingOfNonTemporaryEvents(spawnrec, true)
     --TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
     npcSpawned[cityName] = true -- Mark NPC as spawned for this city
+    Wait(500)
 end
 
 -- Main function to handle NPC spawning
@@ -126,7 +128,9 @@ local function HandleNPCSpawning()
             for cityname, npcData in pairs(Config.HandlerNPC) do
                 if cityname == cityName then
                     local locw = npcData.Heading or 0.0
+                    Wait(200)
                     SpawnNPC(cityName, npcData.NPC, locx, locy, locz, locw)
+                    Wait(1000)
                     break -- Exit loop once NPC is spawned for this city
                 end
             end
@@ -137,7 +141,7 @@ end
 -- Trigger NPC spawning
 Citizen.CreateThread(function()
     while true do
-        Wait(1)
+        Wait(200)
         HandleNPCSpawning()
     end
 end)
