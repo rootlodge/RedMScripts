@@ -175,3 +175,4 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   AddEventHandler('RootLodge:HitContracts:C:ResetTotalKills', function()
     TotalKilled = 0
   end)
+end
