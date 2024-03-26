@@ -104,10 +104,12 @@ Citizen.CreateThread(function()
         if iamalwaystrue then
             for k, v in pairs(Config.HandlerLocations) do
                 local locx, locy, locz = v.x, v.y, v.z
-                local locw = 348.32 -- Assuming this is the heading, adjust as needed
+                local locw = 0.0 -- Assuming this is the heading, adjust as needed
+
+                local spawned = false
 
                 for cityname, npcData in pairs(Config.HandlerNPC) do
-                    if cityname == v.City then
+                    if cityname == v.City and not spawned then
                         local npcname = npcData.NPC
                         local pedHash = GetHashKey(npcname)
 
@@ -123,6 +125,8 @@ Citizen.CreateThread(function()
                         SetEntityInvincible(spawnrec, true)
                         SetBlockingOfNonTemporaryEvents(spawnrec, true)
                         TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, 0.0, -1, false, true)
+
+                        spawned = true -- Mark as spawned for this location
                     end
                 end
             end
