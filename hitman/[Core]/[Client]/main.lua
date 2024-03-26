@@ -117,7 +117,7 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
     SetBlockingOfNonTemporaryEvents(spawnrec, true)
     SetEntityVisible(spawnrec, true)
     print("Scenario for " .. cityName .. " is " .. scenarioTEXT)
-    TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, 0, 1)
+    TaskStartScenarioAtPosition(spawnrec, scenarioTEXT, locx, locy, locz, locw, -1, 0, 1)
     npcSpawned[cityName] = true -- Mark NPC as spawned for this city
     Wait(500)
 end
