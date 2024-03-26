@@ -77,8 +77,8 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
       if (dist <= 2) then
         -- Turn cirle green if in range
         if not OpenMenu then DrawCircle(x, y, z, 17, 217, 27, 50) end
-        if not MenuOpen then DrawInfo('Press [ ~e~SPACE~q~ ] to open the menu', 0.5, 0.95, 0.75) end
-        if IsControlJustPressed(0, Config.Keys['SPACEBAR']) then
+        if not MenuOpen then DrawInfo('Press [ ~e~G~q~ ] to open the menu', 0.5, 0.95, 0.75) end
+        if IsControlJustPressed(0, Config.Keys['G']) then
           MenuOpen = true
           ActiveMenu = 'BountyMenu'
           WarMenu.OpenMenu('BountyMenu')
@@ -116,7 +116,6 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
     FreezeEntityPosition(spawnrec, true)
     SetBlockingOfNonTemporaryEvents(spawnrec, true)
     SetEntityVisible(spawnrec, true)
-    print("Scenario for " .. cityName .. " is " .. scenarioTEXT)
     TaskStartScenarioAtPosition(spawnrec, scenarioTEXT, locx, locy, locz, locw, -1, 0, 1)
     npcSpawned[cityName] = true -- Mark NPC as spawned for this city
     Wait(500)
