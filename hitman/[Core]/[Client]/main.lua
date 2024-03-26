@@ -185,18 +185,8 @@ AddEventHandler("onResourceStop", function(resourceName)
       return
   end
 
-  for k, v in pairs(npcSpawned) do
-      if v then
-          devdebug('Deleting ped')
-          devdebug(k)
-          devdebug("spawned npc")
-          devdebug(npcSpawned[k])
-          DeletePed(npcSpawned[k])
-          npcSpawned[k] = nil
-      end
-  end
-
-  npcSpawned = {}
+  for k, v in pairs(npcSpawned) do DeletePed(v) Wait(1000) end
+  table.remove{npcSpawned}
 
   -- remove blips
   for _, board in ipairs(Config.HandlerLocations) do
