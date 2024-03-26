@@ -107,26 +107,29 @@ Citizen.CreateThread(function()
                 local locw = 100.41544342041 -- Assuming this is the heading, adjust as needed
 
                 local spawned = false
+                print("Checking for NPC spawn: " .. v.City)
 
                 for cityname, npcData in pairs(Config.HandlerNPC) do
+                  print ("Cityname: " .. cityname)
                     if cityname == v.City and not spawned then
                         local npcname = npcData.NPC
+                        print("Spawning NPC: " .. npcname .. " at " .. locx .. ", " .. locy .. ", " .. locz .. ", " .. locw)
                         local pedHash = GetHashKey(npcname)
-
+                        print("Hash: " .. pedHash)
                         RequestModel(pedHash)
                         while not HasModelLoaded(pedHash) do
                             Wait(100)
                         end
-
-                        local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
-                        SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
-                        SetEntityCanBeDamaged(spawnrec, false)
-                        SetEntityInvincible(spawnrec, true)
-                        Wait(1000)
-                        FreezeEntityPosition(spawnrec, true)
-                        SetBlockingOfNonTemporaryEvents(spawnrec, true)
-                        TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
-                        Wait(1000)
+                        print("Model loaded")
+                        --local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
+                        --SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
+                        --SetEntityCanBeDamaged(spawnrec, false)
+                        --SetEntityInvincible(spawnrec, true)
+                        --Wait(1000)
+                        --FreezeEntityPosition(spawnrec, true)
+                        --SetBlockingOfNonTemporaryEvents(spawnrec, true)
+                        --TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
+                        --Wait(1000)
                         spawned = true -- Mark as spawned for this location
                     end
                 end
@@ -134,9 +137,6 @@ Citizen.CreateThread(function()
         end
     end
 end)
-
-
-
 
 -- Warmenu
 Citizen.CreateThread(function()
