@@ -71,8 +71,6 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z)
       
       if (dist <= 4) then
-        local missionStatus = SetAndGetMissionStatus() -- Get the current mission status once
-        -- Display info based on mission status if within 4 meters
         if dist <= 4 then
         if IsControlJustPressed(0, Config.Keys['G']) then
           Location = nil
