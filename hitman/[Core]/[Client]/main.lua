@@ -15,6 +15,7 @@ end)
 local InRange = false
 local Location = nil
 MissionStatus = false
+spawnrec = nil
 
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
 RegisterNetEvent('RootLodge:HitContracts:C:ShowPrompt')
@@ -75,7 +76,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   while InRange do 
       Wait(1) -- It's critical to have a short wait to prevent freezing.
       local coords = GetEntityCoords(ped)
-      devdebug(MissionStatus)
+      --devdebug(MissionStatus)
 
       for _, v in pairs(Config.HandlerLocations) do
           local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z)
@@ -99,7 +100,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 
               -- Getting paid.
               if IsControlJustPressed(0, Config.Keys['K']) then
-                devdebug(MissionStatus)
+                --devdebug(MissionStatus)
                   if TotalKilled > 0 then
                       TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
                       TotalKilled = 0
@@ -120,7 +121,6 @@ end)
 
 local iamalwaystrue = true
 local npcSpawned = {} -- Table to track spawned NPCs for each city
-spawnrec = nil
 
 -- Function to spawn NPC for a given city
 function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
@@ -131,19 +131,20 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
     end
     --local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
     spawnrec = VORPutils.Peds:Create(npcName, locx, locy, locz, 0, 'world', false)
-    spawnrec:Invinsible()
-    spawnrec:CanBeDamaged()
+    spawnrec:Invinsible(true)
+    spawnrec:CanBeDamaged(false)
     spawnrec:ClearTasks()
     local rawspawnrec = spawnrec:GetPed()
     Wait(1000)
     Citizen.InvokeNative(0x283978A15512B2FE, rawspawnrec, true) -- SetRandomOutfitVariation
     Wait(100)
-    --SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
+    SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
     Wait(1000)
     --FreezeEntityPosition(spawnrec, true)
     SetEntityVisible(rawspawnrec, true)
     --TaskStartScenarioAtPosition(spawnrec, scenarioTEXT, locx, locy, locz, locw, -1, 0, 1)
     npcSpawned[cityName] = true -- Mark NPC as spawned for this city
+    let scenetodo = scenarioTEXT
     Wait(500)
 end
 

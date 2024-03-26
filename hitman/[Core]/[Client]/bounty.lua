@@ -43,6 +43,7 @@ local SaveGuard = false
 local GPStoSDboardactive = false
 local alwaysfalse = false
 local alwaystrue = true
+peds = nil
 --------------------------------------------------------------------------------
 
 AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
@@ -61,13 +62,14 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
       if v.ID == rLoc.ID then
         TotalEnemies = TotalEnemies + 1
         -- Get a random model for this NPC
+        local unhashedmodel = Models[math.random(#Models)]
         local rModel = GetHashKey(Models[math.random(#Models)])
         RequestModel(rModel)
         if not HasModelLoaded(rModel) then RequestModel(rModel) end
         while not HasModelLoaded(rModel) do Wait(1) end
         -- Spawn the NPC with a random loadout
         local rWeapon = Weapons[math.random(#Weapons)]
-        peds = VORPutils.Peds:Create(rModel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
+        peds = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
         local rawpeds = peds:GetPed()
         peds:CanBeDamaged(true)
         peds:CanBeMounted(true)
@@ -135,8 +137,6 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
                   GPStoBoards()
                   Wait(3000)
                   CenterBottomNotify('Bring the evidence to the nearest handler!', 5000)
-                  devdebug(TotalKilled)
-                  devdebug(TotalEnemies)
                   MissionStatus = true
                   SearchingBodies = false
                 end
