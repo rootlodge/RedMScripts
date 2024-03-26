@@ -119,12 +119,9 @@ Citizen.CreateThread(function()
                         end
 
                         local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, false, false)
-                        SetEntityAlpha(spawnrec, 255, false)
-                        SetPedRandomComponentVariation(spawnrec, 0)
                         FreezeEntityPosition(spawnrec, true)
                         SetEntityInvincible(spawnrec, true)
-                        SetBlockingOfNonTemporaryEvents(spawnrec, true)
-                        TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, 0.0, -1, false, true)
+                        TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
 
                         spawned = true -- Mark as spawned for this location
                     end
