@@ -116,7 +116,7 @@ Citizen.CreateThread(function()
                             Wait(100)
                         end
 
-                        local spawnrec = CreatePed(28, pedHash, locx, locy, locz, locw, false, true)
+                        local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, false, false)
                         SetEntityAlpha(spawnrec, 255, false)
                         SetPedRandomComponentVariation(spawnrec, 0)
                         FreezeEntityPosition(spawnrec, true)
@@ -129,6 +129,7 @@ Citizen.CreateThread(function()
         end
     end
 end)
+
 
 
 -- Warmenu
