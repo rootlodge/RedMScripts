@@ -60,7 +60,6 @@ Citizen.CreateThread(function()
   end
 end)
 
--- Check players distance from the stores.
 AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   local ped = PlayerPedId()
   while InRange do Wait(1)
@@ -68,27 +67,27 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
     for k, v in pairs(Config.HandlerLocations) do
       local x, y, z = v.x, v.y, v.z
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z)
-      --if (dist > 2) then DrawCircle(x, y, z, 217, 17, 17, 50) end
-
+      
       if (dist <= 2) then
-        DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75) end
+        DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
         if IsControlJustPressed(0, Config.Keys['G']) then
           Location = nil
           TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
           simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 8000)
         end
+      end
 
-        if IsControlJustPressed(0, Config.Keys['K']) then
-          payment = true
-          if payment and (TotalKilled > 0) then
-            TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
-            TotalKilled = 0
-            SetGpsMultiRouteRender(false)
-            Location = nil
-          elseif payment and (TotalKilled == 0) then
-            Location = nil
-            CenterBottomNotify("You've no recorded bounty kills, partner!", 5000)
-          end
+      if (dist <= 2) and IsControlJustPressed(0, Config.Keys['K']) then
+        payment = true
+        if payment and (TotalKilled > 0) then
+          TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
+          TotalKilled = 0
+          SetGpsMultiRouteRender(false)
+          Location = nil
+          CenterBottomNotify("You've been paid for your hard work, partner!", 5000)
+        elseif payment and (TotalKilled == 0) then
+          Location = nil
+          CenterBottomNotify("You've no recorded target excursions, partner!", 5000)
         end
       end
     end

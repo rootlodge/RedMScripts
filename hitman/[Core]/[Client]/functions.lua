@@ -5,7 +5,6 @@ local VORPcore = {}
 TriggerEvent("getCore", function(core) VORPcore = core end)
 function Wait(args) Citizen.Wait(args) end
 
-
 -- DOCUMENTATION
 -- can also use exports or declare notification file name in fxmanifest
 --VORPcore.NotifyTip("title",4000)
@@ -22,9 +21,6 @@ function Wait(args) Citizen.Wait(args) end
 --VORPcore.NotifyUpdate("title","subtitle",4000)
 --VORPcore.NotifyWarning("title","subtitle","audioref","audioname",4000)
 --VORPcore.NotifyLeftRank("title","subtitle","dict","icon",4000,"color")
-
-
-
 
 function DrawCircle(x, y, z, r, g, b, a)
   Citizen.InvokeNative(0x2A32FAA57B937173, 0x94FDAE17, x, y, z - 0.95, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 0.25, r, g, b, a, 0, 0, 2, 0, 0, 0, 0)
