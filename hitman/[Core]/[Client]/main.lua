@@ -96,6 +96,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 end)
 
 local iamalwaystrue = true
+local entityspawnedfr = false
 
 Citizen.CreateThread(function()
     while true do
@@ -104,13 +105,11 @@ Citizen.CreateThread(function()
             for k, v in pairs(Config.HandlerLocations) do
                 local locx, locy, locz = v.x, v.y, v.z
                 local locw = 100.41544342041 -- Assuming this is the heading, adjust as needed
-
-                local spawned = false
                 print("Checking for NPC spawn: " .. v.City)
 
                 for cityname, npcData in pairs(Config.HandlerNPC) do
                   print ("Cityname: " .. cityname)
-                    if cityname == v.City and not spawned then
+                    if cityname == v.City and not entityspawnedfr then
                         local npcname = npcData.NPC
                         print("Spawning NPC: " .. npcname .. " at " .. locx .. ", " .. locy .. ", " .. locz .. ", " .. locw)
                         local pedHash = GetHashKey(npcname)
@@ -129,7 +128,7 @@ Citizen.CreateThread(function()
                         --SetBlockingOfNonTemporaryEvents(spawnrec, true)
                         --TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
                         --Wait(1000)
-                        spawned = true -- Mark as spawned for this location
+                        entityspawnedfr = true -- Mark as spawned for this location
                         break
                     end
                 end
