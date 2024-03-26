@@ -112,6 +112,7 @@ end)
 
 local iamalwaystrue = true
 local npcSpawned = {} -- Table to track spawned NPCs for each city
+local pedspawnrec = nil
 
 -- Function to spawn NPC for a given city
 function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
@@ -121,6 +122,7 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
         Wait(100)
     end
     local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
+    pedspawnrec = spawnrec
     Wait(1000)
     Citizen.InvokeNative(0x283978A15512B2FE, spawnrec, true) -- SetRandomOutfitVariation
     Wait(100)
@@ -164,6 +166,30 @@ Citizen.CreateThread(function()
         HandleNPCSpawning()
     end
 end)
+
+-- On reload of resource [DO NOT TOUCH]
+AddEventHandler("onResourceStop", function(resourceName)
+  if (GetCurrentResourceName() ~= resourceName) then
+      return
+  end
+
+  for k, v in pairs(npcSpawned) do
+      if v then
+          DeletePed(npcSpawned[k])
+          npcSpawned[k] = nil
+      end
+  end
+
+  npcSpawned = {}
+
+  -- remove blips
+  for _, board in ipairs(Config.HandlerLocations) do
+      local blipName = board.City
+      RemoveBlip(blipName)
+  end
+
+end)
+
 
 function Beta()
   Notify('This feature is currently being build!')
