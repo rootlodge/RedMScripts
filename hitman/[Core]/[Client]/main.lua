@@ -34,10 +34,14 @@ end)
 
 -- TESTING ONLY
 -- use the topbigNotification function to display a notification
+
 Citizen.CreateThread(function()
   while true do
-    Wait(1)
-    topbigNotification("Welcome to the Bounty Board", 50000)
+      Citizen.Wait(0)
+      if IsControlPressed(0, Config.Keys['N']) then -- Check if the specific key is pressed
+          topbigNotification("Welcome to the Bounty Board", 50000)
+          -- Add any additional logic here
+      end
   end
 end)
 
