@@ -3,6 +3,12 @@
 --------------------------------------------------------------------------------
 function Wait(args) Citizen.Wait(args) end
 
+local VORPutils = {}
+TriggerEvent("getUtils", function(utils)
+    VORPutils = utils
+end)
+
+
 local Models = {
   "MP_CHU_ROB_MILLESANI_MALES_01", "mp_dr_u_m_m_MISTAKENBOUNTIES_01", "A_M_M_BynSurvivalist_01", "U_M_O_BlWPoliceChief_01",
   "A_M_M_HtlRoughTravellers_01", "A_M_M_JamesonGuard_01", "A_M_M_MOONSHINERS_01", "A_M_M_RkrFancyTravellers_01", "A_M_M_SkpPrisoner_01", "A_M_O_SDUpperClass_01", "CS_exconfedsleader_01",
@@ -61,13 +67,26 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         while not HasModelLoaded(rModel) do Wait(1) end
         -- Spawn the NPC with a random loadout
         local rWeapon = Weapons[math.random(#Weapons)]
-        CreateNPC[k] = CreatePed(rModel, v.Coords.x, v.Coords.y, v.Coords.z, true, true, true, true)
-        Citizen.InvokeNative(0x283978A15512B2FE, CreateNPC[k], true)
-        Citizen.InvokeNative(0x23f74c2fda6e7c61, 953018525, CreateNPC[k])
+        peds = VORPutils.Peds:Create(rModel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
+        local rawpeds = peds:GetPed()
+        peds:CanBeDamaged(true)
+        peds:CanBeMounted(true)
+        let pedsblip = 'blip_ambient_bounty_hunter'
+        lets pedsblip2 = GetHashKey(pedsblip)
+        peds:SetBlip(pedsblip2, Person)
+        peds:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
+        peds:SetPedCombatAttributes({
+          {
+            flag = 5, enabled = true
+          }, 5, 1, 1
+        })
+        CreateNPC[k] = rawpeds
+        --Citizen.InvokeNative(0x283978A15512B2FE, CreateNPC[k], true)
+        --Citizen.InvokeNative(0x23f74c2fda6e7c61, 953018525, CreateNPC[k])
         NPCx, NPCy, NPCz = v.x, v.y, v.z
-        GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
-        SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
-        TaskCombatPed(CreateNPC[k], PlayerPedId())
+        --GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
+        --SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
+        --TaskCombatPed(CreateNPC[k], PlayerPedId())
         ArrayTargets[k] = CreateNPC[k]
       end
     end

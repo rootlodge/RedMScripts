@@ -120,7 +120,7 @@ end)
 
 local iamalwaystrue = true
 local npcSpawned = {} -- Table to track spawned NPCs for each city
-local pedspawnrec = nil
+spawnrec = nil
 
 -- Function to spawn NPC for a given city
 function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
@@ -130,8 +130,7 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
         Wait(100)
     end
     --local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
-    --pedspawnrec = spawnrec
-    spawnrec = VORPutils.Peds:Create(npcName, locx, locy, locz, 0, 'world', false)
+    spawnrec = VORPutils.Peds:Create(pedHash, locx, locy, locz, 0, 'world', false)
     spawnrec:Invinsible()
     spawnrec:CanBeDamaged()
     spawnrec:ClearTasks()
