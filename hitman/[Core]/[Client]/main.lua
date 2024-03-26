@@ -49,7 +49,6 @@ Citizen.CreateThread(function()
           Location = nil
           WarMenu.CloseMenu()
           Wait(1000)
-          DrawInfo('You left the area bucko', 0.5, 0.95, 0.75)
         end
 
         -- Set user if in range
@@ -131,6 +130,7 @@ Citizen.CreateThread(function()
                         --TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
                         --Wait(1000)
                         spawned = true -- Mark as spawned for this location
+                        break
                     end
                 end
             end
