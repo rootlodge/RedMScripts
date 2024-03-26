@@ -44,8 +44,8 @@ Citizen.CreateThread(function()
           simpleTopNotification("Welcome to the Bounty Board", "testing", 5000)
           wait(10000)
           -- Add any additional logic here
-          local zone22 = 'Valentine'
-          topNotification("Welcome to the Bounty Board", zone22, 5000)
+          -- Notify Avanced function
+          NotifyAvanced("Hello! Contract initited test", "satchel_textures", "tick", "COLOR_PURE_WHITE", 5000)
       end
   end
 end)
