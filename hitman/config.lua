@@ -60,25 +60,23 @@ Config.HandlerNPC = {
   ['Valentine Handler'] = {
     ['NPC'] = 'A_M_M_BlWUpperClass_01',
     ['Heading'] = '320.54',
-    ['Scenarios'] = ['WORLD_HUMAN_SHOPKEEPER'],
+    ['Scenarios'] = 'WORLD_HUMAN_SHOPKEEPER',
   },
   ['Saint Denis Handler'] = {
     ['NPC'] = 'A_M_M_BiVFancyTravellers_01',
     ['Heading'] = '335.46',
-    ['Scenarios'] = ['WORLD_HUMAN_SHOPKEEPER'],
+    ['Scenarios'] = 'WORLD_HUMAN_SHOPKEEPER,
   },
   ['Blackwater Handler'] = {
     ['NPC'] = 'A_M_M_GriSurvivalist_01',
     ['Heading'] = '86.27',
-    ['Scenarios'] = ['WORLD_HUMAN_SHOPKEEPER'],
+    ['Scenarios'] = 'WORLD_HUMAN_SHOPKEEPER',
   },
   -- Add more Handler NPC's here
   -- ['New Austin Handler'] = {
   --   ['NPC'] = 'A_M_M_BlWUpperClass_01',
   -- },
 }
-
-Config.HandlerScenario = `WORLD_HUMAN_SHOPKEEPER` -- This is the scenario the Handler will be in.
 
 --------------------------------------------------------------------------------
 -- These are the NPC Contracts you can hunt. If you want to add
