@@ -2,7 +2,7 @@
 ----------------------------------- RootLodge -----------------------------------
 --------------------------------------------------------------------------------
 local VORPcore = {}
-TriggerEvent("getCore", function(core) VorpCore = core end)
+TriggerEvent("getCore", function(core) VORPcore = core end)
 function Wait(args) Citizen.Wait(args) end
 --------------------------------------------------------------------------------
 -- Varables
