@@ -39,7 +39,7 @@ Citizen.CreateThread(function()
   while true do
       Citizen.Wait(0)
       if IsControlPressed(0, Config.Keys['N']) then -- Check if the specific key is pressed
-          topbigNotification("Welcome to the Bounty Board", 50000)
+          updateNotification("Welcome to the Bounty Board", "testing", 50000)
           -- Add any additional logic here
       end
   end
