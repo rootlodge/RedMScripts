@@ -97,40 +97,8 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 end)
 
 local iamalwaystrue = true
-/*
-Citizen.CreateThread(function()
-    while true do
-        Wait(1)
-        if iamalwaystrue then
-            for k, v in pairs(Config.HandlerLocations) do
-                local locx, locy, locz = v.x, v.y, v.z
-                local locw = 1.0 -- Assuming this is the heading, adjust as needed
 
-                local spawned = false
 
-                for cityname, npcData in pairs(Config.HandlerNPC) do
-                    if cityname == v.City and not spawned then
-                        local npcname = npcData.NPC
-                        local pedHash = GetHashKey(npcname)
-
-                        RequestModel(pedHash)
-                        while not HasModelLoaded(pedHash) do
-                            Wait(100)
-                        end
-
-                        local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, false, false)
-                        FreezeEntityPosition(spawnrec, true)
-                        SetEntityInvincible(spawnrec, true)
-                        TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
-
-                        spawned = true -- Mark as spawned for this location
-                    end
-                end
-            end
-        end
-    end
-end)
-*/
 
 
 -- Warmenu
