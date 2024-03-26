@@ -32,37 +32,42 @@ end)
 
 -- Check player distance from coords.
 Citizen.CreateThread(function()
-  while true do Wait(2000)
+  while true do 
+    Wait(2000) -- Efficient loop with delay to reduce CPU usage
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
+    local foundLocation = false -- Flag to track if we're in range of any location
+
     for k, v in pairs(Config.HandlerLocations) do
-
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z)
-      Location = v.City
-      if Location == nil and (dist <= 5) then Location = v.City end
-      if Location == v.City then
 
-        -- Set user if out of range
-        if (dist > 4) and InRange then
-          InRange = false
-          Location = nil
-          Wait(1000) -- Wait a bit after setting out of range to avoid immediate re-triggering
+      if dist <= 5 then
+        foundLocation = true -- We found a location within 5 meters
+        if Location ~= v.City then
+          Location = v.City -- Update Location to the current city if within range
+          InRange = true
+          TriggerEvent('RootLodge:HitContracts:C:StartMission')
         end
 
-        -- Set user if in range
-        if (dist <= 4) and not InRange then
-          InRange = true
-          Location = v.City
-          TriggerEvent('RootLodge:HitContracts:C:StartMission')
-          -- Check MissionSuccess from server event and if true, proceed
-
-          if SetAndGetMissionStatus() then
-              DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75)
+        local missionStatus = SetAndGetMissionStatus() -- Get the current mission status once
+        -- Display info based on mission status if within 4 meters
+        if dist <= 4 then
+          if missionStatus then
+            DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75)
           else
-              DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
+            DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
           end
         end
+
+        break -- Exit the loop since we've processed the relevant location
       end
+    end
+
+    -- If we didn't find a location within range, reset Location and InRange
+    if not foundLocation and (Location ~= nil or InRange) then
+      Location = nil
+      InRange = false
+      -- No need to wait here since we're already at the end of the loop
     end
   end
 end)
