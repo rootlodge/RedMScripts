@@ -7,8 +7,6 @@ function Wait(args) Citizen.Wait(args) end
 --------------------------------------------------------------------------------
 -- Varables
 local InRange = false
-local ActiveMenu = nil
-local MenuOpen = false
 local Location = nil
 
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
@@ -48,7 +46,6 @@ Citizen.CreateThread(function()
         if (dist > 5) and InRange then
           InRange = false
           Location = nil
-          WarMenu.CloseMenu()
           Wait(1000)
         end
 
@@ -78,17 +75,23 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
       if (dist <= 2) then
         -- Turn cirle green if in range
         if not OpenMenu then DrawCircle(x, y, z, 17, 217, 27, 50) end
-        if not MenuOpen then DrawInfo('Press [ ~e~G~q~ ] to open the menu', 0.5, 0.95, 0.75) end
+        if not MenuOpen then DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75) end
         if IsControlJustPressed(0, Config.Keys['G']) then
-          MenuOpen = true
-          ActiveMenu = 'BountyMenu'
-          WarMenu.OpenMenu('BountyMenu')
+          Location = nil
+          TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
+          simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 8000)
         end
 
-        if IsControlJustPressed(0, Config.Keys['BACKSPACE']) then
-          if ActiveMenu == 'BountyMenu' then WarMenu.CloseMenu() ActiveMenu = nil MenuOpen = false Location = nil
-          elseif ActiveMenu == 'PVEMenu' then WarMenu.OpenMenu('BountyMenu') ActiveMenu = 'BountyMenu'
-          elseif ActiveMenu == 'PVPMenu' then WarMenu.OpenMenu('BountyMenu') ActiveMenu = 'BountyMenu'
+        if IsControlJustPressed(0, Config.Keys['K']) then
+          payment = true
+          if payment and (TotalKilled > 0)then
+            TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
+            TotalKilled = 0
+            SetGpsMultiRouteRender(false)
+            Location = nil
+          elseif payment and (TotalKilled == 0) then
+            Location = nil
+            CenterBottomNotify("You've no recorded bounty kills, partner!", 5000)
           end
         end
       end
@@ -150,80 +153,6 @@ Citizen.CreateThread(function()
         HandleNPCSpawning()
     end
 end)
-
--- Warmenu
-Citizen.CreateThread(function()
-  CreateMenus()
-  while true do Wait(1)
-    local War = WarMenu.IsMenuOpened
-    if War('BountyMenu') then BountyMenu()
-    elseif War('PVEMenu') then PVEMenu()
-    elseif War('PVPMenu') then PVPMenu()
-    end
-  end
-end)
-
-
-function CreateMenus()
-  WarMenu.CreateMenu('BountyMenu', 'Bounty Board')
-  WarMenu.SetSubTitle('BountyMenu', 'Made By RootLodge')
-  WarMenu.CreateMenu('PVEMenu', 'Bounty Board')
-  WarMenu.SetSubTitle('PVEMenu', 'Hunt NPCs')
-  WarMenu.CreateMenu('PVPMenu', 'Bounty Board')
-  WarMenu.SetSubTitle('PVPMenu', 'Hunt Humans')
-end
-
---------------------------------------------------------------------------------
--- Page 1 - Home Page
---------------------------------------------------------------------------------
-function BountyMenu ()
-  ActiveMenu = 'BountyMenu'
-  local Pve = WarMenu.Button('PVE Menu', '', '')
-  local Pvp = WarMenu.Button('PVP Menu', '', '')
-  if Pve then WarMenu.OpenMenu('PVEMenu') end
-  if Pvp then Beta() end--WarMenu.OpenMenu('PVPMenu') end
-  WarMenu.Display()
-end
-
---------------------------------------------------------------------------------
--- Page 2 - Category Section
---------------------------------------------------------------------------------
-function PVEMenu ()
-  ActiveMenu = 'PVEMenu'
-  local hunt = WarMenu.Button('Hunt a Bounty', '', 'Your daily basic needs')
-  local payment = WarMenu.Button('Receive Payment', '', 'Other Items')
-
-  if hunt then
-   Location = nil
-   simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 5000)
-   TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
-  end
-
-  if payment and (TotalKilled > 0)then
-    TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
-    TotalKilled = 0
-    SetGpsMultiRouteRender(false)
-    Location = nil
-    ActiveMenu = nil
-    MenuOpen = false
-    WarMenu.CloseMenu()
-  elseif payment and (TotalKilled == 0) then
-    Location = nil
-    CenterBottomNotify("You've no recorded bounty kills, partner!", 5000)
-  end
-  WarMenu.Display()
-end
-
-function PVPMenu ()
-  ActiveMenu = 'PVPMenu'
-  local bounty = WarMenu.Button('Hunt a Bounty', '', '')
-  local sbounty = WarMenu.Button('Set a Bounty', '', '')
-  local payment = WarMenu.Button('Receive Payment', '', '')
-  if bounty then end
-  if sbounty then end
-  if payment then end
-  WarMenu.Display()
-end
 
 function Beta()
   Notify('This feature is currently being build!')
