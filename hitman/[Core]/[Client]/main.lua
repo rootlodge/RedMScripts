@@ -38,7 +38,7 @@ Citizen.CreateThread(function()
     for k, v in pairs(Config.HandlerLocations) do
 
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z)
-
+      Location = v.City
       if Location == nil and (dist <= 5) then Location = v.City end
       if Location == v.City then
 
