@@ -65,7 +65,7 @@ Config.HandlerNPC = {
   ['Saint Denis Handler'] = {
     ['NPC'] = 'A_M_M_BiVFancyTravellers_01',
     ['Heading'] = '335.46',
-    ['Scenarios'] = 'WORLD_HUMAN_SHOPKEEPER,
+    ['Scenarios'] = 'WORLD_HUMAN_SHOPKEEPER',
   },
   ['Blackwater Handler'] = {
     ['NPC'] = 'A_M_M_GriSurvivalist_01',
