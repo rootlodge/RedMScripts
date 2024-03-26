@@ -164,6 +164,6 @@ MissionStatus = false
 function SetAndGetMissionStatus(result)
     if result ~= nil then  -- Check if result is provided to update MissionStatus
         MissionStatus = result
+        return MissionStatus
     end
-    return MissionStatus
 end
