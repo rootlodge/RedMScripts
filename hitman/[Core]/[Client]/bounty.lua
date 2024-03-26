@@ -141,7 +141,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     MissionStatus = false
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
-    for k, v in pairs(CreateNPC) do DeletePed(v) Wait(500) end
+    for k, v in pairs(CreateNPC) do DeletePed(v) Wait(1000) end
     table.remove{CreateNPC} table.remove{ArrayTargets}
   end
 
