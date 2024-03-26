@@ -14,7 +14,7 @@ function Notify(text, time)
 end
 
 function topbigNotification(text, time)
-  VORPCORE.NotifyObjective(text, time)
+  VORPcore.NotifyObjective(text, time)
 end
 
 function DrawInfo(text, x, y, size)
