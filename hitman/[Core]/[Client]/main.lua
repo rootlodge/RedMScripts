@@ -97,14 +97,14 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 end)
 
 local iamalwaystrue = true
-
+/*
 Citizen.CreateThread(function()
     while true do
         Wait(1)
         if iamalwaystrue then
             for k, v in pairs(Config.HandlerLocations) do
                 local locx, locy, locz = v.x, v.y, v.z
-                local locw = 0.0 -- Assuming this is the heading, adjust as needed
+                local locw = 1.0 -- Assuming this is the heading, adjust as needed
 
                 local spawned = false
 
@@ -130,7 +130,7 @@ Citizen.CreateThread(function()
         end
     end
 end)
-
+*/
 
 
 -- Warmenu
