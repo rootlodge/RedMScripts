@@ -30,69 +30,77 @@ Citizen.CreateThread(function()
   end
 end)
 
--- Check player distance from coords.
+-- Check player disctance from coords.
 Citizen.CreateThread(function()
-  while true do 
-    Wait(2000) -- Efficient loop with delay to reduce CPU usage
+  while true do Wait(2000)
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
-    local foundLocation = false -- Flag to track if we're in range of any location
-
     for k, v in pairs(Config.HandlerLocations) do
+
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z)
 
-      if dist <= 5 then
-        foundLocation = true -- We found a location within 5 meters
-        if Location ~= v.City then
-          Location = v.City -- Update Location to the current city if within range
+      if Location == nil and (dist <= 5) then Location = v.City end
+      if Location == v.City then
+
+        -- Set user if out of range
+        if (dist > 5) and InRange then
+          InRange = false
+          Location = nil
+          Wait(1000)
+        end
+
+        -- Set user if in range
+        if (dist <= 5) and not InRange then
           InRange = true
+          Location = v.City
           TriggerEvent('RootLodge:HitContracts:C:StartMission')
         end
-        Wait(200) -- Delay to reduce CPU usage
-        break -- Exit the loop since we've processed the relevant location
       end
-    end
-
-    -- If we didn't find a location within range, reset Location and InRange
-    if not foundLocation and (Location ~= nil or InRange) then
-      Location = nil
-      InRange = false
-      -- No need to wait here since we're already at the end of the loop
     end
   end
 end)
 
+
 AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   local ped = PlayerPedId()
-  while InRange do Wait(1)
-    local coords = GetEntityCoords(ped)
-    for k, v in pairs(Config.HandlerLocations) do
-      local x, y, z = v.x, v.y, v.z
-      local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z)
-      
-      if (dist <= 4) then
-        if dist <= 4 then
-        if IsControlJustPressed(0, Config.Keys['G']) then
-          Location = nil
-          TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
-          simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 8000)
-        end
-      end
+  while InRange do 
+      Wait(1) -- It's critical to have a short wait to prevent freezing.
+      local coords = GetEntityCoords(ped)
+      local missionStatus = SetAndGetMissionStatus() -- Assuming this function's scope is accessible here.
 
-      if (dist <= 4) and IsControlJustPressed(0, Config.Keys['K']) then
-        payment = true
-        if payment and (TotalKilled > 0) then
-          TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
-          TotalKilled = 0
-          SetGpsMultiRouteRender(false)
-          Location = nil
-          CenterBottomNotify("You've been paid for your hard work, partner!", 5000)
-        elseif payment and (TotalKilled == 0) then
-          Location = nil
-          CenterBottomNotify("You've no recorded target excursions, partner!", 5000)
-        end
+      for _, v in pairs(Config.HandlerLocations) do
+          local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z, true)
+
+          if dist <= 4 then
+              -- Checks if within 4 meters of the location.
+              if missionStatus then
+                  DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75)
+              else
+                  DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
+              end
+              
+              -- Initiating the contract.
+              if IsControlJustPressed(0, Config.Keys['G']) then
+                  Location = nil
+                  TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
+                  simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 8000)
+                  break -- Exit the loop to avoid multiple triggers.
+              end
+
+              -- Getting paid.
+              if IsControlJustPressed(0, Config.Keys['K']) then
+                  if TotalKilled > 0 then
+                      TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
+                      TotalKilled = 0
+                      SetGpsMultiRouteRender(false)
+                      CenterBottomNotify("You've been paid for your hard work, partner!", 5000)
+                  else
+                      CenterBottomNotify("You've no recorded target excursions, partner!", 5000)
+                  end
+                  break -- Exit the loop to avoid multiple triggers.
+              end
+          end
       end
-    end
   end
 end)
 
