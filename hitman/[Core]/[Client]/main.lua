@@ -4,6 +4,12 @@
 local VORPcore = {}
 TriggerEvent("getCore", function(core) VORPcore = core end)
 function Wait(args) Citizen.Wait(args) end
+
+local VORPutils = {}
+TriggerEvent("getUtils", function(utils)
+    VORPutils = utils
+end)
+
 --------------------------------------------------------------------------------
 -- Varables
 local InRange = false
@@ -123,19 +129,21 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
     while not HasModelLoaded(pedHash) do
         Wait(100)
     end
-    local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
-    pedspawnrec = spawnrec
+    --local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
+    --pedspawnrec = spawnrec
+    spawnrec = VORPutils.Peds:Create(npcName, locx, locy, locz, 0, 'world', false)
+    spawnrec:Invinsible()
+    spawnrec:CanBeDamaged()
+    spawnrec:ClearTasks()
+    local rawspawnrec = spawnrec:GetPed()
     Wait(1000)
-    Citizen.InvokeNative(0x283978A15512B2FE, spawnrec, true) -- SetRandomOutfitVariation
+    Citizen.InvokeNative(0x283978A15512B2FE, rawspawnrec, true) -- SetRandomOutfitVariation
     Wait(100)
     --SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
-    SetEntityCanBeDamaged(spawnrec, false)
-    SetEntityInvincible(spawnrec, true)
     Wait(1000)
-    FreezeEntityPosition(spawnrec, true)
-    SetBlockingOfNonTemporaryEvents(spawnrec, true)
-    SetEntityVisible(spawnrec, true)
-    TaskStartScenarioAtPosition(spawnrec, scenarioTEXT, locx, locy, locz, locw, -1, 0, 1)
+    --FreezeEntityPosition(spawnrec, true)
+    SetEntityVisible(rawspawnrec, true)
+    --TaskStartScenarioAtPosition(spawnrec, scenarioTEXT, locx, locy, locz, locw, -1, 0, 1)
     npcSpawned[cityName] = true -- Mark NPC as spawned for this city
     Wait(500)
 end
@@ -184,8 +192,10 @@ AddEventHandler("onResourceStop", function(resourceName)
       return
   end
 
-  for k, v in pairs(npcSpawned) do devdebug(npcSpawned) Wait(50) devdebug(npcSpawned.v) devdebug(npcSpawned[k]) DeletePed(v) Wait(1000) end
-  table.remove{npcSpawned}
+  for _, ped in ipairs(peds) do
+    spawnrec:Remove()
+    peds:Remove()
+  end
 
   -- remove blips
   for _, board in ipairs(Config.HandlerLocations) do
