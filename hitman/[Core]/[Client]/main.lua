@@ -187,6 +187,10 @@ AddEventHandler("onResourceStop", function(resourceName)
 
   for k, v in pairs(npcSpawned) do
       if v then
+          devdebug('Deleting ped')
+          devdebug(k)
+          devdebug("spawned npc")
+          devdebug(npcSpawned[k])
           DeletePed(npcSpawned[k])
           npcSpawned[k] = nil
       end
