@@ -79,10 +79,6 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     CenterBottomNotify('Your target has been located. Check your map!', 5000)
     Wait(2000)
     CenterBottomNotify('We need them dead, not alive! But Dead!', 5000)
-    Wait(1500)
-    CenterBottomNotify('You can stack Contracts, just keep in mind', 5000)
-    Wait(1000)
-    CenterBottomNotify('that you lose the Contracts if you died!', 5000)
     InMission = true
     SaveGuard = false
     while InMission do Wait(1)

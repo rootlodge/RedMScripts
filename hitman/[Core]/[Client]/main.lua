@@ -30,7 +30,7 @@ Citizen.CreateThread(function()
   end
 end)
 
--- Check player disctance from coords.
+-- Check player distance from coords.
 Citizen.CreateThread(function()
   while true do Wait(2000)
     local ped = PlayerPedId()
@@ -46,7 +46,7 @@ Citizen.CreateThread(function()
         if (dist > 4) and InRange then
           InRange = false
           Location = nil
-          Wait(1000)
+          Wait(1000) -- Wait a bit after setting out of range to avoid immediate re-triggering
         end
 
         -- Set user if in range
@@ -54,9 +54,13 @@ Citizen.CreateThread(function()
           InRange = true
           Location = v.City
           TriggerEvent('RootLodge:HitContracts:C:StartMission')
-          --check MissionSuccess from server event and if true, proceed
+          -- Check MissionSuccess from server event and if true, proceed
 
-          --SetAndGetMissionStatus() and DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75) or DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75) end
+          if SetAndGetMissionStatus() then
+              DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75)
+          else
+              DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
+          end
         end
       end
     end
