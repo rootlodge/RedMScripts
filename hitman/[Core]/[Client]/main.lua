@@ -130,7 +130,7 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
         Wait(100)
     end
     --local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
-    spawnrec = VORPutils.Peds:Create(pedHash, locx, locy, locz, 0, 'world', false)
+    spawnrec = VORPutils.Peds:Create(npcName, locx, locy, locz, 0, 'world', false)
     spawnrec:Invinsible()
     spawnrec:CanBeDamaged()
     spawnrec:ClearTasks()
