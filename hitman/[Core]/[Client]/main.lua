@@ -42,7 +42,10 @@ Citizen.CreateThread(function()
           tipNotification("Welcome to the Bounty Board", 5000)
           Wait(10000)
           simpleTopNotification("Welcome to the Bounty Board", "testing", 5000)
+          wait(10000)
           -- Add any additional logic here
+          local zone22 = 'Valentine'
+          topNotification("Welcome to the Bounty Board", zone22, 5000)
       end
   end
 end)
@@ -211,6 +214,7 @@ function PVEMenu ()
 
   if hunt then
    Location = nil
+   simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 5000)
    TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
   end
 
@@ -224,7 +228,7 @@ function PVEMenu ()
     WarMenu.CloseMenu()
   elseif payment and (TotalKilled == 0) then
     Location = nil
-    Notify("You've no recorded bounty kills, partner!", 5000)
+    CenterBottomNotify("You've no recorded bounty kills, partner!", 5000)
   end
   WarMenu.Display()
 end

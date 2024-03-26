@@ -35,7 +35,7 @@ function Notify(text, time)
   VORPcore.NotifyRightTip(text,time)
 end
 
-function topbigNotification(text, time)
+function CenterBottomNotify(text, time)
   --slightly larger text in the center bottom of the screen
   VORPcore.NotifyObjective(text, time)
 end
