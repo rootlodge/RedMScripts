@@ -11,6 +11,7 @@ local Location = nil
 MissionStatus = false
 
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
+RegisterNetEvent('RootLodge:HitContracts:C:ShowPrompt')
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
@@ -158,6 +159,15 @@ function HandleNPCSpawning()
         end
     end
 end
+
+
+AddEventHandler("RootLodge:HitContracts:C:ShowPrompt", function(msg)
+  SetTextScale(0.5, 0.5)
+  local str = Citizen.InvokeNative(0xFA925AC00EB830B9, 10, "LITERAL_STRING", msg, Citizen.ResultAsLong())
+  Citizen.InvokeNative(0xFA233F8FE190514C, str)
+  Citizen.InvokeNative(0xE9990552DEC71600)
+end)
+
 
 -- Trigger NPC spawning
 Citizen.CreateThread(function()
