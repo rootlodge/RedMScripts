@@ -112,6 +112,12 @@ function leftRankNotification(text, subtitle, dict, icon, time, color)
   VORPcore.NotifyLeftRank(text, subtitle, dict, icon, time, color)
 end
 
+-- function for the tip notification
+function tipNotification(text, time)
+  -- small tip text on the right side of the screen
+  VORPcore.NotifyTip(text, time)
+end
+
 
 
 function DrawInfo(text, x, y, size)
