@@ -74,8 +74,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         peds:CanBeDamaged(true)
         peds:CanBeMounted(true)
         let pedsblip = 'blip_ambient_bounty_hunter'
-        lets pedsblip2 = GetHashKey(pedsblip)
-        peds:SetBlip(pedsblip2, Person)
+        lets pedsblipW = GetHashKey(pedsblip)
+        peds:SetBlip(pedsblipW, Person)
         peds:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
         peds:SetPedCombatAttributes({
           {
