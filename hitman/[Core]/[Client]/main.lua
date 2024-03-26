@@ -32,25 +32,6 @@ Citizen.CreateThread(function()
   end
 end)
 
--- TESTING ONLY
-
-Citizen.CreateThread(function()
-  while true do
-      Citizen.Wait(0)
-      if IsControlPressed(0, Config.Keys['N']) then -- Check if the specific key is pressed
-          --updateNotification("Welcome to the Bounty Board", "testing", 50000)
-          tipNotification("Welcome to the Bounty Board", 5000)
-          Wait(10000)
-          simpleTopNotification("Welcome to the Bounty Board", "testing", 5000)
-          Wait(10000)
-          -- Add any additional logic here
-          -- Notify Avanced function
-          NotifyAvanced("Hello! Contract initited test", "satchel_textures", "tick", "COLOR_PURE_WHITE", 5000)
-      end
-  end
-end)
-
-
 -- Check player disctance from coords.
 Citizen.CreateThread(function()
   while true do Wait(2000)
