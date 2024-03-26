@@ -68,14 +68,10 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
     for k, v in pairs(Config.HandlerLocations) do
       local x, y, z = v.x, v.y, v.z
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z)
-
-      -- Turn cirle red when not in range
-      if (dist > 2) and not OpenMenu then DrawCircle(x, y, z, 217, 17, 17, 50) end
+      --if (dist > 2) then DrawCircle(x, y, z, 217, 17, 17, 50) end
 
       if (dist <= 2) then
-        -- Turn cirle green if in range
-        if not OpenMenu then DrawCircle(x, y, z, 17, 217, 27, 50) end
-        if not MenuOpen then DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75) end
+        DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75) end
         if IsControlJustPressed(0, Config.Keys['G']) then
           Location = nil
           TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
@@ -84,7 +80,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 
         if IsControlJustPressed(0, Config.Keys['K']) then
           payment = true
-          if payment and (TotalKilled > 0)then
+          if payment and (TotalKilled > 0) then
             TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
             TotalKilled = 0
             SetGpsMultiRouteRender(false)
