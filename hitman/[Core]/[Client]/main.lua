@@ -143,7 +143,7 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
     SetEntityVisible(rawspawnrec, true)
     --TaskStartScenarioAtPosition(spawnrec, scenarioTEXT, locx, locy, locz, locw, -1, 0, 1)
     npcSpawned[cityName] = true -- Mark NPC as spawned for this city
-    let scenetodo = scenarioTEXT
+    --let scenetodo = scenarioTEXT
     Wait(500)
 end
 
