@@ -120,7 +120,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
             ArrayTargets[k] = nil
             if TotalEnemies == 0 then
               SetGpsMultiRouteRender(false)
-              TriggerEvent("vorp:TipRight", 'You managed to kill all targets', 5000)
+              Notify('You managed to kill all targets', 5000)
               SearchingBodies = true
               Wait(5000)
               Notify('Search the body for evidence,', 5000)
@@ -145,7 +145,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         end
 
         if IsPlayerDead() then
-          TriggerEvent("vorp:TipRight", "You've lost your target", 4000)
+          Notify('You have lost your target!', 4000)
           StopMission()
           TotalKilled = 0
         end

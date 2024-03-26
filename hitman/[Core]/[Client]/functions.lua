@@ -6,8 +6,11 @@ function DrawCircle(x, y, z, r, g, b, a)
 end
 
 function Notify(text, time)
-  --VORPcore.NotifyRightTip(text,time)
-  TriggerEvent("vorp:TipRight", text, time)
+  VORPcore.NotifyRightTip(text,time)
+end
+
+function topbigNotification(text, time)
+  VORPCORE.NotifyObjective(text, time)
 end
 
 function DrawInfo(text, x, y, size)

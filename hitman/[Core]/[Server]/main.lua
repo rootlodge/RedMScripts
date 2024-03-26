@@ -1,8 +1,7 @@
 --------------------------------------------------------------------------------
 ----------------------------------- RootLodge -----------------------------------
 --------------------------------------------------------------------------------
-local VorpCore = {}
-TriggerEvent("getCore", function(core) VorpCore = core end)
+local VORPcore = exports.vorp_core:GetCore() -- NEW includes  new callback system
 function Wait(args) Citizen.Wait(args) end
 function Invoke(args, bool) Citizen.InvokeNative(args, bool) end
 --------------------------------------------------------------------------------
@@ -25,7 +24,7 @@ AddEventHandler('RootLodge:HitContracts:S:PayDay', function(KillCount)
   local vMoney = Config.Payment.Money.Static
   local vEXP = Config.Payment.XP.Static
 
-  local Char = VorpCore.getUser(source).getUsedCharacter
+  local Char = VORPcore.getUser(source).getUsedCharacter
 
   local mPay = nil
   local xPay = nil
@@ -49,13 +48,13 @@ AddEventHandler('RootLodge:HitContracts:S:PayDay', function(KillCount)
   end
 
   TriggerClientEvent('RootLodge:HitContracts:C:ResetTotalKills', source)
-  TriggerClientEvent("vorp:TipRight", source, "You received $"..mPay..' and '..xPay..' XP', 5000)
+  VORPcore.NotifyRightTip(source, "You received $"..mPay..' and '..xPay..' XP', 5000)
 end)
 
 
 
 AddEventHandler('RootLodge:HitContracts:S:CheckCharacter', function()
-  local User = VorpCore.getUser(source)
+  local User = VORPcore.getUser(source)
   if User ~= nil then
     local Character = User.getUsedCharacter
     TriggerClientEvent('RootLodge:HitContracts:C:SetUpMission', source)
