@@ -96,44 +96,49 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 end)
 
 local iamalwaystrue = true
-local entityspawnedfr = false
+local npcSpawned = {} -- Table to track spawned NPCs for each city
 
-Citizen.CreateThread(function()
-    while true do
-        Wait(1)
-        if iamalwaystrue then
-            for k, v in pairs(Config.HandlerLocations) do
-                local locx, locy, locz = v.x, v.y, v.z
-                local locw = 100.41544342041 -- Assuming this is the heading, adjust as needed
-                print("Checking for NPC spawn: " .. v.City)
+-- Function to spawn NPC for a given city
+local function SpawnNPC(cityName, npcName, locx, locy, locz, locw)
+    local pedHash = GetHashKey(npcName)
+    RequestModel(pedHash)
+    while not HasModelLoaded(pedHash) do
+        Wait(100)
+    end
+    local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
+    SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
+    SetEntityCanBeDamaged(spawnrec, false)
+    SetEntityInvincible(spawnrec, true)
+    Citizen.Wait(1000)
+    FreezeEntityPosition(spawnrec, true)
+    SetBlockingOfNonTemporaryEvents(spawnrec, true)
+    --TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
+    npcSpawned[cityName] = true -- Mark NPC as spawned for this city
+end
 
-                for cityname, npcData in pairs(Config.HandlerNPC) do
-                  print ("Cityname: " .. cityname)
-                    if cityname == v.City and not entityspawnedfr then
-                        local npcname = npcData.NPC
-                        print("Spawning NPC: " .. npcname .. " at " .. locx .. ", " .. locy .. ", " .. locz .. ", " .. locw)
-                        local pedHash = GetHashKey(npcname)
-                        print("Hash: " .. pedHash)
-                        RequestModel(pedHash)
-                        while not HasModelLoaded(pedHash) do
-                            Wait(100)
-                        end
-                        print("Model loaded")
-                        --local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
-                        --SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
-                        --SetEntityCanBeDamaged(spawnrec, false)
-                        --SetEntityInvincible(spawnrec, true)
-                        --Wait(1000)
-                        --FreezeEntityPosition(spawnrec, true)
-                        --SetBlockingOfNonTemporaryEvents(spawnrec, true)
-                        --TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
-                        --Wait(1000)
-                        entityspawnedfr = true -- Mark as spawned for this location
-                        break
-                    end
+-- Main function to handle NPC spawning
+local function HandleNPCSpawning()
+    for k, v in pairs(Config.HandlerLocations) do
+        local locx, locy, locz = v.x, v.y, v.z
+        local locw = 100.41544342041 -- Assuming this is the heading, adjust as needed
+
+        local cityName = v.City
+        if not npcSpawned[cityName] then
+            for cityname, npcData in pairs(Config.HandlerNPC) do
+                if cityname == cityName then
+                    SpawnNPC(cityName, npcData.NPC, locx, locy, locz, locw)
+                    break -- Exit loop once NPC is spawned for this city
                 end
             end
         end
+    end
+end
+
+-- Trigger NPC spawning
+Citizen.CreateThread(function()
+    while true do
+        Wait(1)
+        HandleNPCSpawning()
     end
 end)
 
