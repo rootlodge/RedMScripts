@@ -184,7 +184,7 @@ AddEventHandler("onResourceStop", function(resourceName)
       return
   end
 
-  for k, v in pairs(npcSpawned) do DeletePed(v) Wait(1000) end
+  for k, v in pairs(npcSpawned) do devdebug(npcSpawned) Wait(50) devdebug(npcSpawned.v) devdebug(npcSpawned[k]) DeletePed(v) Wait(1000) end
   table.remove{npcSpawned}
 
   -- remove blips
