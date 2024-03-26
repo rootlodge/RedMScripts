@@ -15,7 +15,6 @@ end)
 local InRange = false
 local Location = nil
 MissionStatus = false
-spawnrec = nil
 
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
 RegisterNetEvent('RootLodge:HitContracts:C:ShowPrompt')
@@ -130,7 +129,7 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
         Wait(100)
     end
     --local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
-    spawnrec = VORPutils.Peds:Create(npcName, locx, locy, locz, 0, 'world', false)
+    local spawnrec = VORPutils.Peds:Create(npcName, locx, locy, locz, 0, 'world', false)
     spawnrec:Invinsible(true)
     spawnrec:CanBeDamaged(false)
     spawnrec:ClearTasks()
@@ -138,7 +137,7 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
     Wait(1000)
     Citizen.InvokeNative(0x283978A15512B2FE, rawspawnrec, true) -- SetRandomOutfitVariation
     Wait(100)
-    SetEntityNoCollisionEntity(PlayerPedId(), spawnrec, false)
+    SetEntityNoCollisionEntity(PlayerPedId(), rawspawnrec, false)
     Wait(1000)
     --FreezeEntityPosition(spawnrec, true)
     SetEntityVisible(rawspawnrec, true)
