@@ -7,7 +7,6 @@ local config = {
 -- Please do not edit below this line! --
 
 print(GetCurrentResourceName() .. " by RootLodge Github loaded successfully.")
-print(GetPedDensityMultiplier())
 
 Citizen.CreateThread(function()
     while true do
