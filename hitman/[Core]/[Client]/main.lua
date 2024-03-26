@@ -92,12 +92,12 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
                   if TotalKilled > 0 then
                       TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)
                       TotalKilled = 0
+                      Location = nil
                       SetGpsMultiRouteRender(false)
                       CenterBottomNotify("You've been paid for your hard work, partner!", 5000)
                   else
                       CenterBottomNotify("You've no recorded target excursions, partner!", 5000)
                   end
-                  break -- Exit the loop to avoid multiple triggers.
               end
           end
       end
