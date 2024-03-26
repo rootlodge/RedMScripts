@@ -75,22 +75,6 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
       end
     end
 
-    -- Start the GPS
-    -- Clear existing GPS routes before starting a new one
-    --ClearGpsMultiRoute()
-
-    -- Start the GPS
-    --StartGpsMultiRoute(6, true, true)
-
-    -- Add the coordinates of the NPCs in ArrayTargets to the GPS route
-    --for k, v in pairs(ArrayTargets) do
-      --local npcCoords = GetEntityCoords(ArrayTargets[k])
-      --AddPointToGpsMultiRoute(npcCoords.x, npcCoords.y, npcCoords.z)
-    --end
-
-    -- Set route render to visible
-    --SetGpsMultiRouteRender(true)
-
     Wait(1000)
     CenterBottomNotify('Your target has been located. Check your map!', 5000)
     Wait(2000)

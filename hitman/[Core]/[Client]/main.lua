@@ -43,17 +43,20 @@ Citizen.CreateThread(function()
       if Location == v.City then
 
         -- Set user if out of range
-        if (dist > 5) and InRange then
+        if (dist > 4) and InRange then
           InRange = false
           Location = nil
           Wait(1000)
         end
 
         -- Set user if in range
-        if (dist <= 5) and not InRange then
+        if (dist <= 4) and not InRange then
           InRange = true
           Location = v.City
           TriggerEvent('RootLodge:HitContracts:C:StartMission')
+          --check MissionSuccess from server event and if true, proceed
+
+          SetAndGetMissionStatus() and DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75) or DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
         end
       end
     end
@@ -69,9 +72,6 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z)
       
       if (dist <= 4) then
-        --check MissionSuccess from server event and if true, proceed
-
-        SetAndGetMissionStatus() and DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75) or DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
 
         if IsControlJustPressed(0, Config.Keys['G']) then
           Location = nil
