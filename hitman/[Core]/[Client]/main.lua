@@ -69,7 +69,10 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z)
       
       if (dist <= 4) then
-        DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
+        --check MissionSuccess from server event and if true, proceed
+
+        SetAndGetMissionStatus() and DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75) or DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
+
         if IsControlJustPressed(0, Config.Keys['G']) then
           Location = nil
           TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')

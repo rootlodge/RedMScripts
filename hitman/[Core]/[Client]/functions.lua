@@ -157,3 +157,13 @@ function GetClosestPlayer()
   end
   return closestPlayer, closestDistance
 end
+
+-- Initialize the MissionStatus variable outside of the function to hold its state
+MissionStatus = false
+
+function SetAndGetMissionStatus(result)
+    if result ~= nil then  -- Check if result is provided to update MissionStatus
+        MissionStatus = result
+    end
+    return MissionStatus
+end

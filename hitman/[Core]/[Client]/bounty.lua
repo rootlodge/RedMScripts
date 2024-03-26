@@ -137,7 +137,10 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
                   Wait(2000)
                   StopMission()
                   GPStoBoards()
-                  Notify('Bring the evidence to the Hit Board in Saint Denis!', 5000)
+                  Wait(3000)
+                  CenterBottomNotify('Bring the evidence to the nearest handler!', 5000)
+                  SetAndGetMissionStatus(true)
+                  SearchingBodies = false
                 end
               end
             end
@@ -146,6 +149,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
         if IsPlayerDead() then
           CenterBottomNotify('You have lost your target!', 4000)
+          SetAndGetMissionStatus(false)
           StopMission()
           TotalKilled = 0
         end
@@ -155,6 +159,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
   function StopMission()
     InMission = false
+    SetAndGetMissionStatus(false)
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
     for k, v in pairs(CreateNPC) do DeletePed(v) Wait(500) end
