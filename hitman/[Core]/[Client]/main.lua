@@ -68,9 +68,8 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
       local x, y, z = v.x, v.y, v.z
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z)
       
-      if (dist <= 2) then
-        --DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
-        CenterBottomNotify('Press [ ~g~G~s~ ] to start a contract', 5000)
+      if (dist <= 4) then
+        DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
         if IsControlJustPressed(0, Config.Keys['G']) then
           Location = nil
           TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
@@ -78,7 +77,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
         end
       end
 
-      if (dist <= 2) and IsControlJustPressed(0, Config.Keys['K']) then
+      if (dist <= 4) and IsControlJustPressed(0, Config.Keys['K']) then
         payment = true
         if payment and (TotalKilled > 0) then
           TriggerServerEvent('RootLodge:HitContracts:S:PayDay', TotalKilled)

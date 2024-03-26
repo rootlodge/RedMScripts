@@ -92,13 +92,13 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     --SetGpsMultiRouteRender(true)
 
     Wait(1000)
-    Notify('Your target has been located. Check your map!', 5000)
+    CenterBottomNotify('Your target has been located. Check your map!', 5000)
     Wait(2000)
-    Notify('We need them dead, not alive! But Dead!', 5000)
+    CenterBottomNotify('We need them dead, not alive! But Dead!', 5000)
     Wait(1500)
-    Notify('You can stack Contracts, just keep in mind', 5000)
+    CenterBottomNotify('You can stack Contracts, just keep in mind', 5000)
     Wait(1000)
-    Notify('that you lose the Contracts if you died!', 5000)
+    CenterBottomNotify('that you lose the Contracts if you died!', 5000)
     InMission = true
     SaveGuard = false
     while InMission do Wait(1)
@@ -121,11 +121,10 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
             ArrayTargets[k] = nil
             if TotalEnemies == 0 then
               SetGpsMultiRouteRender(false)
-              Notify('You managed to kill all targets', 5000)
+              CenterBottomNotify('You managed to kill all targets', 5000)
               SearchingBodies = true
               Wait(5000)
-              Notify('Search the body for evidence,', 5000)
-              Notify('and bring this back to the Hit Board!', 5000)
+              CenterBottomNotify('Search the body for evidence to confirm the kill!', 5000)
               local ped = PlayerPedId()
               while SearchingBodies do Wait(1)
                 local ped = PlayerPedId()
@@ -146,7 +145,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         end
 
         if IsPlayerDead() then
-          Notify('You have lost your target!', 4000)
+          CenterBottomNotify('You have lost your target!', 4000)
           StopMission()
           TotalKilled = 0
         end

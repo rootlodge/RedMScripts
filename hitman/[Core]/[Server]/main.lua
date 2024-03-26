@@ -9,6 +9,7 @@ function Invoke(args, bool) Citizen.InvokeNative(args, bool) end
 -- Event Register
 RegisterServerEvent('RootLodge:HitContracts:S:PayDay')
 RegisterServerEvent('RootLodge:HitContracts:S:CheckCharacter')
+RegisterServerEvent('RootLodge:HitContracts:S:MissionComplete')
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
@@ -52,7 +53,9 @@ AddEventHandler('RootLodge:HitContracts:S:PayDay', function(KillCount)
   VORPcore.NotifyRightTip(source, "You received $"..mPay..' and '..xPay..' XP', 5000)
 end)
 
-
+AddEventHandler('RootLodge:HitContracts:S:MissionComplete', function(MissionSuccess)
+  MissionSuccess = true
+end)
 
 AddEventHandler('RootLodge:HitContracts:S:CheckCharacter', function()
   local User = VORPcore.getUser(source)
