@@ -120,12 +120,12 @@ end
 local function HandleNPCSpawning()
     for k, v in pairs(Config.HandlerLocations) do
         local locx, locy, locz = v.x, v.y, v.z
-        local locw = 100.41544342041 -- Assuming this is the heading, adjust as needed
 
         local cityName = v.City
         if not npcSpawned[cityName] then
             for cityname, npcData in pairs(Config.HandlerNPC) do
                 if cityname == cityName then
+                    local locw = npcData.Heading or 0.0
                     SpawnNPC(cityName, npcData.NPC, locx, locy, locz, locw)
                     break -- Exit loop once NPC is spawned for this city
                 end

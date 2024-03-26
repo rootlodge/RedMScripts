@@ -11,9 +11,9 @@ Config = {}
 Config.locale = 'en'
 
 Config.HandlerLocations = {
-  { City = 'Valentine Handler',    x = -277.69, y = 921.63, z = 128.2},
-  { City = 'Saint Denis Handler', x = 2513.4, y = -1305.2, z = 48.9},
-  { City = 'Blackwater Handler',   x = -758.0, y = -1266.0, z = 44.0},
+  { City = 'Valentine Handler',    x = -276.86, y = 921.46, z = 128.31},
+  { City = 'Saint Denis Handler', x = -270.1, y = 937.18, z = 131.71},
+  { City = 'Blackwater Handler',   x = -254.71, y = 905.19, z = 127.45},
   -- { City = 'New Austin Handler', x = -274.8, y = 805.5, z = 119.3, w = 340.36, h = 340.36},
 }
 
@@ -59,12 +59,15 @@ Config.Languages = {
 Config.HandlerNPC = {
   ['Valentine Handler'] = {
     ['NPC'] = 'A_M_M_BlWUpperClass_01',
+    ['Heading'] = '320.54',
   },
   ['Saint Denis Handler'] = {
     ['NPC'] = 'A_M_M_BiVFancyTravellers_01',
+    ['Heading'] = '335.46',
   },
   ['Blackwater Handler'] = {
     ['NPC'] = 'A_M_M_GriSurvivalist_01',
+    ['Heading'] = '86.27',
   },
   -- Add more Handler NPC's here
   -- ['New Austin Handler'] = {
