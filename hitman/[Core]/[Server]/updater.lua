@@ -5,7 +5,7 @@ if Config.CheckForUpdates then
     end
 
     local function CheckMenuVersion()
-        PerformHttpRequest('https://.txt', function(err, text, headers)
+        PerformHttpRequest('https://raw.githubusercontent.com/rootlodge/RedMScripts/master/hitman.txt', function(err, text, headers)
             local currentVersion = GetResourceMetadata(GetCurrentResourceName(), 'version')
             if not text then
                 VersionLog('error', 'Currently unable to run a version check.')

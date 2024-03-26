@@ -56,9 +56,12 @@ Follow the steps in #Installation
 
 
 
-## Resources Used
+## Resources & Code Used From
 https://redlookup.com/
 https://www.rdr2mods.com/wiki/ped-search/?pedtype=0&
 https://github.com/femga/rdr3_discoveries/tree/master/useful_info_from_rpfs/textures/blips
 https://rdr3natives.github.io/
 https://github.com/DevDokus/RedM-BountyHunter
+https://github.com/zelbeus/useful_codes/blob/main/useful_codes1.lua
+https://github.com/DarrenJDocherty/RedM-Witnesses
+https://github.com/JuanDeag-dev/juan_hunting/
