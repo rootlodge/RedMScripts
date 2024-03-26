@@ -66,14 +66,14 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   while InRange do 
       Wait(1) -- It's critical to have a short wait to prevent freezing.
       local coords = GetEntityCoords(ped)
-      local missionStatus = SetAndGetMissionStatus() -- Assuming this function's scope is accessible here.
+      local MissionStatus = SetAndGetMissionStatus() -- Assuming this function's scope is accessible here.
 
       for _, v in pairs(Config.HandlerLocations) do
           local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z, true)
 
           if dist <= 4 then
               -- Checks if within 4 meters of the location.
-              if missionStatus then
+              if MissionStatus then
                   DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75)
               else
                   DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
@@ -94,6 +94,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
                       TotalKilled = 0
                       Location = nil
                       SetGpsMultiRouteRender(false)
+                      SetAndGetMissionStatus(false)
                       CenterBottomNotify("You've been paid for your hard work, partner!", 5000)
                   else
                       CenterBottomNotify("You've no recorded target excursions, partner!", 5000)
