@@ -99,7 +99,7 @@ local iamalwaystrue = true
 local npcSpawned = {} -- Table to track spawned NPCs for each city
 
 -- Function to spawn NPC for a given city
-function SpawnNPC(cityName, npcName, locx, locy, locz, locw)
+function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
     local pedHash = GetHashKey(npcName)
     RequestModel(pedHash)
     while not HasModelLoaded(pedHash) do
@@ -116,7 +116,8 @@ function SpawnNPC(cityName, npcName, locx, locy, locz, locw)
     FreezeEntityPosition(spawnrec, true)
     SetBlockingOfNonTemporaryEvents(spawnrec, true)
     SetEntityVisible(spawnrec, true)
-    TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, false, true)
+    print("Scenario for " .. cityName .. " is " .. scenarioTEXT)
+    TaskStartScenarioAtPosition(spawnrec, Config.HandlerScenario, locx, locy, locz, locw, -1, 0, 1)
     npcSpawned[cityName] = true -- Mark NPC as spawned for this city
     Wait(500)
 end
@@ -131,8 +132,9 @@ function HandleNPCSpawning()
             for cityname, npcData in pairs(Config.HandlerNPC) do
                 if cityname == cityName then
                     local locw = npcData.Heading or 0.0
+                    local scenarioTEXT = npcData.Scenarios or 'WORLD_HUMAN_SHOPKEEPER'
                     Wait(200)
-                    SpawnNPC(cityName, npcData.NPC, locx, locy, locz, locw)
+                    SpawnNPC(cityName, npcData.NPC, locx, locy, locz, locw, scenarioTEXT)
                     Wait(1000)
                     break -- Exit loop once NPC is spawned for this city
                 end
