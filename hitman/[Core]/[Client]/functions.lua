@@ -22,16 +22,15 @@ function DrawInfo(text, x, y, size)
   SetScriptGfxDrawOrder(3)
 end
 
-function DrawTextLow(text, x, y, size)
-  local xc = x / 1.0;
-  local yc = y / 1.0;
-  SetScriptGfxDrawOrder(3)
-  SetTextScale(size, size)
-  SetTextCentre(true)
-  SetTextColor(200, 0, 0, 255) -- Deep red color (RGBA: 200, 0, 0, 255)
-  SetTextFontForCurrentCommand(6)
-  DisplayText(CreateVarString(10, 'LITERAL_STRING', text), xc, yc)
-  SetScriptGfxDrawOrder(3)
+function DrawTextOnScreen(text, x, y, font, color, scale, outline, centered)
+  SetTextFont(font)
+  SetTextScale(scale, scale)
+  SetTextColour(color[1], color[2], color[3], color[4])
+  SetTextOutline(outline)
+  SetTextCentre(centered)
+  BeginTextCommandDisplayText("STRING")
+  AddTextComponentSubstringPlayerName(text)
+  EndTextCommandDisplayText(x, y)
 end
 
 function GetScreenCoordFromWorldCoord(worldX, worldY, worldZ)
