@@ -30,7 +30,9 @@ then for each script you have downloaded, add `ensure (scriptname/foldername) to
 
 OR IF ON LINUX AND FOR A MORE STREAMLINED PROCESS
 Ensure that git is downloaded 
-`cd path/to/resources/[RootLodge]`
+`cd path/to/resources/`
+`mkdir [RootLodge]`
+`cd [RootLodge]`
 `git clone --depth=1 https://github.com/rootlodge/RedMScripts.git .`
 `chmod +x autoupdate.sh`
 Done!
