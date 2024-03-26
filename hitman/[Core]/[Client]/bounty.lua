@@ -43,7 +43,7 @@ local SaveGuard = false
 local GPStoSDboardactive = false
 local alwaysfalse = false
 local alwaystrue = true
-peds = nil
+local peds
 --------------------------------------------------------------------------------
 
 AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
@@ -159,8 +159,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     MissionStatus = false
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
-    for k, v in pairs(CreateNPC) do DeletePed(v) Wait(1000) end
-    table.remove{CreateNPC} table.remove{ArrayTargets}
+    --for k, v in pairs(CreateNPC) do DeletePed(v) Wait(1000) end
+    --table.remove{CreateNPC} table.remove{ArrayTargets}
   end
 
   function GPStoBoards ()
