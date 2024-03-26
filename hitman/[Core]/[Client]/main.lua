@@ -1,7 +1,8 @@
 --------------------------------------------------------------------------------
 ----------------------------------- RootLodge -----------------------------------
 --------------------------------------------------------------------------------
-local VORPcore = exports.vorp_core:GetCore() -- NEW includes  new callback system
+local VORPcore = {}
+TriggerEvent("getCore", function(core) VorpCore = core end)
 function Wait(args) Citizen.Wait(args) end
 --------------------------------------------------------------------------------
 -- Varables
@@ -31,12 +32,12 @@ Citizen.CreateThread(function()
   end
 end)
 
--- TESTING ONLY\
+-- TESTING ONLY
 -- use the topbigNotification function to display a notification
 Citizen.CreateThread(function()
   while true do
     Wait(1)
-    topbigNotification("Welcome to the Bounty Board", 5000)
+    topbigNotification("Welcome to the Bounty Board", 50000)
   end
 end)
 

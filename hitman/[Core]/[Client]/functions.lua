@@ -1,7 +1,8 @@
 --------------------------------------------------------------------------------
 ----------------------------------- RootLodge -----------------------------------
 --------------------------------------------------------------------------------
-local VORPcore = exports.vorp_core:GetCore() -- NEW includes  new callback system
+local VORPcore = {}
+TriggerEvent("getCore", function(core) VorpCore = core end)
 function Wait(args) Citizen.Wait(args) end
 
 function DrawCircle(x, y, z, r, g, b, a)
