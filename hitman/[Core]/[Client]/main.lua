@@ -119,33 +119,47 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 end)
 
 local iamalwaystrue = true
-local npcSpawned = {} -- Table to track spawned NPCs for each city
+-- Assuming npcSpawned is a table defined somewhere globally to track spawned NPCs
+if not npcSpawned then npcSpawned = {} end
 
 -- Function to spawn NPC for a given city
 function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
+    if not npcSpawned[cityName] then npcSpawned[cityName] = {} end
+
     local pedHash = GetHashKey(npcName)
     RequestModel(pedHash)
     while not HasModelLoaded(pedHash) do
         Wait(100)
     end
-    --local spawnrec = CreatePed(pedHash, locx, locy, locz, locw, false, true, true, true)
-    local spawnrec = VORPutils.Peds:Create(npcName, locx, locy, locz, 0, 'world', false)
-    spawnrec:Invinsible(true)
-    spawnrec:CanBeDamaged(false)
-    spawnrec:ClearTasks()
-    local rawspawnrec = spawnrec:GetPed()
-    Wait(1000)
-    Citizen.InvokeNative(0x283978A15512B2FE, rawspawnrec, true) -- SetRandomOutfitVariation
-    Wait(100)
-    SetEntityNoCollisionEntity(PlayerPedId(), rawspawnrec, false)
-    Wait(1000)
-    --FreezeEntityPosition(spawnrec, true)
-    SetEntityVisible(rawspawnrec, true)
-    --TaskStartScenarioAtPosition(spawnrec, scenarioTEXT, locx, locy, locz, locw, -1, 0, 1)
-    npcSpawned[cityName] = true -- Mark NPC as spawned for this city
-    --let scenetodo = scenarioTEXT
-    Wait(500)
+
+    -- Spawn the NPC using whatever method your framework or utilities require
+    local spawnrec = VORPutils.Peds:Create(npcName, locx, locy, locz, locw, 'world', false)
+    if spawnrec then
+        spawnrec:Invincible(true)
+        spawnrec:CanBeDamaged(false)
+        spawnrec:ClearTasks()
+        local rawspawnrec = spawnrec:GetPed()
+        
+        -- Wait a bit after spawning before adjusting properties to ensure they apply
+        Wait(100)
+        Citizen.InvokeNative(0x283978A15512B2FE, rawspawnrec, true) -- SetRandomOutfitVariation
+        SetEntityNoCollisionEntity(PlayerPedId(), rawspawnrec, false)
+        SetEntityVisible(rawspawnrec, true)
+
+        -- Assuming scenarioTEXT is some task you want the NPC to perform
+        -- Ensure this is the correct way to assign tasks in your framework
+        -- TaskStartScenarioAtPosition(rawspawnrec, scenarioTEXT, locx, locy, locz, locw, -1, true)
+
+        -- Tracking NPC as spawned for the given city
+        table.insert(npcSpawned[cityName], rawspawnrec)
+    else
+        print("Failed to create NPC: " .. npcName)
+    end
+
+    -- Unload the model after spawning to keep resources free
+    SetModelAsNoLongerNeeded(pedHash)
 end
+
 
 -- Main function to handle NPC spawning
 function HandleNPCSpawning()
