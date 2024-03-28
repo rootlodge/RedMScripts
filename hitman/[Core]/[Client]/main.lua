@@ -135,11 +135,11 @@ function HandleNPCSpawning()
     ped:CanBeMounted(false)
     Wait(500)
     ped:Invincible(true)
-    --ped:ClearTasks()
     Citizen.InvokeNative(0x283978A15512B2FE, rawped, true) -- SetRandomOutfitVariation
     Wait(200)
     SetEntityVisible(rawped, true)
-    --TaskStartScenarioAtPosition(rawped, v.scenario, v.x, v.y, v.z, v.h, -1, true)
+    ped:ClearTasks()
+    --TaskStartScenarioAtPosition(rawped, v.scenario, v.x, v.y, v.z, v.h, -1, false)
     local cityName = v.City
     -- Initialize the table for the city if it does not exist
     npcSpawned[cityName] = npcSpawned[cityName] or {}
@@ -154,9 +154,6 @@ AddEventHandler("RootLodge:HitContracts:C:ShowPrompt", function(msg)
   Citizen.InvokeNative(0xFA233F8FE190514C, str)
   Citizen.InvokeNative(0xE9990552DEC71600)
 end)
-
-
-HandleNPCSpawning()
 
 AddEventHandler("onResourceStart", function(resourceName)
   if (GetCurrentResourceName() ~= resourceName) then
