@@ -143,8 +143,7 @@ function HandleNPCSpawning()
     ped:Freeze(true)
     local cityName = v.City
     -- Initialize the table for the city if it does not exist
-    npcSpawned[cityName] = npcSpawned[cityName] or {}
-    table.insert(npcSpawned[cityName], rawped)
+    table.insert(npcSpawned, rawped)
   end
 end
 
@@ -169,15 +168,29 @@ AddEventHandler("onResourceStop", function(resourceName)
       return
   end
 
-  for _, ped in ipairs(peds) do
-    ped:Remove()
-  end
+  --for _, ped in ipairs(peds) do
+    --ped:Remove()
+  --end
 
   -- remove blips
-  for _, board in ipairs(Config.HandlerLocations) do
-      local blipName = board.City
-      RemoveBlip(blipName)
+  --for _, board in ipairs(Config.HandlerLocations) do
+      --local blipName = board.City
+      --RemoveBlip(blipName)
+  --end
+
+  -- Function to delete all spawned NPCs
+  function DeleteSpawnedNPCs()
+    for _, npc in ipairs(npcSpawned) do
+        if DoesEntityExist(npc) then
+            
+            DeleteEntity(npc)
+        end
+    end
+    -- Empty the npcSpawned table
+    npcSpawned = {}
   end
+
+  DeleteSpawnedNPCs()
 
   TotalEnemies = 0
   TotalKilled = 0
