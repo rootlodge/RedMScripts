@@ -1,3 +1,4 @@
+function Wait(args) Citizen.Wait(args) end
 if Config.CheckForUpdates then
     local function VersionLog(_type, log)
         local color = _type == 'success' and '^2' or '^1'
@@ -21,5 +22,6 @@ if Config.CheckForUpdates then
         end)
     end
 
+    Wait(45000)
     CheckMenuVersion()
 end
