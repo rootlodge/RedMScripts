@@ -46,21 +46,22 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   -- Get a random target/contract ID
   local rLoc = Contracts[math.random(#Contracts)]
   -- Get all NPCs associated with this ID
-  for _, v in pairs(Contracts) do
+  for k, v in pairs(Contracts) do
       if v.ID == rLoc.ID then
           TotalEnemies = TotalEnemies + 1
           -- Get a random model for this NPC
           local unhashedmodel = Models[math.random(#Models)]
           local rModel = GetHashKey(Models[math.random(#Models)])
-          local ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
+          CreateNPC[k] = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
+          local ped = CreateNPC[k]
+          -- local CreateNPC[k] = ped:GetPed()
           local rawpeds = ped:GetPed()
           ped:CanBeDamaged(true)
           ped:CanBeMounted(true)
           local rWeapon = Weapons[math.random(#Weapons)]
           ped:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
           Wait(50)
-          table.insert(CreateNPC, rawpeds)
-          table.insert(ArrayTargets, rawpeds)
+          ArrayTargets[k] = CreateNPC[k]
           Citizen.InvokeNative(0x283978A15512B2FE, rawpeds, true)
           local unashedblip = 'blip_mp_attack_target'
           local hashedblip = GetHashKey(unashedblip)
@@ -85,13 +86,13 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
           if not GPSToBodyIsSet then
               GPSToBodyIsSet = true
               StartGpsMultiRoute(6, true, true)
-              local npcCoords = GetEntityCoords(v)
+              local npcCoords = GetEntityCoords(ArrayTargets[k])
               AddPointToGpsMultiRoute(npcCoords.x, npcCoords.y, npcCoords.z)
               SetGpsMultiRouteRender(true)
           end
 
           if IsEntityDead(v) then
-              local eCoords = GetEntityCoords(v)
+              local eCoords = GetEntityCoords(ArrayTargets[k])
               TotalEnemies = TotalEnemies - 1
               TotalKilled = TotalKilled + 1
               ArrayTargets[k] = nil
