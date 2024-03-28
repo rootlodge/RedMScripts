@@ -29,7 +29,7 @@ Citizen.CreateThread(function()
   for _, board in ipairs(Config.HandlerLocations) do
       local blipName = board.City
       local blipHash = GetHashKey("blip_summer_guard") -- Replace with your blip style
-      local blip = VORPutils.Blips:SetBlip(blipName, 'blip_summer_guard', 0.2, board.x, boardy, board.z, vector3 or nil)
+      local blip = VORPutils.Blips:SetBlip(blipName, 'blip_summer_guard', 0.2, board.x, boardy, board.z)
       rawblip = blip:GetBlip()
       table.insert(rawbliparray, rawblip)
   end
@@ -150,12 +150,7 @@ AddEventHandler("RootLodge:HitContracts:C:ShowPrompt", function(msg)
   Citizen.InvokeNative(0xE9990552DEC71600)
 end)
 
-AddEventHandler("onResourceStart", function(resourceName)
-  if (GetCurrentResourceName() ~= resourceName) then
-      return
-  end
-  HandleNPCSpawning()
-end)
+HandleNPCSpawning
 
 -- On reload of resource [DO NOT TOUCH]
 AddEventHandler("onResourceStop", function(resourceName)
