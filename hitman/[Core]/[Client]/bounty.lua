@@ -153,6 +153,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
       end
     end
   end)
+end
 
   function StopMission()
     InMission = false
@@ -174,4 +175,3 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   AddEventHandler('RootLodge:HitContracts:C:ResetTotalKills', function()
     TotalKilled = 0
   end)
-end
