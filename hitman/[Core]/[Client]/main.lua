@@ -121,25 +121,25 @@ end)
 local iamalwaystrue = true
 -- Assuming npcSpawned is a table defined somewhere globally to track spawned NPCs
 npcSpawned = {}
-
-local c1 = Config.HandlerLocations
 -- Main function to handle NPC spawning
 function HandleNPCSpawning()
-  for k, v in pairs(c1) do
+  for k, v in pairs(Config.HandlerLocations) do
     print(k, v)
     print(v.City, v.model, v.x, v.y, v.z, v.h, v.scenario)
-    local ped = VORPutils.Peds:Create(c1.model, c1.x, c1.y, c1.z, c1.h, 'world', false)
+    local ped = VORPutils.Peds:Create(v.model, v.x, v.y, v.z, v.h, 'world', false)
     local rawped = ped:GetPed()
     ped:CanBeDamaged(false)
     ped:CanBeMounted(false)
     Wait(500)
     ped:Invincible(true)
-    ped:ClearTasks()
+    --ped:ClearTasks()
     Citizen.InvokeNative(0x283978A15512B2FE, rawped, true) -- SetRandomOutfitVariation
     Wait(200)
     SetEntityVisible(rawped, true)
-    -- TaskStartScenarioAtPosition(rawped, c1.scenario, c1.x, c1.y, c1.z, c1.w, -1, true)
-    let cityName = c1.City
+    --TaskStartScenarioAtPosition(rawped, v.scenario, v.x, v.y, v.z, v.h, -1, true)
+    local cityName = v.City
+    -- Initialize the table for the city if it does not exist
+    npcSpawned[cityName] = npcSpawned[cityName] or {}
     table.insert(npcSpawned[cityName], rawped)
   end
 end
