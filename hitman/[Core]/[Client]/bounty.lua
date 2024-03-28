@@ -53,8 +53,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
           local unhashedmodel = Models[math.random(#Models)]
           local rModel = GetHashKey(Models[math.random(#Models)])
           local ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
-          local CreateNPC[k] = ped:GetPed()
           local rawpeds = ped:GetPed()
+          CreateNPC[k] = rawpeds
           ped:CanBeDamaged(true)
           ped:CanBeMounted(true)
           local rWeapon = Weapons[math.random(#Weapons)]
