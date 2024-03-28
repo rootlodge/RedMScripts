@@ -1,3 +1,6 @@
+-- Root Lodge Hit Contracts
+local VORPcore = {}
+TriggerEvent("getCore", function(core) VORPcore = core end)
 function Wait(args) Citizen.Wait(args) end
 
 local VORPutils = {}
@@ -49,12 +52,12 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
             -- Get a random model for this NPC
             local unhashedmodel = Models[math.random(#Models)]
             local rModel = GetHashKey(Models[math.random(#Models)])
-            RequestModel(rModel)
-            if not HasModelLoaded(rModel) then RequestModel(rModel) end
-            while not HasModelLoaded(rModel) do Wait(1) end
+            --RequestModel(rModel)
+            --if not HasModelLoaded(rModel) then RequestModel(rModel) end
+            --while not HasModelLoaded(rModel) do Wait(1) end
             -- Spawn the NPC with a random loadout
             local rWeapon = Weapons[math.random(#Weapons)]
-            ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
+            local ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
             local rawpeds = ped:GetPed()
             ped:CanBeDamaged(true)
             ped:CanBeMounted(true)
@@ -64,7 +67,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
             ped:SetPedCombatAttributes({
                 { flag = 5, enabled = true }, 5, 1, 1
             })
-            CreateNPC[k] = rawpeds
+            --CreateNPC[k] = rawpeds
+            table.insert(CreateNPC[k], rawpeds)
             --Citizen.InvokeNative(0x283978A15512B2FE, CreateNPC[k], true)
             --Citizen.InvokeNative(0x23f74c2fda6e7c61, 953018525, CreateNPC[k])
             NPCx, NPCy, NPCz = v.x, v.y, v.z
