@@ -16,6 +16,7 @@ local InRange = false
 local Location = nil
 MissionStatus = false
 local NPCHandlerConfig = Config.HandlerLocations
+local rawbliparray = {}
 
 -- Net Event Register
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
@@ -24,19 +25,13 @@ RegisterNetEvent('RootLodge:HitContracts:C:ShowPrompt')
 -- Core
 --------------------------------------------------------------------------------
 
-function addBlipForCoords(blipname,bliphash,coords)
-	local blip = Citizen.InvokeNative(0x554D9D53F696D002,1664425300, coords[1], coords[2], coords[3])
-	SetBlipSprite(blip,bliphash,true)
-	SetBlipScale(blip,0.2)
-	Citizen.InvokeNative(0x9CB1A1623062F402, blip, blipname)
-end
-
-
 Citizen.CreateThread(function()
   for _, board in ipairs(Config.HandlerLocations) do
       local blipName = board.City
       local blipHash = GetHashKey("blip_summer_guard") -- Replace with your blip style
-      addBlipForCoords(blipName, blipHash, {board.x, board.y, board.z})
+      local blip = VORPutils.Blips:SetBlip(blipName, 'blip_summer_guard', 0.2, board.x, boardy, board.z, vector3 or nil)
+      rawblip = blip:GetBlip()
+      table.insert(rawbliparray, rawblip)
   end
 end)
 
@@ -173,10 +168,10 @@ AddEventHandler("onResourceStop", function(resourceName)
   --end
 
   -- remove blips
-  --for _, board in ipairs(Config.HandlerLocations) do
-      --local blipName = board.City
-      --RemoveBlip(blipName)
-  --end
+  for _, board in ipairs(Config.HandlerLocations) do
+      local blipName = board.City
+      RemoveBlip(blipName)
+  end
 
   -- Function to delete all spawned NPCs
   function DeleteSpawnedNPCs()
