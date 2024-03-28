@@ -127,8 +127,8 @@ npcSpawned = {}
 -- Main function to handle NPC spawning
 function HandleNPCSpawning()
   for k, v in pairs(Config.HandlerLocations) do
-    devdebug(k .. " : " .. v)
-    devdebug(v.City, v.model, v.x, v.y, v.z, v.h, v.scenario)
+    --devdebug(k .. " : " .. v)
+    --devdebug(v.City, v.model, v.x, v.y, v.z, v.h, v.scenario)
     local ped = VORPutils.Peds:Create(v.model, v.x, v.y, v.z, v.h, 'world', false)
     local rawped = ped:GetPed()
     ped:CanBeDamaged(false)
