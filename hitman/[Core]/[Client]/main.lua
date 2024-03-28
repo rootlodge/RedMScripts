@@ -139,7 +139,8 @@ function HandleNPCSpawning()
     Wait(200)
     SetEntityVisible(rawped, true)
     ped:ClearTasks()
-    --TaskStartScenarioAtPosition(rawped, v.scenario, v.x, v.y, v.z, v.h, -1, false)
+    TaskStartScenarioAtPosition(rawped, v.scenario, v.x, v.y, v.z, v.h, -1, false)
+    ped:Freeze(true)
     local cityName = v.City
     -- Initialize the table for the city if it does not exist
     npcSpawned[cityName] = npcSpawned[cityName] or {}
