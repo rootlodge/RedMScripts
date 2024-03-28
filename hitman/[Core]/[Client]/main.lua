@@ -156,14 +156,7 @@ AddEventHandler("RootLodge:HitContracts:C:ShowPrompt", function(msg)
 end)
 
 
--- Trigger NPC spawning
-Citizen.CreateThread(function()
-    while true do
-        Wait(200)
-        HandleNPCSpawning()
-        Wait(300)
-    end
-end)
+HandleNPCSpawning()
 
 -- On reload of resource [DO NOT TOUCH]
 AddEventHandler("onResourceStop", function(resourceName)
