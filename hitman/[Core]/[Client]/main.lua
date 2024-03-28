@@ -80,10 +80,8 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
           if dist <= 4 then
               -- Checks if within 4 meters of the location.
               if MissionStatus then
-                  Wait(10)
                   DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75)
               else
-                  Wait(10)
                   DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
               end
               
@@ -131,7 +129,6 @@ function HandleNPCSpawning()
     Wait(100)
     ped:CanBeDamaged(false)
     ped:CanBeMounted(false)
-    Wait(500)
     ped:Invincible(true)
     Citizen.InvokeNative(0x283978A15512B2FE, rawped, true) -- SetRandomOutfitVariation
     Wait(200)
@@ -140,13 +137,11 @@ function HandleNPCSpawning()
     TaskStartScenarioAtPosition(rawped, v.scenario, v.x, v.y, v.z, v.h, -1, false)
     Wait(100)
     ped:Freeze(true)
-    Wait(400)
     SetBlockingOfNonTemporaryEvents(rawped, true)
     Wait(50)
     local cityName = v.City
     -- Initialize the table for the city if it does not exist
     table.insert(npcSpawned, rawped)
-    Wait(500)
   end
 end
 
