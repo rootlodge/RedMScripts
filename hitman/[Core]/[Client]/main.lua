@@ -182,7 +182,7 @@ AddEventHandler("onResourceStop", function(resourceName)
   function DeleteSpawnedNPCs()
     for _, npc in ipairs(npcSpawned) do
         if DoesEntityExist(npc) then
-            
+            devserverdebug("Deleting NPC: " .. npc)         
             DeleteEntity(npc)
         end
     end
