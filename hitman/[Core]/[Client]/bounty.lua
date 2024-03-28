@@ -75,6 +75,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
         TaskCombatPed(CreateNPC[k], PlayerPedId())
         ArrayTargets[k] = CreateNPC[k]
+        table.insert(npcSpawned, CreateNPC[k])
       end
     end
 
@@ -147,7 +148,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
     for k, v in pairs(CreateNPC) do DeletePed(v) Wait(500) end
-    table.remove{CreateNPC} table.remove{ArrayTargets}
+    ArrayTargets = {}
+    CreateNPC = {}
   end
 
   function GPStoBoards ()
