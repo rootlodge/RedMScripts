@@ -52,9 +52,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
           -- Get a random model for this NPC
           local unhashedmodel = Models[math.random(#Models)]
           local rModel = GetHashKey(Models[math.random(#Models)])
-          CreateNPC[k] = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
-          local ped = CreateNPC[k]
-          -- local CreateNPC[k] = ped:GetPed()
+          local ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
+          local CreateNPC[k] = ped:GetPed()
           local rawpeds = ped:GetPed()
           ped:CanBeDamaged(true)
           ped:CanBeMounted(true)
