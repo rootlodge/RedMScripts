@@ -29,7 +29,7 @@ Citizen.CreateThread(function()
   for _, board in ipairs(Config.HandlerLocations) do
       local blipName = board.City
       local blipHash = GetHashKey("blip_summer_guard") -- Replace with your blip style
-      local blip = VORPutils.Blips:SetBlip(blipName, 'blip_summer_guard', 0.2, board.x, boardy, board.z)
+      local blip = VORPutils.Blips:SetBlip(blipName, 'blip_summer_guard', 0.2, board.x, boardy, board.z, vector3)
       rawblip = blip:GetBlip()
       table.insert(rawbliparray, rawblip)
   end
