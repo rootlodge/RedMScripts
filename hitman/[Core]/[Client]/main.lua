@@ -15,7 +15,9 @@ end)
 local InRange = false
 local Location = nil
 MissionStatus = false
+local NPCHandlerConfig = Config.HandlerLocations
 
+-- Net Event Register
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
 RegisterNetEvent('RootLodge:HitContracts:C:ShowPrompt')
 --------------------------------------------------------------------------------
@@ -38,19 +40,17 @@ Citizen.CreateThread(function()
   end
 end)
 
-let InRangetest = true
-
 -- Check player disctance from coords.
 Citizen.CreateThread(function()
   while true do Wait(2000)
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
-    for k, v in pairs(Config.HandlerLocations) do
+    for k, npc in pairs(NPCHandlerConfig) do
 
-      local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v.x, v.y, v.z)
+      local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, npc.x, npc.y, npc.z)
 
-      if Location == nil and (dist <= 5) then Location = v.City end
-      if Location == v.City then
+      if Location == nil and (dist <= 5) then Location = npc.City end
+      if Location == npc.City then
 
         -- Set user if out of range
         if (dist > 5) and InRange then
@@ -62,7 +62,7 @@ Citizen.CreateThread(function()
         -- Set user if in range
         if (dist <= 5) and not InRange then
           InRange = true
-          Location = v.City
+          Location = npc.City
           TriggerEvent('RootLodge:HitContracts:C:StartMission')
           CenterBottomNotify('Proceed with caution', 5000)
         end
@@ -74,7 +74,7 @@ end)
 
 AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   local ped = PlayerPedId()
-  while InRangetest do 
+  while InRange do 
       Wait(1) -- It's critical to have a short wait to prevent freezing.
       local coords = GetEntityCoords(ped)
       --devdebug(MissionStatus)
