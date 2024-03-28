@@ -122,7 +122,7 @@ local iamalwaystrue = true
 -- Assuming npcSpawned is a table defined somewhere globally to track spawned NPCs
 npcSpawned = {}
 
-local c1 = Config.HandlerNPC
+local c1 = Config.HandlerLocations
 -- Main function to handle NPC spawning
 function HandleNPCSpawning()
   for k, v in pairs(c1) do
