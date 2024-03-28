@@ -40,109 +40,96 @@ local SaveGuard = false
 local GPStoSDboardactive = false
 
 AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
-    -- Make sure this script does not execute twice.
-    SaveGuard = true
+  -- Make sure this script does not execute twice.
+  SaveGuard = true
 
-    -- Get a random target/contract ID
-    local rLoc = Contracts[math.random(#Contracts)]
-    -- Get all NPCs associated with this ID
-    for k, v in pairs(Contracts) do
-        if v.ID == rLoc.ID then
-            TotalEnemies = TotalEnemies + 1
-            -- Get a random model for this NPC
-            local unhashedmodel = Models[math.random(#Models)]
-            local rModel = GetHashKey(Models[math.random(#Models)])
-            --RequestModel(rModel)
-            --if not HasModelLoaded(rModel) then RequestModel(rModel) end
-            --while not HasModelLoaded(rModel) do Wait(1) end
-            -- Spawn the NPC with a random loadout
-            local rWeapon = Weapons[math.random(#Weapons)]
-            local ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
-            local rawpeds = ped:GetPed()
-            ped:CanBeDamaged(true)
-            ped:CanBeMounted(true)
-            ped:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
-            Wait(50)
-            table.insert(CreateNPC, rawpeds)
-            table.insert(ArrayTargets, rawpeds)
-            table.insert(npcSpawned, rawpeds)
-            Citizen.InvokeNative(0x283978A15512B2FE, rawpeds, true)
-            Wait(100)
-            local unashedblip = 'blip_mp_attack_target'
-            local hashedblip = GetHashKey(unashedblip)
-            BlipAddForEntity(hashedblip, rawpeds)
-            --Citizen.InvokeNative(0x23f74c2fda6e7c61, 639638961, rawpeds)
-            NPCx, NPCy, NPCz = v.x, v.y, v.z
-            GiveWeaponToPed_2(rawpeds, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
-            SetCurrentPedWeapon(rawpeds, rWeapon, true)
-            TaskCombatPed(rawpeds, PlayerPedId())
-            --ArrayTargets[k] = CreateNPC[k]
-        end
-    end
+  -- Get a random target/contract ID
+  local rLoc = Contracts[math.random(#Contracts)]
+  -- Get all NPCs associated with this ID
+  for _, v in pairs(Contracts) do
+      if v.ID == rLoc.ID then
+          TotalEnemies = TotalEnemies + 1
+          -- Get a random model for this NPC
+          local unhashedmodel = Models[math.random(#Models)]
+          local rModel = GetHashKey(Models[math.random(#Models)])
+          local ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
+          local rawpeds = ped:GetPed()
+          ped:CanBeDamaged(true)
+          ped:CanBeMounted(true)
+          local rWeapon = Weapons[math.random(#Weapons)]
+          ped:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
+          Wait(50)
+          table.insert(CreateNPC, rawpeds)
+          table.insert(ArrayTargets, rawpeds)
+          Citizen.InvokeNative(0x283978A15512B2FE, rawpeds, true)
+          local unashedblip = 'blip_mp_attack_target'
+          local hashedblip = GetHashKey(unashedblip)
+          BlipAddForEntity(hashedblip, rawpeds)
+          NPCx, NPCy, NPCz = v.x, v.y, v.z
+          GiveWeaponToPed_2(rawpeds, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
+          SetCurrentPedWeapon(rawpeds, rWeapon, true)
+          TaskCombatPed(rawpeds, PlayerPedId())
+      end
+  end
 
-    Wait(1000)
-    CenterBottomNotify('Your target has been located. Check your map!', 5000)
-    Wait(2000)
-    CenterBottomNotify('We need them dead, not alive! But Dead!', 5000)
-    InMission = true
-    SaveGuard = false
-    while InMission do Wait(1)
-        for k, v in pairs(ArrayTargets) do
+  Wait(1000)
+  CenterBottomNotify('Your target has been located. Check your map!', 5000)
+  Wait(2000)
+  CenterBottomNotify('We need them dead, not alive! But Dead!', 5000)
+  InMission = true
+  SaveGuard = false
 
-            if not GPSToBodyIsSet then
-                GPSToBodyIsSet = true
-                StartGpsMultiRoute(6, true, true)
-                local npcCoords = GetEntityCoords(ArrayTargets[k])
-                AddPointToGpsMultiRoute(npcCoords.x, npcCoords.y, npcCoords.z)
-                SetGpsMultiRouteRender(true)
-            end
+  while InMission do
+      Wait(1)
+      for k, v in pairs(ArrayTargets) do
+          if not GPSToBodyIsSet then
+              GPSToBodyIsSet = true
+              StartGpsMultiRoute(6, true, true)
+              local npcCoords = GetEntityCoords(v)
+              AddPointToGpsMultiRoute(npcCoords.x, npcCoords.y, npcCoords.z)
+              SetGpsMultiRouteRender(true)
+          end
 
-            if IsEntityDead(v) then
-                local eCoords = GetEntityCoords(ArrayTargets[k])
+          if IsEntityDead(v) then
+              local eCoords = GetEntityCoords(v)
+              TotalEnemies = TotalEnemies - 1
+              TotalKilled = TotalKilled + 1
+              ArrayTargets[k] = nil
+              if TotalEnemies == 0 then
+                  SetGpsMultiRouteRender(false)
+                  CenterBottomNotify('You managed to kill all targets', 5000)
+                  SearchingBodies = true
+                  Wait(5000)
+                  CenterBottomNotify('Search the body for evidence to confirm the kill!', 5000)
+                  while SearchingBodies do
+                      Wait(1)
+                      local playerped = PlayerPedId()
+                      local pCoords = GetEntityCoords(playerped)
+                      local dist = GetDistanceBetweenCoords(pCoords, eCoords)
+                      local E = IsControlJustReleased(1, Config.Keys['E'])
 
-                if ArrayTargets[k] ~= nil then
-                    TotalEnemies = TotalEnemies - 1
-                    TotalKilled = TotalKilled + 1
-                    ArrayTargets[k] = nil
-                    if TotalEnemies == 0 then
-                        SetGpsMultiRouteRender(false)
-                        CenterBottomNotify('You managed to kill all targets', 5000)
-                        SearchingBodies = true
-                        Wait(5000)
-                        CenterBottomNotify('Search the body for evidence to confirm the kill!', 5000)
-                        SearchingBodies = true
-                        Wait(5000)
-                        CenterBottomNotify('Search the body for evidence to confirm the kill!', 5000)
-                        while SearchingBodies do
-                            Wait(1)
-                            local playerped = PlayerPedId()
-                            local pCoords = GetEntityCoords(playerped)
-                            local dist = GetDistanceBetweenCoords(pCoords, eCoords)
-                            local E = IsControlJustReleased(1, Config.Keys['E'])
+                      -- If close to killed target pick up evidence and head back.
+                      if dist <= 5 and E then
+                          Wait(2000)
+                          StopMission()
+                          GPStoBoards()
+                          Wait(3000)
+                          CenterBottomNotify('Bring the evidence to the nearest handler!', 5000)
+                          MissionStatus = true
+                          SearchingBodies = false
+                      end
+                  end
+              end
+          end
+      end
 
-                            -- If close to killed target pick up evidence and head back.
-                            if dist <= 5 and E then
-                                Wait(2000)
-                                StopMission()
-                                GPStoBoards()
-                                Wait(3000)
-                                CenterBottomNotify('Bring the evidence to the nearest handler!', 5000)
-                                MissionStatus = true
-                                SearchingBodies = false
-                            end
-                        end
-                    end
-                end
-
-                if IsPlayerDead() then
-                    CenterBottomNotify('You have lost your target!', 4000)
-                    MissionStatus = false
-                    StopMission()
-                    TotalKilled = 0
-                end
-            end
-        end
-    end
+      if IsPlayerDead() then
+          CenterBottomNotify('You have lost your target!', 4000)
+          MissionStatus = false
+          StopMission()
+          TotalKilled = 0
+      end
+  end
 end)
 
 function StopMission()
