@@ -151,8 +151,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         end
       end
     end
-  end)
-end
+  end
+end)
 
   function StopMission()
     InMission = false
