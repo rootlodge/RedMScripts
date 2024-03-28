@@ -150,7 +150,7 @@ AddEventHandler("RootLodge:HitContracts:C:ShowPrompt", function(msg)
   Citizen.InvokeNative(0xE9990552DEC71600)
 end)
 
-HandleNPCSpawning
+HandleNPCSpawning()
 
 -- On reload of resource [DO NOT TOUCH]
 AddEventHandler("onResourceStop", function(resourceName)
@@ -163,10 +163,10 @@ AddEventHandler("onResourceStop", function(resourceName)
   --end
 
   -- remove blips
-  for _, board in ipairs(Config.HandlerLocations) do
-      local blipName = board.City
-      RemoveBlip(blipName)
-  end
+  --for _, board in ipairs(rawbliparray) do
+      --local blipName = board.City
+      --RemoveBlip(blipName)
+  --end
 
   -- Function to delete all spawned NPCs
   function DeleteSpawnedNPCs()
