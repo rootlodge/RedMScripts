@@ -134,9 +134,6 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
           CenterBottomNotify('You have lost your target!', 4000)
           MissionStatus = false
           StopMission()
-          TotalKilled = 0
-          ArrayTargets = {}
-          CreateNPC = {}
         end
       end
     end
@@ -147,9 +144,13 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     MissionStatus = false
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
-    for k, v in pairs(CreateNPC) do DeletePed(v) Wait(500) end
+    for k, v in pairs(ArrayTargets[k]) do DeletePed(v) Wait(500) end
+    for k, v in pairs(CreateNPC[k]) do DeletePed(v) Wait(500) end
     ArrayTargets = {}
     CreateNPC = {}
+    TotalEnemies = 0
+    SearchingBodies = false
+    TotalKilled = 0
   end
 
   function GPStoBoards ()
