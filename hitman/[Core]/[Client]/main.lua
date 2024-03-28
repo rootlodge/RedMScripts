@@ -38,6 +38,8 @@ Citizen.CreateThread(function()
   end
 end)
 
+let InRangetest = true
+
 -- Check player disctance from coords.
 Citizen.CreateThread(function()
   while true do Wait(2000)
@@ -72,7 +74,7 @@ end)
 
 AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
   local ped = PlayerPedId()
-  while InRange do 
+  while InRangetest do 
       Wait(1) -- It's critical to have a short wait to prevent freezing.
       local coords = GetEntityCoords(ped)
       --devdebug(MissionStatus)
