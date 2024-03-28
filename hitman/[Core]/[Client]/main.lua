@@ -80,8 +80,10 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
           if dist <= 4 then
               -- Checks if within 4 meters of the location.
               if MissionStatus then
+                  Wait(10)
                   DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75)
               else
+                  Wait(10)
                   DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
               end
               
@@ -126,6 +128,7 @@ function HandleNPCSpawning()
     --devdebug(v.City, v.model, v.x, v.y, v.z, v.h, v.scenario)
     local ped = VORPutils.Peds:Create(v.model, v.x, v.y, v.z, v.h, 'world', false)
     local rawped = ped:GetPed()
+    Wait(100)
     ped:CanBeDamaged(false)
     ped:CanBeMounted(false)
     Wait(500)
@@ -135,12 +138,15 @@ function HandleNPCSpawning()
     SetEntityVisible(rawped, true)
     ped:ClearTasks()
     TaskStartScenarioAtPosition(rawped, v.scenario, v.x, v.y, v.z, v.h, -1, false)
+    Wait(100)
     ped:Freeze(true)
-    Wait(500)
+    Wait(400)
     SetBlockingOfNonTemporaryEvents(rawped, true)
+    Wait(50)
     local cityName = v.City
     -- Initialize the table for the city if it does not exist
     table.insert(npcSpawned, rawped)
+    Wait(500)
   end
 end
 
