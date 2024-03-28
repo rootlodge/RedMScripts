@@ -120,66 +120,28 @@ end)
 
 local iamalwaystrue = true
 -- Assuming npcSpawned is a table defined somewhere globally to track spawned NPCs
-if not npcSpawned then npcSpawned = {} end
+npcSpawned = {}
 
--- Function to spawn NPC for a given city
-function SpawnNPC(cityName, npcName, locx, locy, locz, locw, scenarioTEXT)
-    if not npcSpawned[cityName] then npcSpawned[cityName] = {} end
-
-    local pedHash = GetHashKey(npcName)
-    RequestModel(pedHash)
-    while not HasModelLoaded(pedHash) do
-        Wait(100)
-    end
-
-    -- Spawn the NPC using whatever method your framework or utilities require
-    local spawnrec = VORPutils.Peds:Create(npcName, locx, locy, locz, locw, 'world', false)
-    if spawnrec then
-        spawnrec:Invincible(true)
-        spawnrec:CanBeDamaged(false)
-        spawnrec:ClearTasks()
-        local rawspawnrec = spawnrec:GetPed()
-        
-        -- Wait a bit after spawning before adjusting properties to ensure they apply
-        Wait(100)
-        Citizen.InvokeNative(0x283978A15512B2FE, rawspawnrec, true) -- SetRandomOutfitVariation
-        SetEntityNoCollisionEntity(PlayerPedId(), rawspawnrec, false)
-        SetEntityVisible(rawspawnrec, true)
-
-        -- Assuming scenarioTEXT is some task you want the NPC to perform
-        -- Ensure this is the correct way to assign tasks in your framework
-        -- TaskStartScenarioAtPosition(rawspawnrec, scenarioTEXT, locx, locy, locz, locw, -1, true)
-
-        -- Tracking NPC as spawned for the given city
-        table.insert(npcSpawned[cityName], rawspawnrec)
-    else
-        print("Failed to create NPC: " .. npcName)
-    end
-
-    -- Unload the model after spawning to keep resources free
-    SetModelAsNoLongerNeeded(pedHash)
-end
-
-
+local c1 = Config.HandlerNPC
 -- Main function to handle NPC spawning
 function HandleNPCSpawning()
-    for k, v in pairs(Config.HandlerLocations) do
-        local locx, locy, locz = v.x, v.y, v.z
-
-        local cityName = v.City
-        if not npcSpawned[cityName] then
-            for cityname, npcData in pairs(Config.HandlerNPC) do
-                if cityname == cityName then
-                    local locw = npcData.Heading or 0.0
-                    local scenarioTEXT = npcData.Scenarios or 'WORLD_HUMAN_SHOPKEEPER'
-                    Wait(200)
-                    SpawnNPC(cityName, npcData.NPC, locx, locy, locz, locw, scenarioTEXT)
-                    Wait(1000)
-                    break -- Exit loop once NPC is spawned for this city
-                end
-            end
-        end
-    end
+  for k, v in pairs(c1) do
+    print(k, v)
+    print(v.City, v.model, v.x, v.y, v.z, v.h, v.scenario)
+    local ped = VORPutils.Peds:Create(c1.model, c1.x, c1.y, c1.z, c1.h, 'world', false)
+    local rawped = ped:GetPed()
+    ped:CanBeDamaged(false)
+    ped:CanBeMounted(false)
+    Wait(500)
+    ped:Invincible(true)
+    ped:ClearTasks()
+    Citizen.InvokeNative(0x283978A15512B2FE, rawped, true) -- SetRandomOutfitVariation
+    Wait(200)
+    SetEntityVisible(rawped, true)
+    -- TaskStartScenarioAtPosition(rawped, c1.scenario, c1.x, c1.y, c1.z, c1.w, -1, true)
+    let cityName = c1.City
+    table.insert(npcSpawned[cityName], rawped)
+  end
 end
 
 
@@ -196,6 +158,7 @@ Citizen.CreateThread(function()
     while true do
         Wait(200)
         HandleNPCSpawning()
+        Wait(300)
     end
 end)
 
@@ -206,8 +169,7 @@ AddEventHandler("onResourceStop", function(resourceName)
   end
 
   for _, ped in ipairs(peds) do
-    spawnrec:Remove()
-    peds:Remove()
+    ped:Remove()
   end
 
   -- remove blips

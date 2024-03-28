@@ -13,11 +13,14 @@ Config.DevMode = true
 Config.CheckForUpdates = true
 
 Config.HandlerLocations = {
-  { City = 'Valentine Handler',    x = -276.86, y = 921.46, z = 128.31},
-  { City = 'Saint Denis Handler', x = -270.1, y = 937.18, z = 131.71},
-  { City = 'Blackwater Handler',   x = -254.71, y = 905.19, z = 127.45},
+  { City = 'Valentine Handler',    x = -276.86, y = 921.46, z = 128.31, h = 320.54, model = 'A_M_M_BlWUpperClass_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
+  { City = 'Saint Denis Handler', x = -270.1, y = 937.18, z = 131.71h, h = 335.46, model = 'A_M_M_BiVFancyTravellers_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
+  { City = 'Blackwater Handler',   x = -254.71, y = 905.19, z = 127.45, h = 86.27, model = 'A_M_M_GriSurvivalist_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
   -- { City = 'New Austin Handler', x = -274.8, y = 805.5, z = 119.3, w = 340.36, h = 340.36},
 }
+
+-- Config.HandlerNPC removed, now part of Config.HandlerLocations
+
 
 Config.Languages = {
   ['en'] = {
@@ -140,28 +143,6 @@ Config.Languages = {
     ['subtitles12'] = '¡Lleve la evidencia al tablero de Hit en Saint Denis!',
   },
   -- Add more languages here
-}
-
-Config.HandlerNPC = {
-  ['Valentine Handler'] = {
-    ['NPC'] = 'A_M_M_BlWUpperClass_01',
-    ['Heading'] = '320.54',
-    ['Scenarios'] = 'WORLD_HUMAN_SHOPKEEPER',
-  },
-  ['Saint Denis Handler'] = {
-    ['NPC'] = 'A_M_M_BiVFancyTravellers_01',
-    ['Heading'] = '335.46',
-    ['Scenarios'] = 'WORLD_HUMAN_SHOPKEEPER',
-  },
-  ['Blackwater Handler'] = {
-    ['NPC'] = 'A_M_M_GriSurvivalist_01',
-    ['Heading'] = '86.27',
-    ['Scenarios'] = 'WORLD_HUMAN_SHOPKEEPER',
-  },
-  -- Add more Handler NPC's here
-  -- ['New Austin Handler'] = {
-  --   ['NPC'] = 'A_M_M_BlWUpperClass_01',
-  -- },
 }
 
 --------------------------------------------------------------------------------
