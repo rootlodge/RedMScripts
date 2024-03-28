@@ -1,13 +1,9 @@
---------------------------------------------------------------------------------
------------------------------------- Bounty ------------------------------------
---------------------------------------------------------------------------------
 function Wait(args) Citizen.Wait(args) end
 
 local VORPutils = {}
 TriggerEvent("getUtils", function(utils)
     VORPutils = utils
 end)
-
 
 local Models = {
   "MP_CHU_ROB_MILLESANI_MALES_01", "mp_dr_u_m_m_MISTAKENBOUNTIES_01", "A_M_M_BynSurvivalist_01", "U_M_O_BlWPoliceChief_01",
@@ -25,12 +21,10 @@ local Weapons = {
   0x95B24592, 0x31B7B9FE, 0x88A855C, 0x1C02870C,
   0x28950C71, 0x6DFA071B
 }
---------------------------------------------------------------------------------
--- Core
---------------------------------------------------------------------------------
+
 RegisterNetEvent('RootLodge:HitContracts:C:SetUpMission')
 RegisterNetEvent('RootLodge:HitContracts:C:ResetTotalKills')
---------------------------------------------------------------------------------
+
 TotalKilled = 0
 local ArrayTargets = {}
 local CreateNPC = {}
@@ -41,54 +35,44 @@ local SearchingBodies = false
 local GPSToBodyIsSet = false
 local SaveGuard = false
 local GPStoSDboardactive = false
-local alwaysfalse = false
-local alwaystrue = true
---------------------------------------------------------------------------------
 
 AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
-  -- Make sure this script does not execute twice.
-  SaveGuard = true
-  
-
-
-  -- Stop the user
-  if alwaysfalse and not alwaystrue then Notify("Something has went terribly wrong. Please contact the server administrator!", 1000) return end
+    -- Make sure this script does not execute twice.
+    SaveGuard = true
 
     -- Get a random target/contract ID
     local rLoc = Contracts[math.random(#Contracts)]
     -- Get all NPCs associated with this ID
     for k, v in pairs(Contracts) do
-      if v.ID == rLoc.ID then
-        TotalEnemies = TotalEnemies + 1
-        -- Get a random model for this NPC
-        local unhashedmodel = Models[math.random(#Models)]
-        local rModel = GetHashKey(Models[math.random(#Models)])
-        RequestModel(rModel)
-        if not HasModelLoaded(rModel) then RequestModel(rModel) end
-        while not HasModelLoaded(rModel) do Wait(1) end
-        -- Spawn the NPC with a random loadout
-        local rWeapon = Weapons[math.random(#Weapons)]
-        ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
-        local rawpeds = ped:GetPed()
-        ped:CanBeDamaged(true)
-        ped:CanBeMounted(true)
-        --lets pedsblipW = GetHashKey('blip_ambient_bounty_hunter')
-        --ped:SetBlip(pedsblipW, 'Person')
-        ped:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
-        ped:SetPedCombatAttributes({
-          {
-            flag = 5, enabled = true
-          }, 5, 1, 1
-        })
-        CreateNPC[k] = rawpeds
-        --Citizen.InvokeNative(0x283978A15512B2FE, CreateNPC[k], true)
-        --Citizen.InvokeNative(0x23f74c2fda6e7c61, 953018525, CreateNPC[k])
-        NPCx, NPCy, NPCz = v.x, v.y, v.z
-        --GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
-        --SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
-        --TaskCombatPed(CreateNPC[k], PlayerPedId())
-        ArrayTargets[k] = CreateNPC[k]
-      end
+        if v.ID == rLoc.ID then
+            TotalEnemies = TotalEnemies + 1
+            -- Get a random model for this NPC
+            local unhashedmodel = Models[math.random(#Models)]
+            local rModel = GetHashKey(Models[math.random(#Models)])
+            RequestModel(rModel)
+            if not HasModelLoaded(rModel) then RequestModel(rModel) end
+            while not HasModelLoaded(rModel) do Wait(1) end
+            -- Spawn the NPC with a random loadout
+            local rWeapon = Weapons[math.random(#Weapons)]
+            ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
+            local rawpeds = ped:GetPed()
+            ped:CanBeDamaged(true)
+            ped:CanBeMounted(true)
+            --lets pedsblipW = GetHashKey('blip_ambient_bounty_hunter')
+            --ped:SetBlip(pedsblipW, 'Person')
+            ped:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
+            ped:SetPedCombatAttributes({
+                { flag = 5, enabled = true }, 5, 1, 1
+            })
+            CreateNPC[k] = rawpeds
+            --Citizen.InvokeNative(0x283978A15512B2FE, CreateNPC[k], true)
+            --Citizen.InvokeNative(0x23f74c2fda6e7c61, 953018525, CreateNPC[k])
+            NPCx, NPCy, NPCz = v.x, v.y, v.z
+            --GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
+            --SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
+            --TaskCombatPed(CreateNPC[k], PlayerPedId())
+            ArrayTargets[k] = CreateNPC[k]
+        end
     end
 
     Wait(1000)
@@ -98,78 +82,81 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     InMission = true
     SaveGuard = false
     while InMission do Wait(1)
-      for k, v in pairs(ArrayTargets) do
+        for k, v in pairs(ArrayTargets) do
 
-        if not GPSToBodyIsSet then
-          GPSToBodyIsSet = true
-          StartGpsMultiRoute(6, true, true)
-          local npcCoords = GetEntityCoords(ArrayTargets[k])
-          AddPointToGpsMultiRoute(npcCoords.x, npcCoords.y, npcCoords.z)
-          SetGpsMultiRouteRender(true)
-        end
-
-        if IsEntityDead(v) then
-          local eCoords = GetEntityCoords(ArrayTargets[k])
-
-          if ArrayTargets[k] ~= nil then
-            TotalEnemies = TotalEnemies - 1
-            TotalKilled = TotalKilled + 1
-            ArrayTargets[k] = nil
-            if TotalEnemies == 0 then
-              SetGpsMultiRouteRender(false)
-              CenterBottomNotify('You managed to kill all targets', 5000)
-              SearchingBodies = true
-              Wait(5000)
-              CenterBottomNotify('Search the body for evidence to confirm the kill!', 5000)
-              while SearchingBodies do Wait(1)
-                local playerped = PlayerPedId()
-                local pCoords = GetEntityCoords(playerped)
-                local dist = GetDistanceBetweenCoords(pCoords, eCoords)
-                local E = IsControlJustReleased(1, Config.Keys['E'])
-
-                -- If close to killed target pick up evidence and head back.
-                if (dist <= 5) and E then
-                  Wait(2000)
-                  StopMission()
-                  GPStoBoards()
-                  Wait(3000)
-                  CenterBottomNotify('Bring the evidence to the nearest handler!', 5000)
-                  MissionStatus = true
-                  SearchingBodies = false
-                end
-              end
+            if not GPSToBodyIsSet then
+                GPSToBodyIsSet = true
+                StartGpsMultiRoute(6, true, true)
+                local npcCoords = GetEntityCoords(ArrayTargets[k])
+                AddPointToGpsMultiRoute(npcCoords.x, npcCoords.y, npcCoords.z)
+                SetGpsMultiRouteRender(true)
             end
-          end
-        end
 
-        if IsPlayerDead() then
-          CenterBottomNotify('You have lost your target!', 4000)
-          MissionStatus = false
-          StopMission()
-          TotalKilled = 0
+            if IsEntityDead(v) then
+                local eCoords = GetEntityCoords(ArrayTargets[k])
+
+                if ArrayTargets[k] ~= nil then
+                    TotalEnemies = TotalEnemies - 1
+                    TotalKilled = TotalKilled + 1
+                    ArrayTargets[k] = nil
+                    if TotalEnemies == 0 then
+                        SetGpsMultiRouteRender(false)
+                        CenterBottomNotify('You managed to kill all targets', 5000)
+                        SearchingBodies = true
+                        Wait(5000)
+                        CenterBottomNotify('Search the body for evidence to confirm the kill!', 5000)
+                        SearchingBodies = true
+                        Wait(5000)
+                        CenterBottomNotify('Search the body for evidence to confirm the kill!', 5000)
+                        while SearchingBodies do
+                            Wait(1)
+                            local playerped = PlayerPedId()
+                            local pCoords = GetEntityCoords(playerped)
+                            local dist = GetDistanceBetweenCoords(pCoords, eCoords)
+                            local E = IsControlJustReleased(1, Config.Keys['E'])
+
+                            -- If close to killed target pick up evidence and head back.
+                            if dist <= 5 and E then
+                                Wait(2000)
+                                StopMission()
+                                GPStoBoards()
+                                Wait(3000)
+                                CenterBottomNotify('Bring the evidence to the nearest handler!', 5000)
+                                MissionStatus = true
+                                SearchingBodies = false
+                            end
+                        end
+                    end
+                end
+
+                if IsPlayerDead() then
+                    CenterBottomNotify('You have lost your target!', 4000)
+                    MissionStatus = false
+                    StopMission()
+                    TotalKilled = 0
+                end
+            end
         end
-      end
     end
-  end
 end)
 
-  function StopMission()
+function StopMission()
     InMission = false
     MissionStatus = false
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
     --for k, v in pairs(CreateNPC) do DeletePed(v) Wait(1000) end
     --table.remove{CreateNPC} table.remove{ArrayTargets}
-  end
+end
 
-  function GPStoBoards ()
+function GPStoBoards()
     bb2 = Config.HandlerLocations[2]
     StartGpsMultiRoute(6, true, true)
     AddPointToGpsMultiRoute(bb2.x, bb2.y, bb2.z)
     SetGpsMultiRouteRender(true)
     GPStoSDboardactive = true
-  end
+end
 
-  AddEventHandler('RootLodge:HitContracts:C:ResetTotalKills', function()
+AddEventHandler('RootLodge:HitContracts:C:ResetTotalKills', function()
     TotalKilled = 0
-  end)
+end)
