@@ -43,8 +43,8 @@ end)
 -- Check player disctance from coords.
 Citizen.CreateThread(function()
   while true do Wait(2000)
-    local ped = PlayerPedId()
-    local coords = GetEntityCoords(ped)
+    local playerped = PlayerPedId()
+    local coords = GetEntityCoords(playerped)
     for k, npc in pairs(NPCHandlerConfig) do
 
       local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, npc.x, npc.y, npc.z)
@@ -73,10 +73,10 @@ end)
 
 
 AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
-  local ped = PlayerPedId()
+  local playerped = PlayerPedId()
   while InRange do 
       Wait(1) -- It's critical to have a short wait to prevent freezing.
-      local coords = GetEntityCoords(ped)
+      local coords = GetEntityCoords(playerped)
       --devdebug(MissionStatus)
 
       for _, v in pairs(Config.HandlerLocations) do

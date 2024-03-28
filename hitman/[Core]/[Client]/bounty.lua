@@ -122,10 +122,9 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
               SearchingBodies = true
               Wait(5000)
               CenterBottomNotify('Search the body for evidence to confirm the kill!', 5000)
-              local ped = PlayerPedId()
               while SearchingBodies do Wait(1)
-                local ped = PlayerPedId()
-                local pCoords = GetEntityCoords(ped)
+                local playerped = PlayerPedId()
+                local pCoords = GetEntityCoords(playerped)
                 local dist = GetDistanceBetweenCoords(pCoords, eCoords)
                 local E = IsControlJustReleased(1, Config.Keys['E'])
 
