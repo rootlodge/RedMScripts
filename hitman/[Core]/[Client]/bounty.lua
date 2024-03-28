@@ -67,12 +67,12 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
           -- Configure ped properties
           Citizen.InvokeNative(0x283978A15512B2FE, rawPed, true)
+          Citizen.InvokeNative(0x23f74c2fda6e7c61, 953018525, CreateNPC[k])
           ped:CanBeDamaged(true)
           ped:CanBeMounted(true)
           GiveWeaponToPed_2(rawPed, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
           SetCurrentPedWeapon(rawPed, rWeapon, true)
           TaskCombatPed(rawPed, PlayerPedId())
-
           -- Add the ped to the array
           ArrayTargets[k] = CreateNPC[k]
       end
