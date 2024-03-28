@@ -67,7 +67,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         local rWeapon = Weapons[math.random(#Weapons)]
         CreateNPC[k] = CreatePed(rModel, v.Coords.x, v.Coords.y, v.Coords.z, true, true, true, true)
         Citizen.InvokeNative(0x283978A15512B2FE, CreateNPC[k], true)
-        Citizen.InvokeNative(0x23f74c2fda6e7c61, 639638961, CreateNPC[k])
+        --Citizen.InvokeNative(0x23f74c2fda6e7c61, 639638961, CreateNPC[k])
+        addBlipForCoords("GROUP OF TARGETS", 1366733613, v.Coords.x, v.Coords.y, v.Coords.z)
         NPCx, NPCy, NPCz = v.x, v.y, v.z
         GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
         SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
