@@ -61,24 +61,18 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
             local rawpeds = ped:GetPed()
             ped:CanBeDamaged(true)
             ped:CanBeMounted(true)
-            --lets pedsblipW = GetHashKey('blip_ambient_bounty_hunter')
-            --ped:SetBlip(pedsblipW, 'Person')
             ped:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
-            ped:SetPedCombatAttributes({
-                { flag = 5, enabled = true }, 5, 1, 1
-            })
-            --CreateNPC[k] = rawpeds
             table.insert(CreateNPC, rawpeds)
             Wait(200)
             table.insert(ArrayTargets, rawpeds)
             Wait(50)
             table.insert(npcSpawned, rawpeds)
-            --Citizen.InvokeNative(0x283978A15512B2FE, CreateNPC[k], true)
-            --Citizen.InvokeNative(0x23f74c2fda6e7c61, 953018525, CreateNPC[k])
+            Citizen.InvokeNative(0x283978A15512B2FE, rawpeds, true)
+            Citizen.InvokeNative(0x23f74c2fda6e7c61, 639638961, rawpeds)
             NPCx, NPCy, NPCz = v.x, v.y, v.z
-            --GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
-            --SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
-            --TaskCombatPed(CreateNPC[k], PlayerPedId())
+            GiveWeaponToPed_2(rawpeds, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
+            SetCurrentPedWeapon(rawpeds, rWeapon, true)
+            TaskCombatPed(rawpeds, PlayerPedId())
             --ArrayTargets[k] = CreateNPC[k]
         end
     end
