@@ -136,6 +136,8 @@ function HandleNPCSpawning()
     ped:ClearTasks()
     TaskStartScenarioAtPosition(rawped, v.scenario, v.x, v.y, v.z, v.h, -1, false)
     ped:Freeze(true)
+    Wait(500)
+    SetBlockingOfNonTemporaryEvents(rawped, true)
     local cityName = v.City
     -- Initialize the table for the city if it does not exist
     table.insert(npcSpawned, rawped)
