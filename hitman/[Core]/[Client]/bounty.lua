@@ -43,7 +43,6 @@ local SaveGuard = false
 local GPStoSDboardactive = false
 local alwaysfalse = false
 local alwaystrue = true
-local peds
 --------------------------------------------------------------------------------
 
 AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
@@ -69,14 +68,14 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         while not HasModelLoaded(rModel) do Wait(1) end
         -- Spawn the NPC with a random loadout
         local rWeapon = Weapons[math.random(#Weapons)]
-        peds = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
-        local rawpeds = peds:GetPed()
-        peds:CanBeDamaged(true)
-        peds:CanBeMounted(true)
+        ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
+        local rawpeds = ped:GetPed()
+        ped:CanBeDamaged(true)
+        ped:CanBeMounted(true)
         --lets pedsblipW = GetHashKey('blip_ambient_bounty_hunter')
-        --peds:SetBlip(pedsblipW, 'Person')
-        peds:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
-        peds:SetPedCombatAttributes({
+        --ped:SetBlip(pedsblipW, 'Person')
+        ped:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
+        ped:SetPedCombatAttributes({
           {
             flag = 5, enabled = true
           }, 5, 1, 1
