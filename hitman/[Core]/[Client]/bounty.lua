@@ -39,38 +39,45 @@ local GPSToBodyIsSet = false
 local SaveGuard = false
 local GPStoSDboardactive = false
 
+--local unashedblip = 'blip_mp_attack_target'
+--local hashedblip = GetHashKey(unashedblip)
+--BlipAddForEntity(hashedblip, rawpeds)
+
 AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   -- Make sure this script does not execute twice.
   SaveGuard = true
-
-  -- Get a random target/contract ID
+  -- Get a random contract
   local rLoc = Contracts[math.random(#Contracts)]
   -- Get all NPCs associated with this ID
   for k, v in pairs(Contracts) do
       if v.ID == rLoc.ID then
           TotalEnemies = TotalEnemies + 1
           -- Get a random model for this NPC
-          local unhashedmodel = Models[math.random(#Models)]
           local rModel = GetHashKey(Models[math.random(#Models)])
-          local ped = VORPutils.Peds:Create(unhashedmodel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
-          local rawpeds = ped:GetPed()
-          CreateNPC[k] = rawpeds
+          RequestModel(rModel)
+          while not HasModelLoaded(rModel) do Wait(1) end
+
+          -- Spawn the NPC with a random loadout
+          local rWeapon = Weapons[math.random(#Weapons)]
+          
+          -- Create the ped using VORPutils
+          local ped = VORPutils.Peds:Create(rModel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', true)
+          local rawPed = ped:GetPed()
+          CreateNPC[k] = rawPed
+
+          -- Configure ped properties
+          Citizen.InvokeNative(0x283978A15512B2FE, rawPed, true)
           ped:CanBeDamaged(true)
           ped:CanBeMounted(true)
-          local rWeapon = Weapons[math.random(#Weapons)]
-          ped:GiveWeapon(rWeapon, 500, true, true, 3, false, true, true)
-          Wait(50)
+          GiveWeaponToPed_2(rawPed, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
+          SetCurrentPedWeapon(rawPed, rWeapon, true)
+          TaskCombatPed(rawPed, PlayerPedId())
+
+          -- Add the ped to the array
           ArrayTargets[k] = CreateNPC[k]
-          Citizen.InvokeNative(0x283978A15512B2FE, rawpeds, true)
-          local unashedblip = 'blip_mp_attack_target'
-          local hashedblip = GetHashKey(unashedblip)
-          BlipAddForEntity(hashedblip, rawpeds)
-          NPCx, NPCy, NPCz = v.x, v.y, v.z
-          GiveWeaponToPed_2(rawpeds, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
-          SetCurrentPedWeapon(rawpeds, rWeapon, true)
-          TaskCombatPed(rawpeds, PlayerPedId())
       end
   end
+
 
   Wait(1000)
   CenterBottomNotify('Your target has been located. Check your map!', 5000)
