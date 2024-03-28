@@ -61,7 +61,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
           local rWeapon = Weapons[math.random(#Weapons)]
           
           -- Create the ped using VORPutils
-          local ped = VORPutils.Peds:Create(rModel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', true)
+          local ped = VORPutils.Peds:Create(rModel, v.Coords.x, v.Coords.y, v.Coords.z, 0, 'world', false)
           local rawPed = ped:GetPed()
           CreateNPC[k] = rawPed
 
