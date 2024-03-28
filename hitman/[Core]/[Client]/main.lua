@@ -28,8 +28,8 @@ RegisterNetEvent('RootLodge:HitContracts:C:ShowPrompt')
 Citizen.CreateThread(function()
   for _, board in ipairs(Config.HandlerLocations) do
       local blipName = board.City
-      local blipHash = GetHashKey("blip_summer_guard") -- Replace with your blip style
-      local blip = VORPutils.Blips:SetBlip(blipName, 'blip_summer_guard', 0.2, board.x, board.y, board.z)
+      local blipHash = GetHashKey("blip_mp_game_vip") -- Replace with your blip style
+      local blip = VORPutils.Blips:SetBlip(blipName, 'blip_mp_game_vip', 0.2, board.x, board.y, board.z)
       local rawblip = blip.rawblip
       table.insert(rawbliparray, rawblip)
   end
