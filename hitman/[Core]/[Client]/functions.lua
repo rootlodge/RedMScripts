@@ -168,3 +168,11 @@ function devdebug(text)
     print(text)
   end
 end
+
+function DrawTexture(textureStreamed,textureName,x, y, width, height,rotation,r, g, b, a, p11)
+  if not HasStreamedTextureDictLoaded(textureStreamed) then
+     RequestStreamedTextureDict(textureStreamed, false);
+  else
+      DrawSprite(textureStreamed, textureName, x, y, width, height, rotation, r, g, b, a, p11);
+  end
+end
