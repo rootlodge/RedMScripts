@@ -14,7 +14,7 @@ Config.CheckForUpdates = true
 
 Config.HandlerLocations = {
   { City = 'Valentine Handler', x = -276.86, y = 921.46, z = 128.31, h = 320.54, model = 'A_M_M_BlWUpperClass_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
-  { City = 'Saint Denis Handler', x = 2706.23, y = -1907.66, z = 47.89, h = 313.7, model = 'A_M_M_BiVFancyTravellers_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
+  { City = 'Saint Denis Handler', x = 2706.27, y = -1097.85, z = 47.89, h = 317.4, model = 'A_M_M_BiVFancyTravellers_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
   { City = 'Blackwater Handler', x = -254.71, y = 905.19, z = 127.45, h = 86.27, model = 'A_M_M_GriSurvivalist_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
   -- { City = 'New Austin Handler', x = -274.8, y = 805.5, z = 119.3, h = 340.36, model = 'A_M_M_GriSurvivalist_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
 }
