@@ -5,7 +5,7 @@ description 'A customizable bounty hunting system for vorp'
 author 'RootLodge Github'
 fx_version "adamant"
 games {"rdr3"}
-version '1.9.1'
+version '1.9.2'
 
 shared_script { 'config.lua', 'static-config.lua' }
 client_scripts { 'config.lua', 'static-config.lua', '[Core]/[Client]/*.lua' }
