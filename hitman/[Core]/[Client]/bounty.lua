@@ -76,6 +76,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         TaskCombatPed(CreateNPC[k], PlayerPedId())
         ArrayTargets[k] = CreateNPC[k]
         table.insert(npcSpawned, CreateNPC[k])
+        TriggerServerEvent('RootLodge:HitContracts:S:DevDebug', 'NPC Spawned' .. CreateNPC[k])
       end
     end
 
