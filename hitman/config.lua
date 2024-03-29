@@ -23,7 +23,7 @@ Config.HandlerLocations = {
   --{ City = 'Saint Denis Handler', x = 2706.23, y = -1907.66, z = 47.89, h = 313.7, model = 'A_M_M_BiVFancyTravellers_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
   --{ City = 'Blackwater Handler', x = -886.24, y = -1084.86, z = 59.32, h = 126.15, model = 'A_M_M_GriSurvivalist_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
   -- { City = 'New Austin Handler', x = -274.8, y = 805.5, z = 119.3, h = 340.36, model = 'A_M_M_GriSurvivalist_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
--}
+--}
 -- Config.HandlerNPC removed, now part of Config.HandlerLocations
 
 
