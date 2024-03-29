@@ -114,8 +114,6 @@ function tipNotification(text, time)
   VORPcore.NotifyTip(text, time)
 end
 
-
-
 function DrawInfo(text, x, y, size)
   local xc = x / 1.0;
   local yc = y / 1.0;
