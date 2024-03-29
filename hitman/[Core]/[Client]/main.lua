@@ -83,7 +83,7 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
                   DrawInfo('Press [ ~e~K~q~ ] to get paid', 0.5, 0.95, 0.75)
               else
                   DrawInfo('Press [ ~e~G~q~ ] to start a contract', 0.5, 0.95, 0.75)
-                  DrawTexture("overhead", "overhead_ambient_hunter", 0.5, 0.5, 0.251, 0.251, 0.0, 0, 0, 0, 240, false);
+                  DrawTexture("hud_textures", "item_money", 0.5, 0.5, 0.251, 0.251, 0.0, 0, 0, 0, 240, false);
               end
               
               -- Initiating the contract.
