@@ -242,6 +242,8 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       local totalAvailableSeats = GetVehicleModelNumberOfSeats(vehicleModel)
       devdebug('Total Seats: ' .. totalSeats)
       devdebug('Total Available Seats: ' .. totalAvailableSeats)
+      --warp companion into vehicle
+      TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
       
       -- Find an available seat for the player
       local seatIndex = FindAvailableSeat(vehicle, vehicleModel)
