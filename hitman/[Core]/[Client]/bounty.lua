@@ -221,11 +221,6 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         local totalavailableseats = GetVehicleModelNumberOfSeats(vehicleModel)
         devdebug('Total Seats: ' .. totalseats)
         SetPedIntoVehicle(companionPed, vehicle, 1)
-        local idealseat = GetSeatPedIsUsing(companionPed)
-        devdebug('Ideal Seat: ' .. idealseat)
-        --get seat player is in
-        local seat = GetSeatPedIsUsing(PlayerPedId())
-        devdebug('Seat: ' .. seat)
         -- TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
     end
     -- Set the companion into the vehicle
