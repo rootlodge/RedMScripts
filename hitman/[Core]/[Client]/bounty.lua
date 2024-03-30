@@ -244,21 +244,21 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       devdebug('Total Available Seats: ' .. totalAvailableSeats)
       --warp companion into vehicle
       TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
-      --TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -2)
+      TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -3)
       -- use this to make the companion drive to a location
       -- use NPCx, NPCy, NPCz for the coordinates
-      TaskVehicleChase(companionPed, ArrayTargets[k])
-      --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
-      --TaskVehicleDriveToCoord(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524564, vehicleModel, 1, 4.0, -1)
+      --TaskVehicleChase(companionPed, ArrayTargets[k])
+      TaskVehicleDriveWander(companionPed, vehicle, 60, 524419)
+      --TaskVehicleDriveToCoord(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524419, vehicleModel, 1, 4.0, -1)
 
-      --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+      --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524419)
       --TaskVehicleChase(companionPed, ArrayTargets[k])
       -- Find an available seat for the player
       --local seatIndex = FindAvailableSeat(vehicle, vehicleModel)
       --if seatIndex >= 0 then
           --TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, seatIndex)
           --devdebug('Player is in seat index: ' .. seatIndex)
-          --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+          --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524419)
           --TaskVehicleChase(companionPed, ArrayTargets[k])
       --else
           --devdebug('No available seats found for the player')
