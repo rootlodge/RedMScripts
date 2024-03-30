@@ -193,77 +193,67 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     end
   end
 
-  AddEventHandler('RootLodge:HitContracts:C:Companion', function()
-    loadcompanion = true
+-- Function to find an available seat for the player
+function FindAvailableSeat(vehicle, vehicleModel)
+  local totalSeats = GetVehicleModelNumberOfSeats(vehicleModel)
+  for i = 0, totalSeats - 1 do
+      if IsVehicleSeatFree(vehicle, i) then
+          return i
+      end
+  end
+  return -1 -- No available seat found
+end
 
-    -- if random = 1 then spawn companion
-    if loadcompanion then
-        local companionModel = GetHashKey(Models[math.random(#Models)])
-        RequestModel(companionModel)
-        while not HasModelLoaded(companionModel) do
-            Wait(1)
-        end
+-- Spawn companion and handle companion actions
+AddEventHandler('RootLodge:HitContracts:C:Companion', function()
+  loadcompanion = true
 
-        -- get player coords
-        local playerqqqqped = PlayerPedId()
-        local playerqqqqCoords = GetEntityCoords(playerqqqqped)
-        companionPed = CreatePed(companionModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 0.0, true, true)
-        Citizen.InvokeNative(0x283978A15512B2FE, companionPed, true)
-        --SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
+  -- if random = 1 then spawn companion
+  if loadcompanion then
+      local companionModel = GetHashKey(Models[math.random(#Models)])
+      RequestModel(companionModel)
+      while not HasModelLoaded(companionModel) do
+          Wait(1)
+      end
 
-        -- Give weapon to the companion
-        local rWeapon = Weapons[math.random(#Weapons)]
-        GiveWeaponToPed_2(companionPed, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
-        SetCurrentPedWeapon(companionPed, rWeapon, true)
-        Wait(50)
-        SetRelationshipBetweenGroups(5, GetPedRelationshipGroupHash(companionPed), GetPedRelationshipGroupHash(playerPed))
-        -- Create a vehicle for the companion
-        local vehicleName = Config.CompanionVehicles[math.random(#Config.CompanionVehicles)]
-        local vehicleModel = GetHashKey(vehicleName)
-        RequestModel(vehicleModel)
-        while not HasModelLoaded(vehicleModel) do
-            Wait(1)
-        end
-        Wait(50)
-        local vehicle = CreateVehicle(vehicleModel, playerqqqqCoords.x + 10, playerqqqqCoords.y, playerqqqqCoords.z, 360.68, true, true)
-        local totalseats = GetVehicleMaxNumberOfPassengers(vehicle)
-        local totalavailableseats = GetVehicleModelNumberOfSeats(vehicleModel)
-        devdebug('Total Seats: ' .. totalseats)
-        devdebug('Total Available Seats: ' .. totalavailableseats)
-        TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
-        SetPedCanBeKnockedOffVehicle(companionPed, 2) -- KNOCKOFFVEHICLE_NEVER
-        --get seat ped is using
-        local pedseatusing = GetSeatPedIsUsing(companionPed)
-        devdebug('Ped Seat Using: ' .. pedseatusing)
-        -- force the player to get into the passenger seat
-        -- if vehicle seat is FREE, then warp the player into the passenger seat
+      -- get player coords
+      local playerqqqqped = PlayerPedId()
+      local playerqqqqCoords = GetEntityCoords(playerqqqqped)
+      companionPed = CreatePed(companionModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 0.0, true, true)
+      Citizen.InvokeNative(0x283978A15512B2FE, companionPed, true)
+      --SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
 
-        -- Variable to keep track of whether the vehicle has started moving
-        local vehicleStartedMoving = false
-
-        Citizen.CreateThread(function()
-            while true do
-                Wait(0)
-                if IsVehicleSeatFree(vehicle, 2) then
-                    TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, 2)
-                    devdebug('Player is in the passenger seat')
-                    devdebug('Companion is in the driver seat')
-                    devdebug('Seat number: ' .. GetSeatPedIsUsing(PlayerPedId()))
-                end
-
-                -- Set the companion to drive the vehicle if the player is in the passenger seat
-                if IsPedInAnyVehicle(PlayerPedId(), false) then
-                    TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
-                    vehicleStartedMoving = true  -- Set the flag to true once the vehicle starts moving
-                else
-                    -- Do something if player is not in the vehicle
-                end
-
-                -- Check if the vehicle has started moving, then exit the thread
-                if vehicleStartedMoving then
-                    return
-                end
-            end
-        end)
-    end
+      -- Give weapon to the companion
+      local rWeapon = Weapons[math.random(#Weapons)]
+      GiveWeaponToPed_2(companionPed, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
+      SetCurrentPedWeapon(companionPed, rWeapon, true)
+      Wait(50)
+      SetRelationshipBetweenGroups(5, GetPedRelationshipGroupHash(companionPed), GetPedRelationshipGroupHash(playerPed))
+      -- Create a vehicle for the companion
+      local vehicleName = Config.CompanionVehicles[math.random(#Config.CompanionVehicles)]
+      local vehicleModel = GetHashKey(vehicleName)
+      RequestModel(vehicleModel)
+      while not HasModelLoaded(vehicleModel) do
+          Wait(1)
+      end
+      Wait(50)
+      local vehicle = CreateVehicle(vehicleModel, playerqqqqCoords.x + 10, playerqqqqCoords.y, playerqqqqCoords.z, 360.68, true, true)
+      local totalSeats = GetVehicleMaxNumberOfPassengers(vehicle)
+      local totalAvailableSeats = GetVehicleModelNumberOfSeats(vehicleModel)
+      devdebug('Total Seats: ' .. totalSeats)
+      devdebug('Total Available Seats: ' .. totalAvailableSeats)
+      
+      -- Find an available seat for the player
+      local seatIndex = FindAvailableSeat(vehicle, vehicleModel)
+      if seatIndex >= 0 then
+          TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, seatIndex)
+          devdebug('Player is in seat index: ' .. seatIndex)
+      else
+          devdebug('No available seats found for the player')
+      end
+      
+      -- Task the companion to drive the vehicle
+      TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+  end
 end)
+
