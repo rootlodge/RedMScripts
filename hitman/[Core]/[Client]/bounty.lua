@@ -238,6 +238,9 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         -- force the player to get into the passenger seat
         -- if vehicle seat is FREE, then warp the player into the passenger seat
 
+        -- Variable to keep track of whether the vehicle has started moving
+        local vehicleStartedMoving = false
+
         Citizen.CreateThread(function()
             while true do
                 Wait(0)
@@ -250,17 +253,17 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
                 -- Set the companion to drive the vehicle if the player is in the passenger seat
                 if IsPedInAnyVehicle(PlayerPedId(), false) then
-                  TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+                    TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+                    vehicleStartedMoving = true  -- Set the flag to true once the vehicle starts moving
                 else
                     -- Do something if player is not in the vehicle
                 end
 
+                -- Check if the vehicle has started moving, then exit the thread
+                if vehicleStartedMoving then
+                    return
+                end
             end
-            -- Set the companion into the vehicle
-            -- TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
-            -- Set the companion to drive the vehicle
-            -- TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
         end)
-
     end
 end)
