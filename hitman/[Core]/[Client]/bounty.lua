@@ -155,8 +155,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     MissionStatus = false
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
-    for k, v in pairs(ArrayTargets[k]) do DeleteEntity(v) Wait(500) end
-    for k, v in pairs(CreateNPC[k]) do DeleteEntity(v) Wait(500) end
+    for k, v in pairs(ArrayTargets[k]) do DeleteEntity(ArrayTargets[k]) Wait(500) end
     devdebug('Mission has been stopped')
     devdebug('Total Enemies: ' .. TotalEnemies)
     devdebug('Total Killed: ' .. TotalKilled) 
