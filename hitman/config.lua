@@ -214,6 +214,23 @@ Config.AIcompanionContracts = {
   {ID = 2,  Coords = { x = 516.53,   y = 621.81,   z = 111.7   }, model = 'A_M_M_BlWUpperClass_01', driver = true},
 }
 
+Config.Assignments = {
+  'SNIPER', 'ASSAULT', 'SUPPORT', 'RECON', 'MEDIC', 'ENGINEER', 'DEMOLITION', 'PILOT', 'DRIVER', 'SCOUT'
+}
+
+Config.AssignmentText = {
+  ['SNIPER'] = 'Please take out the targets from a distance.',
+  ['ASSAULT'] = 'Please take out the targets up close.',
+  ['SUPPORT'] = 'Please provide support to the team.',
+  ['RECON'] = 'Please scout the area and provide intel.',
+  ['MEDIC'] = 'Please provide medical support to the team.',
+  ['ENGINEER'] = 'Please provide technical support to the team.',
+  ['DEMOLITION'] = 'Please provide explosive support to the team.',
+  ['PILOT'] = 'Please provide air support to the team.',
+  ['DRIVER'] = 'Please provide ground support to the team.',
+  ['SCOUT'] = 'Please scout the area and provide intel.'
+}
+
 --------------------------------------------------------------------------------
 -------- Don't touch this!!! It can create a disturbance in the force! ---------
 --------------------------------------------------------------------------------

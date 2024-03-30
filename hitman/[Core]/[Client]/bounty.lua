@@ -201,13 +201,14 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         local playerqqqqCoords = GetEntityCoords(playerqqqqped)
         companionPed = CreatePed(companionModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 0.0, true, true)
         Citizen.InvokeNative(0x283978A15512B2FE, companionPed, true)
-        SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
+        --SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
 
         -- Give weapon to the companion
         local rWeapon = Weapons[math.random(#Weapons)]
         GiveWeaponToPed_2(companionPed, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
         SetCurrentPedWeapon(companionPed, rWeapon, true)
         Wait(50)
+        SetRelationshipBetweenGroups(5, GetPedRelationshipGroupHash(companionPed), GetPedRelationshipGroupHash(playerPed))
         -- Create a vehicle for the companion
         local vehicleName = Config.CompanionVehicles[math.random(#Config.CompanionVehicles)]
         local vehicleModel = GetHashKey(vehicleName)
@@ -221,9 +222,15 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         local totalavailableseats = GetVehicleModelNumberOfSeats(vehicleModel)
         devdebug('Total Seats: ' .. totalseats)
         devdebug('Total Available Seats: ' .. totalavailableseats)
-        --SetPedIntoVehicle(companionPed, vehicle, 1)
         TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
-        -- TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+
+        -- Set the companion to drive the vehicle if the player is in the passenger seat
+        if IsPedInAnyVehicle(PlayerPedId(), false) then
+          TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+        else
+            -- Do something if player is not in the vehicle
+        end
+
     end
     -- Set the companion into the vehicle
     -- TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
