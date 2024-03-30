@@ -220,6 +220,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         local totalseats = GetVehicleMaxNumberOfPassengers(vehicle)
         local totalavailableseats = GetVehicleModelNumberOfSeats(vehicleModel)
         devdebug('Total Seats: ' .. totalseats)
+        devdebug('Total Available Seats: ' .. totalavailableseats)
         SetPedIntoVehicle(companionPed, vehicle, 1)
         -- TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
     end
