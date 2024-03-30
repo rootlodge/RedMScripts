@@ -216,7 +216,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
             Wait(1)
         end
         Wait(50)
-        local vehicle = CreateVehicle(vehicleModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 360.68, true, true)
+        local vehicle = CreateVehicle(vehicleModel, playerqqqqCoords.x + 10, playerqqqqCoords.y, playerqqqqCoords.z, 360.68, true, true)
         local totalseats = GetVehicleMaxNumberOfPassengers(vehicle)
         local totalavailableseats = GetVehicleModelNumberOfSeats(vehicleModel)
         devdebug('Total Seats: ' .. totalseats)
