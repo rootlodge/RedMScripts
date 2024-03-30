@@ -244,18 +244,18 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       devdebug('Total Available Seats: ' .. totalAvailableSeats)
       --warp companion into vehicle
       TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
-      
-      -- Find an available seat for the player
-      local seatIndex = FindAvailableSeat(vehicle, vehicleModel)
-      if seatIndex >= 0 then
-          TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, seatIndex)
-          devdebug('Player is in seat index: ' .. seatIndex)
-      else
-          devdebug('No available seats found for the player')
-      end
-      
-      -- Task the companion to drive the vehicle
+      TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -5)
       TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+      -- Find an available seat for the player
+      --local seatIndex = FindAvailableSeat(vehicle, vehicleModel)
+      --if seatIndex >= 0 then
+          --TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, seatIndex)
+          --devdebug('Player is in seat index: ' .. seatIndex)
+          --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+          --TaskVehicleChase(companionPed, ArrayTargets[k])
+      --else
+          --devdebug('No available seats found for the player')
+      --end
   end
 end)
 
