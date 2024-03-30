@@ -137,12 +137,26 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         RequestModel(companionModel)
         if not HasModelLoaded(companionModel) then RequestModel(companionModel) end
         while not HasModelLoaded(companionModel) do Wait(1) end
-        companionPed = CreatePed(companionModel, companionrLoc.x, companionrLoc.y, companionrLoc.z, true, true, true, true)
+        -- get player coords
+        local playerqqqqped = PlayerPedId()
+        local playerqqqqCoords = GetEntityCoords(playerqqqqped)
+        companionPed = CreatePed(companionModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, true, true, true, true)
         Citizen.InvokeNative(0x283978A15512B2FE, companionPed, true)
+        SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
         --Citizen.InvokeNative(0x23f74c2fda6e7c61, 639638961, companionPed)
         GiveWeaponToPed_2(companionPed, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
         SetCurrentPedWeapon(companionPed, rWeapon, true)
-        TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
+
+        -- Create a vehicle for the companion
+        local vehicleName = Config.CompanionVehicles[math.random(#Config.CompanionVehicles)]
+        local vehicleModel = GetHashKey(vehicleName)
+        RequestModel(vehicleModel)
+        while not HasModelLoaded(vehicleModel) do Wait(1) end
+        local vehicle = CreateVehicle(vehicleModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 0.0, true, true)
+        local totalseats = GetVehicleMaxNumberOfPassengers(vehicle)
+        devdebug('Total Seats: ' .. totalseats)
+        SetPedIntoVehicle(companionPed, vehicle, -1)
+
         --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
       end
       -- Set the companion into the vehicle
