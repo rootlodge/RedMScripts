@@ -222,11 +222,8 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       --companionPed = CreatePed(companionModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 0.0, true, true)
       --Citizen.InvokeNative(0x283978A15512B2FE, companionPed, true) -- SetRandomOutfitVariation
       --SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
-
-      local companionPed = CreatePedInsideVehicle(vehicle, companionModel, -1, true, true)
-
       -- Give weapon to the companion
-      local rWeapon = Weapons[math.random(#Weapons)]
+      --local rWeapon = Weapons[math.random(#Weapons)]
       --GiveWeaponToPed_2(companionPed, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
       --SetCurrentPedWeapon(companionPed, rWeapon, true)
       Wait(50)
@@ -242,10 +239,11 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       local vehicle = CreateVehicle(vehicleModel, playerqqqqCoords.x + 10, playerqqqqCoords.y, playerqqqqCoords.z, 360.68, true, true)
       local totalSeats = GetVehicleMaxNumberOfPassengers(vehicle)
       local totalAvailableSeats = GetVehicleModelNumberOfSeats(vehicleModel)
+      local companionPed = CreatePedInsideVehicle(vehicle, companionModel, -1, true, false)
       devdebug('Total Seats: ' .. totalSeats)
       devdebug('Total Available Seats: ' .. totalAvailableSeats)
       --warp companion into vehicle
-      TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -3)
+      TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, 1)
       -- use this to make the companion drive to a location
       -- use NPCx, NPCy, NPCz for the coordinates
       --TaskVehicleChase(companionPed, ArrayTargets[k])
