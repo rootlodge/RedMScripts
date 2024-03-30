@@ -220,7 +220,7 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       local playerqqqqped = PlayerPedId()
       local playerqqqqCoords = GetEntityCoords(playerqqqqped)
       companionPed = CreatePed(companionModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 0.0, true, true)
-      Citizen.InvokeNative(0x283978A15512B2FE, companionPed, true)
+      Citizen.InvokeNative(0x283978A15512B2FE, companionPed, true) -- SetRandomOutfitVariation
       --SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
 
       -- Give weapon to the companion
