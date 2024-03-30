@@ -41,6 +41,7 @@ local GPStoSDboardactive = false
 hashedenemyblipglobal = nil
 nameLocation = nil
 companionPed = nil
+local loadcompanion = true
 --local unashedblip = 'blip_mp_attack_target'
 --local hashedblip = GetHashKey(unashedblip)
 --BlipAddForEntity(hashedblip, rawpeds)
@@ -131,7 +132,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     while InMission do Wait(1)
 
       -- if random =1 then spawn companion
-      if random == 1 then
+      if loadcompanion then
         local companionModel = GetHashKey(Models[math.random(#Models)])
         RequestModel(companionModel)
         if not HasModelLoaded(companionModel) then RequestModel(companionModel) end
