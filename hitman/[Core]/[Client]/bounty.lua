@@ -14,8 +14,6 @@ local Models = {
   "CS_NbxPoliceChiefFormal", "G_M_O_UniExConfeds_01", "S_M_M_Army_01", "RE_WEALTHYCOUPLE_MALES_01"
 }
 
-local Wagons = {}
-
 local Weapons = {
   0x772C8DD6, 0x169F59F7, 0xDB21AC8C, 0x6DFA071B,
   0xF5175BA1, 0xD2718D48, 0x797FBF5, 0x772C8DD6,
@@ -27,6 +25,7 @@ local Weapons = {
 
 RegisterNetEvent('RootLodge:HitContracts:C:SetUpMission')
 RegisterNetEvent('RootLodge:HitContracts:C:ResetTotalKills')
+RegisterNetEvent('RootLodge:Hitcontracts:C:Companion')
 
 TotalKilled = 0
 local ArrayTargets = {}
@@ -64,40 +63,6 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
     -- Get all NPCs associated with this ID
     for k, v in pairs(Contracts) do
-      --if random is 2, then return and stop this section
-      if random == 2 then
-        return
-      end
-      if v.ID == rLoc.ID then
-        TotalEnemies = TotalEnemies + 1
-        -- Get a random model for this NPC
-        local rModel = GetHashKey(Models[math.random(#Models)])
-        RequestModel(rModel)
-        if not HasModelLoaded(rModel) then RequestModel(rModel) end
-        while not HasModelLoaded(rModel) do Wait(1) end
-        -- Spawn the NPC with a random loadout
-        local rWeapon = Weapons[math.random(#Weapons)]
-        CreateNPC[k] = CreatePed(rModel, v.Coords.x, v.Coords.y, v.Coords.z, true, true, true, true)
-        Citizen.InvokeNative(0x283978A15512B2FE, CreateNPC[k], true)
-        --Citizen.InvokeNative(0x23f74c2fda6e7c61, 639638961, CreateNPC[k])
-        --addBlipForCoords("GROUP OF TARGETS", 1366733613, v.Coords.x, v.Coords.y, v.Coords.z)
-        hashedenemyblipglobal = GetHashKey("blip_ambient_marked_for_death")
-        addBlipForCoords("Contract Target",GetHashKey("blip_ambient_marked_for_death"),{v.Coords.x,v.Coords.y,v.Coords.z})
-        NPCx, NPCy, NPCz = v.x, v.y, v.z
-        GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
-        SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
-        TaskCombatPed(CreateNPC[k], PlayerPedId())
-        ArrayTargets[k] = CreateNPC[k]
-        table.insert(npcSpawned, CreateNPC[k])
-        TriggerServerEvent('RootLodge:HitContracts:S:DevDebug', 'NPC Spawned' .. CreateNPC[k])
-      end
-    end
-
-    for k, v in pairs(Config.AIcompanionContracts) do
-      --if random is 2, then return and stop this section
-      if random == 1 then
-        return
-      end
       if v.ID == rLoc.ID then
         TotalEnemies = TotalEnemies + 1
         -- Get a random model for this NPC
@@ -127,43 +92,10 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     CenterBottomNotify('Your target has been located. Check your map!', 5000)
     Wait(2000)
     CenterBottomNotify('We need them dead, not alive! But Dead!', 5000)
+    TriggerClientEvent('RootLodge:HitContracts:C:Companion')
     InMission = true
     SaveGuard = false
     while InMission do Wait(1)
-
-      -- if random =1 then spawn companion
-      if loadcompanion then
-        local companionModel = GetHashKey(Models[math.random(#Models)])
-        RequestModel(companionModel)
-        if not HasModelLoaded(companionModel) then RequestModel(companionModel) end
-        while not HasModelLoaded(companionModel) do Wait(1) end
-        -- get player coords
-        local playerqqqqped = PlayerPedId()
-        local playerqqqqCoords = GetEntityCoords(playerqqqqped)
-        companionPed = CreatePed(companionModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, true, true, true, true)
-        Citizen.InvokeNative(0x283978A15512B2FE, companionPed, true)
-        SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
-        --Citizen.InvokeNative(0x23f74c2fda6e7c61, 639638961, companionPed)
-        GiveWeaponToPed_2(companionPed, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
-        SetCurrentPedWeapon(companionPed, rWeapon, true)
-
-        -- Create a vehicle for the companion
-        local vehicleName = Config.CompanionVehicles[math.random(#Config.CompanionVehicles)]
-        local vehicleModel = GetHashKey(vehicleName)
-        RequestModel(vehicleModel)
-        while not HasModelLoaded(vehicleModel) do Wait(1) end
-        local vehicle = CreateVehicle(vehicleModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 0.0, true, true)
-        local totalseats = GetVehicleMaxNumberOfPassengers(vehicle)
-        devdebug('Total Seats: ' .. totalseats)
-        SetPedIntoVehicle(companionPed, vehicle, -1)
-
-        --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
-      end
-      -- Set the companion into the vehicle
-      --TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
-      -- Set the companion to drive the vehicle
-      --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
-      
       for k, v in pairs(ArrayTargets) do
 
         if not GPSToBodyIsSet then
@@ -252,3 +184,48 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   AddEventHandler('RootLodge:HitContracts:C:ResetTotalKills', function()
     TotalKilled = 0
   end)
+
+  AddEventHandler('RootLodge:HitContracts:C:Companion', function()
+    loadcompanion = true
+
+    -- if random = 1 then spawn companion
+    if loadcompanion then
+        local companionModel = GetHashKey(Models[math.random(#Models)])
+        RequestModel(companionModel)
+        while not HasModelLoaded(companionModel) do
+            Wait(1)
+        end
+
+        -- get player coords
+        local playerqqqqped = PlayerPedId()
+        local playerqqqqCoords = GetEntityCoords(playerqqqqped)
+        companionPed = CreatePed(companionModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 0.0, true, true)
+        Citizen.InvokeNative(0x283978A15512B2FE, companionPed, true)
+        SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
+
+        -- Give weapon to the companion
+        local rWeapon = Weapons[math.random(#Weapons)]
+        GiveWeaponToPed_2(companionPed, rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
+        SetCurrentPedWeapon(companionPed, rWeapon, true)
+        Wait(50)
+        -- Create a vehicle for the companion
+        local vehicleName = Config.CompanionVehicles[math.random(#Config.CompanionVehicles)]
+        local vehicleModel = GetHashKey(vehicleName)
+        RequestModel(vehicleModel)
+        while not HasModelLoaded(vehicleModel) do
+            Wait(1)
+        end
+        Wait(50)
+        local vehicle = CreateVehicle(vehicleModel, playerqqqqCoords.x, playerqqqqCoords.y, playerqqqqCoords.z, 360.68, true, true)
+        local totalseats = GetVehicleMaxNumberOfPassengers(vehicle)
+        local totalavailableseats = GetVehicleModelNumberOfSeats(vehicleModel)
+        devdebug('Total Seats: ' .. totalseats)
+        SetPedIntoVehicle(companionPed, vehicle, -1)
+
+        -- TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+    end
+    -- Set the companion into the vehicle
+    -- TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
+    -- Set the companion to drive the vehicle
+    -- TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+end)
