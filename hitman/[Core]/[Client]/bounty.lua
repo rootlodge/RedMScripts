@@ -92,7 +92,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     CenterBottomNotify('Your target has been located. Check your map!', 5000)
     Wait(2000)
     CenterBottomNotify('We need them dead, not alive! But Dead!', 5000)
-    TriggerClientEvent('RootLodge:HitContracts:C:Companion')
+    TriggerEvent('RootLodge:HitContracts:C:Companion')
     InMission = true
     SaveGuard = false
     while InMission do Wait(1)
