@@ -204,7 +204,7 @@ Contracts = {
 --   }
 
 Config.CompanionVehicles = {
-  'chuckwagon000x', 'cart06', 'cart08', 'coach2'
+  'chuckwagon000x', 'coach2'
 }
 
 Config.AIcompanionContracts = {
