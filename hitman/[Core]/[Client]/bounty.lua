@@ -240,15 +240,15 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       local totalSeats = GetVehicleMaxNumberOfPassengers(vehicle)
       local totalAvailableSeats = GetVehicleModelNumberOfSeats(vehicleModel)
       local companionPed = CreatePedInsideVehicle(vehicle, companionModel, -1, true, false)
+      SetEntityAsMissionEntity(companionPed, true, true)
       devdebug('Total Seats: ' .. totalSeats)
       devdebug('Total Available Seats: ' .. totalAvailableSeats)
       --warp companion into vehicle
       TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, 1)
       -- use this to make the companion drive to a location
       -- use NPCx, NPCy, NPCz for the coordinates
-      TaskVehicleChase(companionPed, ArrayTargets[k])
       --TaskVehicleDriveWander(companionPed, vehicle, 60, 524419)
-      --TaskVehicleDriveToCoord(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524419, vehicleModel, 1, 4.0, -1)
+      TaskVehicleDriveToCoord(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524419, vehicleModel, 1, 4.0, -1)
 
       --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524419)
       --TaskVehicleChase(companionPed, ArrayTargets[k])
