@@ -247,7 +247,9 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       --TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -2)
       -- use this to make the companion drive to a location
       -- use NPCx, NPCy, NPCz for the coordinates
-      TaskVehicleDriveToCoord(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524564, vehicleModel, 1, 4.0, -1)
+      TaskVehicleChase(companionPed, ArrayTargets[k])
+      --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+      --TaskVehicleDriveToCoord(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524564, vehicleModel, 1, 4.0, -1)
 
       --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
       --TaskVehicleChase(companionPed, ArrayTargets[k])
