@@ -61,6 +61,7 @@ AddEventHandler('RootLodge:HitContracts:S:CheckCharacter', function()
 end)
 
 
+
 print("Hitman Script has been loaded!")
 print("Made by RootLodge")
 print("https://rootlodge.com")

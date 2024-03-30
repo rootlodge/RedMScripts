@@ -11,6 +11,7 @@ Config = {}
 Config.locale = 'en'
 Config.DevMode = true
 Config.CheckForUpdates = true
+Config.AIcompanionBlip = true
 
 Config.HandlerLocations = {
   { City = 'Valentine Handler', x = -276.86, y = 921.46, z = 128.31, h = 320.54, model = 'A_M_M_BlWUpperClass_01', scenario = 'WORLD_HUMAN_SHOPKEEPER'},
@@ -150,7 +151,7 @@ Config.Languages = {
 -- ID 1 will be selected for the mission. The more enties
 -- on the same ID, there more you have to kill per mission.
 --------------------------------------------------------------------------------
-Contracts  = {
+Contracts = {
   {ID = 1,  Coords = { x = -30.77,   y = 1226.8,   z = 172.92  }},
   {ID = 1,  Coords = { x = -33.77,   y = 1229.8,   z = 172.92  }},
   {ID = 2,  Coords = { x = 489.53,   y = 619.81,   z = 111.7   }},
@@ -195,6 +196,22 @@ Contracts  = {
   {ID = 20, Coords = { x = 1178.78,  y = 430.47,   z = 92.78   }},
   {ID = 21, Coords = { x = 769.29,   y = 874.3,    z = 120.95  }},
   {ID = 21, Coords = { x = 776.87,   y = 850.21,   z = 118.9   }}
+}
+
+-- Config.EnemyGetAwayHorses = {
+--   {ID = 1,  Coords = { x = -30.77,   y = 1226.8,   z = 172.92  }},
+--   {ID = 1,  Coords = { x = -33.77,   y = 1229.8,   z = 172.92  }},
+--   }
+
+Config.CompanionVehicles = {
+  'chuckwagon000x', 'cart06', 'cart08', 'coach2'
+}
+
+Config.AIcompanionContracts = {
+  {ID = 1,  Coords = { x = -30.77,   y = 1226.8,   z = 172.92  }, model = 'A_M_M_BlWUpperClass_01', driver = true},
+  {ID = 1,  Coords = { x = -33.77,   y = 1229.8,   z = 172.92  }, model = 'A_M_M_BlWUpperClass_01', driver = true},
+  {ID = 2,  Coords = { x = 489.53,   y = 619.81,   z = 111.7   }, model = 'A_M_M_BlWUpperClass_01', driver = true},
+  {ID = 2,  Coords = { x = 516.53,   y = 621.81,   z = 111.7   }, model = 'A_M_M_BlWUpperClass_01', driver = true},
 }
 
 --------------------------------------------------------------------------------

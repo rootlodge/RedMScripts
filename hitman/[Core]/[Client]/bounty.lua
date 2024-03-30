@@ -40,6 +40,7 @@ local SaveGuard = false
 local GPStoSDboardactive = false
 hashedenemyblipglobal = nil
 nameLocation = nil
+companionPed = nil
 --local unashedblip = 'blip_mp_attack_target'
 --local hashedblip = GetHashKey(unashedblip)
 --BlipAddForEntity(hashedblip, rawpeds)
@@ -54,9 +55,48 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
   if alwaysfalse and not alwaystrue then Notify("Something has went terribly wrong. Please contact the server administrator!", 1000) return end
 
     -- Get a random target/contract ID
+    local companionrLoc = Config.AIcompanionContracts[math.random(#Config.AIcompanionContracts)]
     local rLoc = Contracts[math.random(#Contracts)]
+
+    -- get a random number to choose between regualr contract or companion contract
+    local random = math.random(1, 2)
+
     -- Get all NPCs associated with this ID
     for k, v in pairs(Contracts) do
+      --if random is 2, then return and stop this section
+      if random == 2 then
+        return
+      end
+      if v.ID == rLoc.ID then
+        TotalEnemies = TotalEnemies + 1
+        -- Get a random model for this NPC
+        local rModel = GetHashKey(Models[math.random(#Models)])
+        RequestModel(rModel)
+        if not HasModelLoaded(rModel) then RequestModel(rModel) end
+        while not HasModelLoaded(rModel) do Wait(1) end
+        -- Spawn the NPC with a random loadout
+        local rWeapon = Weapons[math.random(#Weapons)]
+        CreateNPC[k] = CreatePed(rModel, v.Coords.x, v.Coords.y, v.Coords.z, true, true, true, true)
+        Citizen.InvokeNative(0x283978A15512B2FE, CreateNPC[k], true)
+        --Citizen.InvokeNative(0x23f74c2fda6e7c61, 639638961, CreateNPC[k])
+        --addBlipForCoords("GROUP OF TARGETS", 1366733613, v.Coords.x, v.Coords.y, v.Coords.z)
+        hashedenemyblipglobal = GetHashKey("blip_ambient_marked_for_death")
+        addBlipForCoords("Contract Target",GetHashKey("blip_ambient_marked_for_death"),{v.Coords.x,v.Coords.y,v.Coords.z})
+        NPCx, NPCy, NPCz = v.x, v.y, v.z
+        GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
+        SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
+        TaskCombatPed(CreateNPC[k], PlayerPedId())
+        ArrayTargets[k] = CreateNPC[k]
+        table.insert(npcSpawned, CreateNPC[k])
+        TriggerServerEvent('RootLodge:HitContracts:S:DevDebug', 'NPC Spawned' .. CreateNPC[k])
+      end
+    end
+
+    for k, v in pairs(Config.AIcompanionContracts) do
+      --if random is 2, then return and stop this section
+      if random == 1 then
+        return
+      end
       if v.ID == rLoc.ID then
         TotalEnemies = TotalEnemies + 1
         -- Get a random model for this NPC
@@ -89,6 +129,49 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     InMission = true
     SaveGuard = false
     while InMission do Wait(1)
+      -- AI Companion Logic + Driver Logic
+      local companionModel = GetHashKey(Models[math.random(#Models)])
+      RequestModel(companionModel)
+      while not HasModelLoaded(companionModel) do Wait(1) end
+      -- GET PLAYER COORDS
+      local playerCoords = GetEntityCoords(PlayerPedId())
+      -- set the companion to the player coords
+      companionPed = CreatePed(companionModel, playerCoords.x, playerCoords.y, playerCoords.z, true, true, true, true)
+      -- set the companion as a group member
+      SetPedAsGroupMember(companionPed, GetPedGroupIndex(PlayerPedId()))
+      -- Get random vehicle name from Config.CompanionVehicles
+      local vehicleName = Config.CompanionVehicles[math.random(#Config.CompanionVehicles)]
+      -- Create a vehicle for the companion
+      local vehicleModel = GetHashKey(vehicleName)
+      RequestModel(vehicleModel)
+      while not HasModelLoaded(vehicleModel) do Wait(1) end
+      -- Get the vehicle spawn coords
+      local vehicleCoords = GetOffsetFromEntityInWorldCoords(companionPed, 0.0, 2.0, 0.0)
+      devdebug('Vehicle Coords: ' .. vehicleCoords)
+      -- Create the vehicle
+      local vehicle = CreateVehicle(vehicleModel, vehicleCoords.x, vehicleCoords.y, vehicleCoords.z, GetEntityHeading(companionPed), true, false)
+      Wait(500)
+      CenterBottomNotify('Your companion has arrived and is ready to drive!', 5000)
+      CenterBottomNotify('Your companion is ready to drive!', 5000)
+      CenterBottomNotify('Please get into the passenger seat!', 5000)
+      -- check if the player is in the vehicle
+      while not IsPedInVehicle(PlayerPedId(), vehicle, false) do Wait(1)
+        -- check if the player is in the vehicle
+        -- set ped into vehicle using task
+        TaskEnterVehicle(companionPed, vehicle, -1, 0, 1.0, 1, 0)
+        if IsPedInVehicle(PlayerPedId(), vehicle, false) then
+          CenterBottomNotify('You are now in the passenger seat!', 5000)
+          CenterBottomNotify('Your companion is now driving!', 5000)
+          TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+        end
+      end
+
+
+      -- Set the companion into the vehicle
+      --TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
+      -- Set the companion to drive the vehicle
+      --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
+      
       for k, v in pairs(ArrayTargets) do
 
         if not GPSToBodyIsSet then
