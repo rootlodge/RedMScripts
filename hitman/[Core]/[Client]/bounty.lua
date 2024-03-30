@@ -39,6 +39,7 @@ local GPSToBodyIsSet = false
 local SaveGuard = false
 local GPStoSDboardactive = false
 hashedenemyblipglobal = nil
+nameLocation = nil
 --local unashedblip = 'blip_mp_attack_target'
 --local hashedblip = GetHashKey(unashedblip)
 --BlipAddForEntity(hashedblip, rawpeds)
@@ -97,6 +98,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
           AddPointToGpsMultiRoute(npcCoords.x, npcCoords.y, npcCoords.z)
           SetGpsMultiRouteRender(true)
         end
+
+        topNotification('Contract Target', '~e~AMBUSH YOUR TARGET', 50000)
 
         if IsEntityDead(v) then
           local eCoords = GetEntityCoords(ArrayTargets[k])
