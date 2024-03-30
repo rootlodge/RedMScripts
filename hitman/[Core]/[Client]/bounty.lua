@@ -245,7 +245,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
                     TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, 2)
                     devdebug('Player is in the passenger seat')
                     devdebug('Companion is in the driver seat')
-                    devdebug('Seat number: ' .. GetSeatPedIsUsing(PlayerPedId())
+                    devdebug('Seat number: ' .. GetSeatPedIsUsing(PlayerPedId()))
                 end
 
                 -- Set the companion to drive the vehicle if the player is in the passenger seat
