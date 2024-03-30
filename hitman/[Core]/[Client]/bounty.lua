@@ -99,8 +99,6 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
           SetGpsMultiRouteRender(true)
         end
 
-        topNotification('Contract Target', '~e~AMBUSH YOUR TARGET', 50000)
-
         if IsEntityDead(v) then
           local eCoords = GetEntityCoords(ArrayTargets[k])
 
