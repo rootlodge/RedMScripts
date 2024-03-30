@@ -244,9 +244,13 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       devdebug('Total Available Seats: ' .. totalAvailableSeats)
       --warp companion into vehicle
       TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
-      TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -2)
+      --TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -2)
+      -- use this to make the companion drive to a location
+      -- use NPCx, NPCy, NPCz for the coordinates
+      TaskVehicleDriveToCoord(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524564, vehicleModel, 1, 4.0, -1)
+
       --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524564)
-      TaskVehicleChase(companionPed, ArrayTargets[k])
+      --TaskVehicleChase(companionPed, ArrayTargets[k])
       -- Find an available seat for the player
       --local seatIndex = FindAvailableSeat(vehicle, vehicleModel)
       --if seatIndex >= 0 then
