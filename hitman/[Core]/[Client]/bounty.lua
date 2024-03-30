@@ -232,14 +232,20 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         devdebug('Total Available Seats: ' .. totalavailableseats)
         TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
         SetPedCanBeKnockedOffVehicle(companionPed, 2) -- KNOCKOFFVEHICLE_NEVER
+        --get seat ped is using
+        local pedseatusing = GetSeatPedIsUsing(companionPed)
+        devdebug('Ped Seat Using: ' .. pedseatusing)
         -- force the player to get into the passenger seat
         -- if vehicle seat is FREE, then warp the player into the passenger seat
 
         Citizen.CreateThread(function()
             while true do
                 Wait(0)
-                if IsVehicleSeatFree(vehicle, -1) then
-                    TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -1)
+                if IsVehicleSeatFree(vehicle, 2) then
+                    TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, 2)
+                    devdebug('Player is in the passenger seat')
+                    devdebug('Companion is in the driver seat')
+                    devdebug('Seat number: ' .. GetSeatPedIsUsing(PlayerPedId())
                 end
 
                 -- Set the companion to drive the vehicle if the player is in the passenger seat
