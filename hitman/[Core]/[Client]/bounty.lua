@@ -185,6 +185,14 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     TotalKilled = 0
   end)
 
+  -- Function to disable the player's ability to push other peds
+  function DisablePlayerPedPushing()
+    while true do
+        Citizen.Wait(0)
+        SetPedCanBeKnockedOffVehicle(PlayerPedId(), false)
+    end
+  end
+
   AddEventHandler('RootLodge:HitContracts:C:Companion', function()
     loadcompanion = true
 
@@ -223,6 +231,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         devdebug('Total Seats: ' .. totalseats)
         devdebug('Total Available Seats: ' .. totalavailableseats)
         TaskWarpPedIntoVehicle(companionPed, vehicle, -1)
+        SetPedCanBeKnockedOffVehicle(companionPed, 1) -- KNOCKOFFVEHICLE_NEVER
 
         -- Set the companion to drive the vehicle if the player is in the passenger seat
         if IsPedInAnyVehicle(PlayerPedId(), false) then
