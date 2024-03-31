@@ -133,7 +133,7 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
           end
         end
 
-        if IsPlayerDead() then
+        if IsPlayerDead(PlayerPedId()) then
           CenterBottomNotify('You have lost your target!', 4000)
           StopMission()
           Wait(50)
