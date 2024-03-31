@@ -155,7 +155,6 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
   function StopMission()
     InMission = false
-    ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
     devdebug('Mission has been stopped')
     devdebug('Total Enemies: ' .. TotalEnemies)
