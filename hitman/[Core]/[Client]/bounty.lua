@@ -240,7 +240,8 @@ AddEventHandler('RootLodge:HitContracts:C:Companion', function()
       -- use this to make the companion drive to a location
       -- use NPCx, NPCy, NPCz for the coordinates
       --TaskVehicleDriveWander(companionPed, vehicle, 60, 524419)
-      TaskVehicleDriveToCoord(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524419, vehicleModel, 1, 4.0, -1)
+      --TaskVehicleDriveToCoord(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524419, vehicleModel, 1, 4.0, -1)
+      TaskVehicleDriveToDestination(companionPed, vehicle, NPCx, NPCy, NPCz, 100.0, 524675, 6, NPCx, 4.0, false)
 
       --TaskVehicleDriveWander(companionPed, vehicle, 100.0, 524419)
       --TaskVehicleChase(companionPed, ArrayTargets[k])
