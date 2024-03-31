@@ -92,6 +92,8 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
                   TriggerServerEvent('RootLodge:HitContracts:S:CheckCharacter')
                   simpleTopNotification('Contract Initiated', 'Proceed to targets urgently', 10000)
                   Wait(2000)
+                  -- server debug message that the player has started a contract.
+                  TriggerServerEvent('RootLodge:HitContracts:S:DevDebug', "Player has started a contract.")
                   break -- Exit the loop to avoid multiple triggers.
               end
 

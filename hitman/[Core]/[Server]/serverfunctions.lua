@@ -1,7 +1,7 @@
 -- Server functions 
 
 function devserverdebug(text)
-    if Config.Debug then
+    if Config.DevMode then
         print('^1[Hitman Contracts] ^7' .. text)
     end
 end
@@ -20,7 +20,7 @@ RegisterServerEvent('RootLodge:HitContracts:S:DevDebug')
 --------------------------------------------------------------------------------
 
 AddEventHandler('RootLodge:HitContracts:S:DevDebug', function(text)
-    if Config.Debug then
+    if Config.DevMode then
         print('^1[Hitman Contracts] ^7' .. text)
     end
 end)
