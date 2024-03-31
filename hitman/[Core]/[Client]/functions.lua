@@ -220,6 +220,7 @@ function ClearActiveGPS()
 end
 
 function ResetScriptEntirely()
+  StopMission()
   DeleteBlipArray()
   DeleteSpawnedNPCs()
   ClearActiveGPS()

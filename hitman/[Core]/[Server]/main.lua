@@ -60,12 +60,9 @@ AddEventHandler('RootLodge:HitContracts:S:CheckCharacter', function()
   end
 end)
 
-
-
 print("Hitman Script has been loaded!")
 print("Made by RootLodge")
 print("https://rootlodge.com")
-
 
 local devmode = true
 -- if devmode is true, the script will enable the ExecuteCommand("refresh") command by typing /devrefresh in the chat.

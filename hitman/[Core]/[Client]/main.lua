@@ -162,6 +162,7 @@ AddEventHandler("onResourceStop", function(resourceName)
       return
   end
 
+  StopMission()
   ResetScriptEntirely()
   
   TotalEnemies = 0
