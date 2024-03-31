@@ -65,7 +65,6 @@ end)
 print("Hitman Script has been loaded!")
 print("Made by RootLodge")
 print("https://rootlodge.com")
-print("https://discord.gg/3ZU6zj3")
 
 
 local devmode = true
