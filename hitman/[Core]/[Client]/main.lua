@@ -14,9 +14,10 @@ end)
 -- Varables
 local InRange = false
 local Location = nil
-MissionStatus = false
 local NPCHandlerConfig = Config.HandlerLocations
-local rawbliparray = {}
+
+-- Public variables
+MissionStatus = false
 
 -- Net Event Register
 RegisterNetEvent('RootLodge:HitContracts:C:StartMission')
@@ -116,8 +117,6 @@ AddEventHandler('RootLodge:HitContracts:C:StartMission', function()
 end)
 
 local iamalwaystrue = true
--- Assuming npcSpawned is a table defined somewhere globally to track spawned NPCs
-npcSpawned = {}
 
 -- Main function to handle NPC spawning
 function HandleNPCSpawning()
@@ -145,6 +144,7 @@ function HandleNPCSpawning()
   end
 end
 
+HandleNPCSpawning()
 
 AddEventHandler("RootLodge:HitContracts:C:ShowPrompt", function(msg)
   SetTextScale(0.5, 0.5)
@@ -153,38 +153,14 @@ AddEventHandler("RootLodge:HitContracts:C:ShowPrompt", function(msg)
   Citizen.InvokeNative(0xE9990552DEC71600)
 end)
 
-HandleNPCSpawning()
-
 -- On reload of resource [DO NOT TOUCH]
 AddEventHandler("onResourceStop", function(resourceName)
   if (GetCurrentResourceName() ~= resourceName) then
       return
   end
 
-  --for _, ped in ipairs(peds) do
-    --ped:Remove()
-  --end
-
-  -- remove blips
-  --for _, board in ipairs(rawbliparray) do
-      --local blipName = board.City
-      --RemoveBlip(blipName)
-  --end
-
-  -- Function to delete all spawned NPCs
-  function DeleteSpawnedNPCs()
-    for _, npc in ipairs(npcSpawned) do
-        if DoesEntityExist(npc) then
-            devdebug("Deleting NPC: " .. npc)         
-            DeleteEntity(npc)
-        end
-    end
-    -- Empty the npcSpawned table
-    npcSpawned = {}
-  end
-
-  DeleteSpawnedNPCs()
-
+  ResetScriptEntirely()
+  
   TotalEnemies = 0
   TotalKilled = 0
   SearchingBodies = false

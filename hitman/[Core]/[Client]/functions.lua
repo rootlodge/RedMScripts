@@ -5,6 +5,13 @@ local VORPcore = {}
 TriggerEvent("getCore", function(core) VORPcore = core end)
 function Wait(args) Citizen.Wait(args) end
 
+-- Public variables
+rawbliparray = {}
+npcSpawned = {}
+
+--Private variables
+
+
 -- DOCUMENTATION
 -- can also use exports or declare notification file name in fxmanifest
 --VORPcore.NotifyTip("title",4000)
@@ -175,4 +182,45 @@ function DrawTexture(textureStreamed,textureName,x, y, width, height,rotation,r,
   else
       DrawSprite(textureStreamed, textureName, x, y, width, height, rotation, r, g, b, a, p11);
   end
+end
+
+
+-- remove the blips and DoesBlipExist check function
+function DeleteBlipArray()
+  --get rawbliparray and check DoesBlipExist
+  for i = 1, #rawbliparray do
+    if DoesBlipExist(rawbliparray[i]) then
+      -- log the blip that is being removed to the server debug
+      TriggerServerEvent('RootLodge:HitContracts:S:DevDebug', "Removing blip: " .. rawbliparray[i])
+      RemoveBlip(rawbliparray[i])
+    end
+  end
+end
+
+-- Function to delete all spawned NPCs
+function DeleteSpawnedNPCs()
+  for _, npc in ipairs(npcSpawned) do
+      if DoesEntityExist(npc) then
+          TriggerServerEvent('RootLodge:HitContracts:S:DevDebug', "Removing NPC: " .. npc)       
+          DeleteEntity(npc)
+      end
+  end
+  -- Empty the npcSpawned table
+  npcSpawned = {}
+end
+
+--function to clear gps
+function ClearActiveGPS()
+  ClearGpsPlayerWaypoint()
+  ClearGpsCustomRoute()
+  ClearGpsFlags()
+  SetGpsMultiRouteRender(false)
+  ClearGpsMultiRoute()
+  TriggerServerEvent('RootLodge:HitContracts:S:DevDebug', "Cleared GPS")
+end
+
+function ResetScriptEntirely()
+  DeleteBlipArray()
+  DeleteSpawnedNPCs()
+  ClearActiveGPS()
 end

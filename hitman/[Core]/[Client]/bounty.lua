@@ -78,6 +78,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
         --addBlipForCoords("GROUP OF TARGETS", 1366733613, v.Coords.x, v.Coords.y, v.Coords.z)
         hashedenemyblipglobal = GetHashKey("blip_ambient_marked_for_death")
         addBlipForCoords("Contract Target",GetHashKey("blip_ambient_marked_for_death"),{v.Coords.x,v.Coords.y,v.Coords.z})
+        -- add rawblip to rawbliparray
+        table.insert(rawbliparray, hashedenemyblipglobal)
         NPCx, NPCy, NPCz = v.x, v.y, v.z
         GiveWeaponToPed_2(CreateNPC[k], rWeapon, 50, true, true, 1, false, 0.5, 1.0, 1.0, true, 0, 0)
         SetCurrentPedWeapon(CreateNPC[k], rWeapon, true)
@@ -143,8 +145,9 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
         if IsPlayerDead() then
           CenterBottomNotify('You have lost your target!', 4000)
-          MissionStatus = false
           StopMission()
+          Wait(50)
+          MissionStatus = false
         end
       end
     end
@@ -152,10 +155,8 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
 
   function StopMission()
     InMission = false
-    MissionStatus = false
     ClearGpsMultiRoute()
     SetGpsMultiRouteRender(false)
-    for k, v in pairs(ArrayTargets[k]) do DeleteEntity(ArrayTargets[k]) Wait(500) end
     devdebug('Mission has been stopped')
     devdebug('Total Enemies: ' .. TotalEnemies)
     devdebug('Total Killed: ' .. TotalKilled) 
