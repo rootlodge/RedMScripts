@@ -171,6 +171,9 @@ AddEventHandler('RootLodge:HitContracts:C:SetUpMission', function()
     TotalEnemies = 0
     SearchingBodies = false
     TotalKilled = 0
+
+    -- Triger server side debug text 
+    TriggerServerEvent('RootLodge:HitContracts:S:DevDebug', 'Mission has been stopped for player: ' .. GetPlayerServerId(PlayerId()))
   end
 
   function GPStoBoards ()
