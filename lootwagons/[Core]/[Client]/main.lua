@@ -52,7 +52,7 @@ AddEventHandler('onResourceStart', function(resourceName)
 
     for _, wagonConfig in ipairs(Config.Wagons) do
         local wagonModel = GetHashKey(wagonConfig.WagonModel)
-        requestmodel(wagonModel)
+        requestmodel23(wagonModel)
         print('Model loaded: ' .. wagonConfig.WagonModel)
         local pedModel = GetHashKey(Config.PedsInWagons[math.random(#Config.PedsInWagons)])
         requestmodel23(pedModel)

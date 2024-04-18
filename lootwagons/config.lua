@@ -24,11 +24,11 @@ Config.WagonSpawnLocations = {
 }
 
 Config.Wagons = {
-    { WagonType = 'BanditWagons', WagonName = 'Bandit Wagon', WagonLabel = 'Bandit Wagon' },
-    { WagonType = 'CivilianWagons', WagonName = 'Civilian Wagon', WagonLabel = 'Civilian Wagon' },
-    { WagonType = 'HighSocietyWagons', WagonName = 'High Society Wagon', WagonLabel = 'High Society Wagon' },
-    { WagonType = 'MilitaryWagons', WagonName = 'Military Wagon', WagonLabel = 'Military Wagon' },
-    { WagonType = 'OutlawWagons', WagonName = 'Outlaw Wagon', WagonLabel = 'Outlaw Wagon' },
+    { WagonType = 'BanditWagons', WagonName = 'Bandit Wagon', WagonLabel = 'Bandit Wagon', WagonModel = 'wagon05x'},
+    { WagonType = 'CivilianWagons', WagonName = 'Civilian Wagon', WagonLabel = 'Civilian Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'HighSocietyWagons', WagonName = 'High Society Wagon', WagonLabel = 'High Society Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'MilitaryWagons', WagonName = 'Military Wagon', WagonLabel = 'Military Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'OutlawWagons', WagonName = 'Outlaw Wagon', WagonLabel = 'Outlaw Wagon', WagonModel = 'wagon05x' },
 }
 
 Config.PedsInWagons = {
