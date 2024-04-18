@@ -16,7 +16,7 @@ local InRange = false
 local Location = nil
 local NPCLocations = Config.NPCLocations
 -- wagon spawn locations WSL.x, WSL.y, WSL.z, WSL.h defined by Config.WagonSpawnLocations
-local WSL = Config.WagonSpawnLocations
+local WSL.x, WSL.y, WSL.z, WSL.h = Config.WagonSpawnLocations[1].x, Config.WagonSpawnLocations[1].y, Config.WagonSpawnLocations[1].z, Config.WagonSpawnLocations[1].h
 
 -- Public variables
 MissionStatus = false
