@@ -107,10 +107,3 @@ Config.Keys = {
 
 return Config
 
---function to to configdebug
-function ConfigDebug(msg)
-  if Config.DevMode then
-    print('^1[Loot Wagons]^7: '..msg)
-  end
-end
-
