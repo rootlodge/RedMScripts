@@ -66,7 +66,7 @@ AddEventHandler('RootLodge:LootWagons:C:Start', function()
             SetEntityCanBeDamaged(wagonObject, true)
             TaskVehicleDriveWander(wagonObject, wagonModel, 25.0, 786603)
             -- Set Blip
-            Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, wagonObject) -- Add blip to ped
+            Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, pedModel) -- Add blip to ped
             Wait(50)
         end
     end
