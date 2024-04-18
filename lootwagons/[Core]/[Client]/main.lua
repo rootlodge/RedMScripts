@@ -72,7 +72,7 @@ AddEventHandler('onResourceStart', function(resourceName)
         SetEntityAsMissionEntity(wagonPed, true, true)
         TaskVehicleDriveWander(wagonPed, wagonVehicle, 25.0, 786603)
 
-        local blip = Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, wagonPed) -- Add blip for ped
+        Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, wagonPed) -- Add blip for ped
         print('Wagon and ped created and blipped')
     end
 end)
