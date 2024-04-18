@@ -14,9 +14,10 @@ end)
 -- Varables
 local InRange = false
 local Location = nil
-local NPCLocations = Config.NPCLocations
 -- wagon spawn locations WSL.x, WSL.y, WSL.z, WSL.h defined by Config.WagonSpawnLocations
-local WSL.x, WSL.y, WSL.z, WSL.h = Config.WagonSpawnLocations[1].x, Config.WagonSpawnLocations[1].y, Config.WagonSpawnLocations[1].z, Config.WagonSpawnLocations[1].h
+local randomIndex = math.random(1, #Config.WagonSpawnLocations)
+local chosenLocation = Config.WagonSpawnLocations[randomIndex]
+local WSL.x, WSL.y, WSL.z, WSL.h = chosenLocation.x, chosenLocation.y, chosenLocation.z, chosenLocation.h
 
 -- Public variables
 MissionStatus = false

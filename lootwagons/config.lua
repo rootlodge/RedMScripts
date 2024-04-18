@@ -17,8 +17,14 @@ Config.HowManyWagons = 5
 Config.isAbandonedWagonsVisible = false
 Config.isWagonBlipVisible = true
 
+
+-- first wagon spawn
 Config.WagonSpawnLocations = {
-  { x = -274.8, y = 805.5, z = 119.3, h = 340.36 },
+    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
+    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
+    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
+    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
+    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
 }
 
 Config.Wagons = {
