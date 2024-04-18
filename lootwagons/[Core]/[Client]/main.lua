@@ -38,7 +38,7 @@ LootWagonBlip = nil
 
 --------------------------------------------------------------------------------
 -- Utility Functions
-local function requestModel(modelHash)
+local function requestmodel23(modelHash)
     RequestModel(modelHash)
     while not HasModelLoaded(modelHash) do
         Citizen.Wait(1)
@@ -52,21 +52,25 @@ AddEventHandler('onResourceStart', function(resourceName)
 
     for _, wagonConfig in ipairs(Config.Wagons) do
         local wagonModel = GetHashKey(wagonConfig.WagonModel)
-        requestModel(wagonModel)
+        requestmodel(wagonModel)
         print('Model loaded: ' .. wagonConfig.WagonModel)
         local pedModel = GetHashKey(Config.PedsInWagons[math.random(#Config.PedsInWagons)])
-        requestModel(pedModel)
+        requestmodel23(pedModel)
 
         local spawnIndex = math.random(#Config.WagonSpawnLocations)
         local spawnPoint = Config.WagonSpawnLocations[spawnIndex]
 
         print('Location: ' .. spawnPoint.x .. ', ' .. spawnPoint.y .. ', ' .. spawnPoint.z .. ', ' .. spawnPoint.h)
 
-        local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, false, false, false)
-        local wagonPed = CreatePedInsideVehicle(wagonVehicle, pedModel, -1)
+        local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
+        local wagonPed = CreatePed(pedModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, true, true, true, true)
         
+        TaskWarpPedIntoVehicle(wagonPed, wagonVehicle, -1)
+
         SetEntityAsMissionEntity(wagonVehicle, true, true)
-        SetVehicleHasBeenOwnedByPlayer(wagonVehicle, true)
+        SetEntityAsMissionEntity(wagonPed, true, true)
+        SetEntityVisible(wagonVehicle, true)
+        SetEntityVisible(wagonPed, true)
         TaskVehicleDriveWander(wagonPed, wagonVehicle, 25.0, 786603)
 
         local blip = Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, wagonPed) -- Add blip for ped
