@@ -74,7 +74,7 @@ Config.BanditLootItems = {
 }
 
 
-Config.CivilianLootItems {
+Config.CivilianLootItems = {
     -- regular items that any civilian would have, with some stolen cash
     { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 },
     { Item = 'apple', Name = 'Apple', Label = 'Apple', Weight = 0.1, Description = 'A fresh apple', Value = 5 },
