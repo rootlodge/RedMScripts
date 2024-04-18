@@ -63,7 +63,7 @@ Config.LootItems = {
 }
 
 
-Config.BanditLootItems {
+Config.BanditLootItems = {
     -- illegal items such as weapons, stolen jewelry, gold bars
     { Item = 'weapon_pistol', Name = 'Pistol', Label = 'Pistol', Weight = 2.0, Description = 'A standard pistol', Value = 500 },
     { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
