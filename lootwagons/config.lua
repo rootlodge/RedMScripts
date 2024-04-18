@@ -16,7 +16,7 @@ Config.AIcompanionBlip = true -- NOT USED YET
 Config.HowManyWagons = 5
 Config.isAbandonedWagonsVisible = false
 Config.isWagonBlipVisible = true
-
+Config.RivalWagonRaiders = false
 
 -- first wagon spawn
 Config.WagonSpawnLocations = {
