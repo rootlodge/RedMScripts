@@ -41,51 +41,48 @@ RegisterNetEvent('RootLodge:LootWagons:C:Start')
 -- Logic to make the loot wagon respawn after a certain amount of time and distance from the player
 
 --RootLodge:LootWagons:C:Start
-AddEventHandler('RootLodge:LootWagons:C:Start', function()
-    local playerped = PlayerPedId()
-    local coords = GetEntityCoords(playerped)
-    --spawn loot wagons regardless of player location
-    for _, wagonType in ipairs(Config.Wagons) do
-        for _, wagon in ipairs(wagonType) do
-            --request wagon model
-            local wagonModel = GetHashKey(wagon.Model)
-            RequestModel(wagonModel)
-            while not HasModelLoaded(wagonModel) do
-                Wait(1)
+AddEventHandler('onResourceStart', function(resourceName)
+    if GetCurrentResourceName() == resourceName then
+        print('Resource started: ' .. resourceName)
+        local playerped = PlayerPedId()
+        local coords = GetEntityCoords(playerped)
+        --spawn loot wagons regardless of player location
+        for _, wagonType in ipairs(Config.Wagons) do
+            for _, wagon in ipairs(wagonType) do
+                --request wagon model
+                local wagonModel = GetHashKey(wagon.Model)
+                RequestModel(wagonModel)
+                while not HasModelLoaded(wagonModel) do
+                    Wait(1)
+                end
+                -- request ped model
+                local pedModel = GetHashKey(Config.PedsInWagons[math.random(1, #Config.PedsInWagons)])
+                RequestModel(pedModel)
+                while not HasModelLoaded(pedModel) do
+                    Wait(1)
+                end
+                print('Wagon Model: ' .. wagon.Model)
+                local WSL = Config.WagonSpawnLocations[math.random(1, #Config.WagonSpawnLocations)]
+                -- print location coordinates
+                print('Location: ' .. WSL.x .. ', ' .. WSL.y .. ', ' .. WSL.z .. ', ' .. WSL.h)
+                
+                local wagonvehicle = CreateVehicle(wagonModel, WSL.x, WSL.y, WSL.z, WSL.h, false, false, true)
+                print('Wagon Vehicle: ' .. wagonvehicle)
+                local wagonObject = CreatePedInsideVehicle(wagonvehicle, pedModel, -1, true, true, true)
+                print('Wagon Object: ' .. wagonObject)
+                SetEntityAsMissionEntity(wagonObject, true, true)
+                SetEntityHeading(wagonObject, WSL.h)
+                SetEntityInvincible(wagonObject, false)
+                SetEntityCanBeDamaged(wagonObject, true)
+                TaskVehicleDriveWander(wagonObject, wagonModel, 25.0, 786603)
+                -- Set Blip
+                Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, wagonObject) -- Add blip to ped
+                Wait(50)
+                SetEntityVisible(wagonObject, true)
+                Wait(50)
+                print('Wagon created')
+                Wait(5)
             end
-            -- request ped model
-            local pedModel = GetHashKey(Config.PedsInWagons[math.random(1, #Config.PedsInWagons)])
-            RequestModel(pedModel)
-            while not HasModelLoaded(pedModel) do
-                Wait(1)
-            end
-            print('Wagon Model: ' .. wagon.Model)
-            -- print location coordinates
-            print('Location: ' .. WSL.x .. ', ' .. WSL.y .. ', ' .. WSL.z .. ', ' .. WSL.h)
-            
-            local wagonvehicle = CreateVehicle(wagonModel, WSL.x, WSL.y, WSL.z, WSL.h, false, false, true)
-            print('Wagon Vehicle: ' .. wagonvehicle)
-            local wagonObject = CreatePedInsideVehicle(wagonvehicle, pedModel, -1, true, true, true)
-            print('Wagon Object: ' .. wagonObject)
-            SetEntityAsMissionEntity(wagonObject, true, true)
-            SetEntityHeading(wagonObject, WSL.h)
-            SetEntityInvincible(wagonObject, false)
-            SetEntityCanBeDamaged(wagonObject, true)
-            TaskVehicleDriveWander(wagonObject, wagonModel, 25.0, 786603)
-            -- Set Blip
-            Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, pedModel) -- Add blip to ped
-            Wait(50)
-            SetEntityVisible(wagonObject, true)
-            Wait(50)
-            print('Wagon created')
         end
-    end
-end)
-
-
--- Create Thread to start the mission
-Citizen.CreateThread(function()
-    while true do Wait(2000)
-        TriggerEvent('RootLodge:LootWagons:C:Start')
     end
 end)
