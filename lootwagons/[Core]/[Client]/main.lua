@@ -53,7 +53,7 @@ AddEventHandler('RootLodge:LootWagons:C:Start', function()
                 Wait(1)
             end
             -- request ped model
-            local pedModel = GetHashKey(Config.PedsInWagons[math.random(1, #Config.PedsInWagons)]
+            local pedModel = GetHashKey(Config.PedsInWagons[math.random(1, #Config.PedsInWagons)])
             RequestModel(pedModel)
             while not HasModelLoaded(pedModel) do
                 Wait(1)
@@ -64,13 +64,13 @@ AddEventHandler('RootLodge:LootWagons:C:Start', function()
             SetEntityHeading(wagonObject, wagon.h)
             SetEntityInvincible(wagonObject, false)
             SetEntityCanBeDamaged(wagonObject, true)
-            TaskVehicleDriveWonder(wagonObject, wagonModel, 25.0, 786603)
+            TaskVehicleDriveWander(wagonObject, wagonModel, 25.0, 786603)
             -- Set Blip
             Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, wagonObject) -- Add blip to ped
             Wait(50)
         end
     end
-end))
+end)
 
 
 -- Create Thread to start the mission
