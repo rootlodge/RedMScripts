@@ -64,15 +64,17 @@ AddEventHandler('onResourceStart', function(resourceName)
 
         local wagonPed = CreatePed(pedModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, true, true, true, true)
         SetEntityVisible(wagonPed, true)
+        Wait(100)
         local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
         SetEntityVisible(wagonVehicle, true)
         
         TaskWarpPedIntoVehicle(wagonPed, wagonVehicle, -1)
         SetEntityAsMissionEntity(wagonVehicle, true, true)
         SetEntityAsMissionEntity(wagonPed, true, true)
+        SetEntityVisible(wagonPed, true)
         TaskVehicleDriveWander(wagonPed, wagonVehicle, 25.0, 786603)
 
-        Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, wagonPed) -- Add blip for ped
+        Citizen.InvokeNative(0x23f74c2fda6e7c61, 675509286, wagonPed) -- Add blip for ped
         print('Wagon and ped created and blipped')
     end
 end)
