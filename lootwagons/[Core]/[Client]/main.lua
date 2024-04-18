@@ -17,10 +17,7 @@ local Location = nil
 -- wagon spawn locations WSL.x, WSL.y, WSL.z, WSL.h defined by Config.WagonSpawnLocations
 local randomIndex = math.random(1, #Config.WagonSpawnLocations)
 local chosenLocation = Config.WagonSpawnLocations[randomIndex]
-local WSL.x = chosenLocation.x
-local WSL.y = chosenLocation.y
-local WSL.z = chosenLocation.z
-local WSL.h = chosenLocation.h
+local WSL = { x = chosenLocation.x, y = chosenLocation.y, z = chosenLocation.z, h = chosenLocation.h }
 
 -- Public variables
 MissionStatus = false
