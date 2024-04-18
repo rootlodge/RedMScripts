@@ -17,7 +17,10 @@ local Location = nil
 -- wagon spawn locations WSL.x, WSL.y, WSL.z, WSL.h defined by Config.WagonSpawnLocations
 local randomIndex = math.random(1, #Config.WagonSpawnLocations)
 local chosenLocation = Config.WagonSpawnLocations[randomIndex]
-local WSL.x, WSL.y, WSL.z, WSL.h = chosenLocation.x, chosenLocation.y, chosenLocation.z, chosenLocation.h
+local WSL.x = chosenLocation.x
+local WSL.y = chosenLocation.y
+local WSL.z = chosenLocation.z
+local WSL.h = chosenLocation.h
 
 -- Public variables
 MissionStatus = false
@@ -60,6 +63,8 @@ AddEventHandler('RootLodge:LootWagons:C:Start', function()
                 Wait(1)
             end
             print('Wagon Model: ' .. wagon.Model)
+            -- print location coordinates
+            print('Location: ' .. WSL.x .. ', ' .. WSL.y .. ', ' .. WSL.z .. ', ' .. WSL.h)
             
             local wagonvehicle = CreateVehicle(wagonModel, WSL.x, WSL.y, WSL.z, WSL.h, false, false, true)
             print('Wagon Vehicle: ' .. wagonvehicle)
