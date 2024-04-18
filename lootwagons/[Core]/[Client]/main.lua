@@ -63,7 +63,7 @@ AddEventHandler('RootLodge:LootWagons:C:Start', function()
             
             local wagonvehicle = CreateVehicle(wagonModel, WSL.x, WSL.y, WSL.z, WSL.h, false, false, true)
             print('Wagon Vehicle: ' .. wagonvehicle)
-            local wagonObject = CreatePedInsideVehicle(wagonModel, pedModel, -1, true, true, true)
+            local wagonObject = CreatePedInsideVehicle(wagonvehicle, pedModel, -1, true, true, true)
             print('Wagon Object: ' .. wagonObject)
             SetEntityAsMissionEntity(wagonObject, true, true)
             SetEntityHeading(wagonObject, WSL.h)
