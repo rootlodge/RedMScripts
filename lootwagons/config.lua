@@ -20,38 +20,15 @@ Config.isWagonBlipVisible = true
 
 -- first wagon spawn
 Config.WagonSpawnLocations = {
-    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
-    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
-    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
-    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
-    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
+    { type = Bandit, x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
 }
 
 Config.Wagons = {
-    -- Bandit Wagons
-    BanditWagons = {
-        { Model = 'wagon05x', Name = 'Bandit Wagon', Label = 'Bandit Wagon' },
-        { Model = 'wagon05x', Name = 'Bandit Wagon', Label = 'Bandit Wagon' },
-        { Model = 'wagon05x', Name = 'Bandit Wagon', Label = 'Bandit Wagon' },
-        { Model = 'wagon05x', Name = 'Bandit Wagon', Label = 'Bandit Wagon' },
-        { Model = 'wagon05x', Name = 'Bandit Wagon', Label = 'Bandit Wagon' },
-    },
-    -- Civilian Wagons
-    CivilianWagons = {
-        { Model = 'wagon05x', Name = 'Civilian Wagon', Label = 'Civilian Wagon' },
-        { Model = 'wagon05x', Name = 'Civilian Wagon', Label = 'Civilian Wagon' },
-        { Model = 'wagon05x', Name = 'Civilian Wagon', Label = 'Civilian Wagon' },
-        { Model = 'wagon05x', Name = 'Civilian Wagon', Label = 'Civilian Wagon' },
-        { Model = 'wagon05x', Name = 'Civilian Wagon', Label = 'Civilian Wagon' },
-    },
-    -- High Society Wagons
-    HighSocietyWagons = {
-        { Model = 'wagon05x', Name = 'High Society Wagon', Label = 'High Society Wagon' },
-        { Model = 'wagon05x', Name = 'High Society Wagon', Label = 'High Society Wagon' },
-        { Model = 'wagon05x', Name = 'High Society Wagon', Label = 'High Society Wagon' },
-        { Model = 'wagon05x', Name = 'High Society Wagon', Label = 'High Society Wagon' },
-        { Model = 'wagon05x', Name = 'High Society Wagon', Label = 'High Society Wagon' },
-    },
+    { WagonType = 'BanditWagons', WagonName = 'Bandit Wagon', WagonLabel = 'Bandit Wagon' },
+    { WagonType = 'CivilianWagons', WagonName = 'Civilian Wagon', WagonLabel = 'Civilian Wagon' },
+    { WagonType = 'HighSocietyWagons', WagonName = 'High Society Wagon', WagonLabel = 'High Society Wagon' },
+    { WagonType = 'MilitaryWagons', WagonName = 'Military Wagon', WagonLabel = 'Military Wagon' },
+    { WagonType = 'OutlawWagons', WagonName = 'Outlaw Wagon', WagonLabel = 'Outlaw Wagon' },
 }
 
 Config.PedsInWagons = {
