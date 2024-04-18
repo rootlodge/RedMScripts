@@ -45,11 +45,10 @@ local function requestmodel23(modelHash)
     end
 end
 
--- Event to Start Resource
-AddEventHandler('onResourceStart', function(resourceName)
-    if GetCurrentResourceName() ~= resourceName then return end
-    print('Resource started: ' .. resourceName)
 
+-- Move code from OnResourceStart to a function
+-- Create a function to spawn the loot wagons
+function SpawnLootWagons()
     for _, wagonConfig in ipairs(Config.Wagons) do
         local wagonModel = GetHashKey(wagonConfig.WagonModel)
         requestmodel23(wagonModel)
@@ -74,5 +73,14 @@ AddEventHandler('onResourceStart', function(resourceName)
         TaskVehicleDriveWander(wagonPed, wagonVehicle, 25.0, 786603)
         BlipAddForEntity(675509286, wagonVehicle)
         print('Wagon and ped created and blipped')
+    end
+end
+
+local doneonce = false
+Citizen.CreateThread(function()
+    -- Spawn the loot wagons if doneonce is false
+    if not doneonce then
+        SpawnLootWagons()
+        doneonce = true
     end
 end)
