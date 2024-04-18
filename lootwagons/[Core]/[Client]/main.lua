@@ -59,8 +59,10 @@ AddEventHandler('RootLodge:LootWagons:C:Start', function()
             while not HasModelLoaded(pedModel) do
                 Wait(1)
             end
-
-            local wagonObject = CreatePedInsideVehicle(wagonModel, pedModel, -1, false, false, false)
+            print('Wagon Model: ' .. wagon.Model)
+            
+            local wagonvehicle = CreateVehicle(wagonModel, WSL.x, WSL.y, WSL.z, WSL.h, false, false, true)
+            local wagonObject = CreatePedInsideVehicle(wagonModel, pedModel, -1, true, true, true)
             SetEntityAsMissionEntity(wagonObject, true, true)
             SetEntityHeading(wagonObject, WSL.h)
             SetEntityInvincible(wagonObject, false)
@@ -68,6 +70,8 @@ AddEventHandler('RootLodge:LootWagons:C:Start', function()
             TaskVehicleDriveWander(wagonObject, wagonModel, 25.0, 786603)
             -- Set Blip
             Citizen.InvokeNative(0x23f74c2fda6e7c61, 1012165077, pedModel) -- Add blip to ped
+            Wait(50)
+            SetEntityVisible(wagonObject, true)
             Wait(50)
         end
     end
