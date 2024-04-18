@@ -59,9 +59,9 @@ AddEventHandler('RootLodge:LootWagons:C:Start', function()
                 Wait(1)
             end
 
-            local wagonObject = CreatePedInsideVehicle(wagonModel, pedModel, wagon.x, wagon.y, wagon.z, wagon.h, false, false)
+            local wagonObject = CreatePedInsideVehicle(wagonModel, pedModel, -1, false, false, false)
             SetEntityAsMissionEntity(wagonObject, true, true)
-            SetEntityHeading(wagonObject, wagon.h)
+            SetEntityHeading(wagonObject, WSL.h)
             SetEntityInvincible(wagonObject, false)
             SetEntityCanBeDamaged(wagonObject, true)
             TaskVehicleDriveWander(wagonObject, wagonModel, 25.0, 786603)
