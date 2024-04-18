@@ -76,7 +76,7 @@ Config.BanditLootItems {
 
 Config.CivilianLootItems {
     -- regular items that any civilian would have, with some stolen cash
-    { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 }
+    { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 },
     { Item = 'apple', Name = 'Apple', Label = 'Apple', Weight = 0.1, Description = 'A fresh apple', Value = 5 },
     { Item = 'bread', Name = 'Bread', Label = 'Bread', Weight = 0.5, Description = 'A loaf of bread', Value = 10 },
     { Item = 'water', Name = 'Water', Label = 'Water', Weight = 0.5, Description = 'A bottle of water', Value = 5 },
@@ -105,6 +105,8 @@ Config.Keys = {
   ["DOWN"] = 0x05CA7C52, ["UP"] = 0x6319DB71, ["LEFT"] = 0xA65EBAB4, ["RIGHT"] = 0xDEB34313,
 }
 
+return Config
+
 --function to to configdebug
 function ConfigDebug(msg)
   if Config.DevMode then
@@ -112,4 +114,3 @@ function ConfigDebug(msg)
   end
 end
 
-return Config
