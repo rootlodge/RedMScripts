@@ -53,7 +53,8 @@ function SpawnLootWagons()
         local wagonModel = GetHashKey(wagonConfig.WagonModel)
         requestmodel23(wagonModel)
         print('Model loaded: ' .. wagonConfig.WagonModel)
-        local pedModel = GetHashKey(Config.PedsInWagons[math.random(#Config.PedsInWagons)])
+        local rawPedModel = Config.PedsInWagons[math.random(#Config.PedsInWagons)]
+        local pedModel = GetHashKey(rawPedModel)
         requestmodel23(pedModel)
 
         local spawnIndex = math.random(#Config.WagonSpawnLocations)
@@ -61,7 +62,11 @@ function SpawnLootWagons()
 
         print('Location: ' .. spawnPoint.x .. ', ' .. spawnPoint.y .. ', ' .. spawnPoint.z .. ', ' .. spawnPoint.h)
 
-        local wagonPed = CreatePed(pedModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, true, false)
+        --local wagonPed = CreatePed(pedModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, true, false)
+        --vector4(-263.79, 784.93, 118.31, 88.84)
+        local pedcoords = { x = -263.79, y = 784.93, z = 118.31, h = 88.84}
+        local notRawWagonped = VORPutils.Peds:Create(rawPedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
+        local rawped = notRawWagonped:GetPed()
         SetEntityVisible(wagonPed, true)
         Wait(100)
         local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
