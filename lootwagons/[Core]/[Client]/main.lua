@@ -80,13 +80,14 @@ function SpawnLootWagons()
         SetEntityVisible(wagonVehicle, true)
         --CreatePedInsideVehicle(wagonVehicle, rawped, -1)
         TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
-        --SetEntityAsMissionEntity(wagonVehicle, true, true)
-        --SetEntityAsMissionEntity(rawped, true, true)
+        SetEntityAsMissionEntity(wagonVehicle, true, true)
+        SetEntityAsMissionEntity(rawped, true, true)
         Wait(50)
         TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
         CreateWagonBlip(wagonVehicle)
         --BlipAddForEntity(675509286, wagonVehicle)
         print('Wagon and ped created and blipped')
+        Wait(5000)
     end
 end
 
