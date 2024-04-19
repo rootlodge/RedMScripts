@@ -17,6 +17,13 @@ Config.HowManyWagons = 5
 Config.isAbandonedWagonsVisible = false
 Config.isWagonBlipVisible = true
 Config.RivalWagonRaiders = false
+Config.isBankWagonsEnabled = true
+Config.isBanditWagonsEnabled = true
+Config.isCivilianWagonsEnabled = true
+Config.isHighSocietyWagonsEnabled = true
+Config.isMilitaryWagonsEnabled = true
+Config.isOutlawWagonsEnabled = true
+
 
 -- first wagon spawn
 Config.WagonSpawnLocations = {

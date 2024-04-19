@@ -45,6 +45,13 @@ local function requestmodel23(modelHash)
     end
 end
 
+local function CreateWagonBlip(wagon)
+    if GetBlipFromEntity(wagon) ~= 0 then return end
+    local wagonBlip = Citizen.InvokeNative(0x23F74C2FDA6E7C61, `BLIP_STYLE_MP_PLAYER`, wagon)
+    SetBlipSprite(wagonBlip, `blip_mp_player_wagon`, true)
+    SetBlipScale(wagonBlip, 1.0)
+    Citizen.InvokeNative(0x9CB1A1623062F402, wagonBlip, "Cash Wagon") --SetBlipName
+end
 
 -- Move code from OnResourceStart to a function
 -- Create a function to spawn the loot wagons
@@ -62,21 +69,22 @@ function SpawnLootWagons()
 
         print('Location: ' .. spawnPoint.x .. ', ' .. spawnPoint.y .. ', ' .. spawnPoint.z .. ', ' .. spawnPoint.h)
 
-        --local wagonPed = CreatePed(pedModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, true, false)
+        --local rawped = CreatePed(pedModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, true, false)
         --vector4(-263.79, 784.93, 118.31, 88.84)
         local pedcoords = { x = -263.79, y = 784.93, z = 118.31, h = 88.84}
         local notRawWagonped = VORPutils.Peds:Create(rawPedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
         local rawped = notRawWagonped:GetPed()
-        SetEntityVisible(wagonPed, true)
-        BlipAddForEntity(675509286, wagonPed)
+        SetEntityVisible(rawped, true)
+        CreateWagonBlip(wagonModel)
         Wait(100)
         local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
         SetEntityVisible(wagonVehicle, true)
         --CreatePedInsideVehicle(wagonVehicle, rawped, -1)
-        TaskWarpPedIntoVehicle(wagonPed, wagonVehicle, -1)
+        TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
         --SetEntityAsMissionEntity(wagonVehicle, true, true)
-        --SetEntityAsMissionEntity(wagonPed, true, true)
-        TaskVehicleDriveWander(wagonPed, wagonVehicle, 25.0, 786603)
+        --SetEntityAsMissionEntity(rawped, true, true)
+        Wait(50)
+        TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
         --BlipAddForEntity(675509286, wagonVehicle)
         print('Wagon and ped created and blipped')
     end

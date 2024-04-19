@@ -83,7 +83,7 @@ local devmode = true
 -- if devmode is true, the script will enable the ExecuteCommand("refresh") command by typing /devrefresh in the chat.
 RegisterCommand("devrefresh", function()
   if devmode then
-    ExecuteCommand("refresh")
+    ExecuteCommand("restart lootwagons")
   end
 end, false)
 
