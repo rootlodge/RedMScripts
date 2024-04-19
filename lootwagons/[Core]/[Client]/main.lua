@@ -29,7 +29,6 @@ LootWagonBlip = nil
 
 -- To do list
 -- Add a check to see if the player is in the correct location
--- Logic to spawn the loot wagons
 -- Logic to place objects in the loot wagon
 -- Logic to remove objects from the loot wagon after looting/exploding
 -- Logic to make the loot wagon explode
@@ -37,21 +36,6 @@ LootWagonBlip = nil
 -- Logic to make the loot wagon respawn after a certain amount of time and distance from the player
 
 --------------------------------------------------------------------------------
--- Utility Functions
-local function requestmodel23(modelHash)
-    RequestModel(modelHash)
-    while not HasModelLoaded(modelHash) do
-        Citizen.Wait(1)
-    end
-end
-
-local function CreateWagonBlip(wagon)
-    if GetBlipFromEntity(wagon) ~= 0 then return end
-    local wagonBlip = Citizen.InvokeNative(0x23F74C2FDA6E7C61, `BLIP_STYLE_MP_PLAYER`, wagon)
-    SetBlipSprite(wagonBlip, `blip_mp_player_wagon`, true)
-    SetBlipScale(wagonBlip, 1.0)
-    Citizen.InvokeNative(0x9CB1A1623062F402, wagonBlip, "Cash Wagon") --SetBlipName
-end
 
 -- Move code from OnResourceStart to a function
 -- Create a function to spawn the loot wagons
@@ -84,8 +68,7 @@ function SpawnLootWagons()
         SetEntityAsMissionEntity(rawped, true, true)
         Wait(50)
         TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
-        CreateWagonBlip(wagonVehicle)
-        --BlipAddForEntity(675509286, wagonVehicle)
+        CreateWagonBlip(wagonVehicle, wagonConfig.WagonName)
         print('Wagon and ped created and blipped')
         Wait(5000)
     end

@@ -28,6 +28,7 @@ Config.isOutlawWagonsEnabled = true
 -- first wagon spawn
 Config.WagonSpawnLocations = {
     { type = Bandit, x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
+    { type = Bandit, x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
 }
 
 Config.Wagons = {
