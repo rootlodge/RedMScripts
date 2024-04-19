@@ -2,6 +2,11 @@
 
 --Utility Functions
 
+--function to convert vector4(-2476.13, -1297.48, 160.37, 283.96) to { x = -2476.13, y = -1297.48, z = 160.37, h = 283.96 }
+function Vector4ToTable(vector4)
+    return { x = vector4.x, y = vector4.y, z = vector4.z, h = vector4.h }
+end
+
 function requestmodel23(modelHash)
     RequestModel(modelHash)
     while not HasModelLoaded(modelHash) do

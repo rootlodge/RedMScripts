@@ -10,37 +10,92 @@ Config = {}
 Config.locale = 'en'
 Config.DevMode = true
 Config.CheckForUpdates = true
-Config.AIcompanionBlip = true -- NOT USED YET
-
--- DO NOT RECOMMEND BELOW 3 SO PEOPLE HAVE A CHANCE!
-Config.HowManyWagons = 5
-Config.isAbandonedWagonsVisible = false
-Config.isWagonBlipVisible = true
-Config.RivalWagonRaiders = false
-Config.isBankWagonsEnabled = true
+Config.AIRaidingCompanionBlip = true -- NOT USED YET
+Config.AIRaidingCompanion = false -- NOT USED YET
+Config.isAbandonedWagonsVisible = false -- TO DO
+Config.isWagonBlipVisible = true -- DONE, NEED TO IMPLEMENT
+Config.RivalWagonRaiders = true -- TO DO
+Config.isBankWagonsEnabled = true -- TO DO
 Config.isBanditWagonsEnabled = true
 Config.isCivilianWagonsEnabled = true
 Config.isHighSocietyWagonsEnabled = true
 Config.isMilitaryWagonsEnabled = true
 Config.isOutlawWagonsEnabled = true
+Config.AvoidWagonSpawnNearPlayer = true -- TO DO 
 
 
--- first wagon spawn
+-- WE DO NOT RECOMMEND MORE THAN 3 WAGONS PER TYPE AS IT WILL BE TOO EASY TO FIND THEM
+Config.WagonMaxSpawnAmount = {
+    Bandit = 1,
+    Civilian = 1,
+    HighSociety = 1,
+    Military = 1,
+    Outlaw = 1,
+} -- TO DO 
+
+Config.WagonSpawnTimer = {
+    Bandit = 1800, -- 30 minutes
+    Civilian = 1800, -- 30 minutes
+    HighSociety = 1800, -- 30 minutes
+    Military = 1800, -- 30 minutes
+    Outlaw = 1800, -- 30 minutes
+}
+
 Config.WagonSpawnLocations = {
-    { type = Bandit, x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
-    { type = Bandit, x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
+    { x = -259.09, y = 787.88, z = 118.08, h = 194.15 },
+    { x = -259.09, y = 787.88, z = 119.08, h = 194.15 },
+    { x = -5651.17, y = -3597.95, z = -21.21, h = 91.16 },
+    { x = -5548.13, y = -2530.77, z = -10.48, h = 348.58 },
+    { x = -2476.13, y = -1297.48, z = 160.37, h = 283.96 },
+    { x = 2956.06, y = 686.82, z = 48.55, h = 19.35 },
+    { x = 2890.75, y = 2192.24, z = 157.25, h = 130.92 },
+    { x = 813.95, y = -811.8, z = 59.07, h = 183.6 },
+    { x = -902.44, y = 2703.84, z = 330.83, h = 83.11 },
+    { x = 478.75, y = 525.35, z = 110.05, h = 161.45 }
 }
 
 Config.Wagons = {
-    { WagonType = 'BanditWagons', WagonName = 'Bandit Wagon', WagonLabel = 'Bandit Wagon', WagonModel = 'wagon05x'},
-    --{ WagonType = 'CivilianWagons', WagonName = 'Civilian Wagon', WagonLabel = 'Civilian Wagon', WagonModel = 'wagon05x' },
-    --{ WagonType = 'HighSocietyWagons', WagonName = 'High Society Wagon', WagonLabel = 'High Society Wagon', WagonModel = 'wagon05x' },
-    --{ WagonType = 'MilitaryWagons', WagonName = 'Military Wagon', WagonLabel = 'Military Wagon', WagonModel = 'wagon05x' },
-    --{ WagonType = 'OutlawWagons', WagonName = 'Outlaw Wagon', WagonLabel = 'Outlaw Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'BanditWagons', WagonName = 'Bandit Wagon', WagonModel = 'wagon05x'},
+    { WagonType = 'CivilianWagons', WagonName = 'Civilian Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'HighSocietyWagons', WagonName = 'High Society Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'MilitaryWagons', WagonName = 'Military Wagon', WagonModel = 'armysupplywagon' },
+    { WagonType = 'OutlawWagons', WagonName = 'Outlaw Wagon', WagonModel = 'wagon05x' },
 }
 
-Config.PedsInWagons = {
+Config.ExtraSupportWagons = {
+    { WagonType = 'BankWagons', WagonName = 'Bank Wagon', WagonModel = 'wagon05x' },
+}
+
+Config.Horses = {
+    { HorseType = 'Bandit', HorseModel = 'A_C_Horse_AmericanPaint_Greyovero' },
+    { HorseType = 'Civilian', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
+    { HorseType = 'HighSociety', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
+    { HorseType = 'Military', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
+    { HorseType = 'Outlaw', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
+}
+
+Config.PedsInWagonsBandit = {
     "A_M_M_GriSurvivalist_01",
+}
+
+Config.PedsInWagonsCivilian = {
+    "A_M_M_Rancher_01",
+}
+
+Config.PedsInWagonsHighSociety = {
+    "A_M_M_Rancher_01",
+}
+
+Config.PedsInWagonsMilitary = {
+    "A_M_M_Rancher_01",
+}
+
+Config.PedsInWagonsOutlaw = {
+    "A_M_M_Rancher_01",
+}
+
+Config.PedsinBankWagons = {
+    "A_M_M_Rancher_01",
 }
 
 Config.LootItems = {

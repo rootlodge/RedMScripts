@@ -39,46 +39,56 @@ LootWagonBlip = nil
 
 -- Move code from OnResourceStart to a function
 -- Create a function to spawn the loot wagons
+-- Main spawning function for Loot Wagons
 function SpawnLootWagons()
     for _, wagonConfig in ipairs(Config.Wagons) do
-        local wagonModel = GetHashKey(wagonConfig.WagonModel)
-        requestmodel23(wagonModel)
-        print('Model loaded: ' .. wagonConfig.WagonModel)
-        local rawPedModel = Config.PedsInWagons[math.random(#Config.PedsInWagons)]
-        local pedModel = GetHashKey(rawPedModel)
-        requestmodel23(pedModel)
+        -- Explicit checks for each wagon type's enablement
+        if ((wagonConfig.WagonType == 'BanditWagons' and Config.isBanditWagonsEnabled) or
+            (wagonConfig.WagonType == 'CivilianWagons' and Config.isCivilianWagonsEnabled) or
+            (wagonConfig.WagonType == 'HighSocietyWagons' and Config.isHighSocietyWagonsEnabled) or
+            (wagonConfig.WagonType == 'MilitaryWagons' and Config.isMilitaryWagonsEnabled) or
+            (wagonConfig.WagonType == 'OutlawWagons' and Config.isOutlawWagonsEnabled)) then
 
-        local spawnIndex = math.random(#Config.WagonSpawnLocations)
-        local spawnPoint = Config.WagonSpawnLocations[spawnIndex]
+            local wagonModel = GetHashKey(wagonConfig.WagonModel)
+            requestmodel23(wagonModel)
 
-        print('Location: ' .. spawnPoint.x .. ', ' .. spawnPoint.y .. ', ' .. spawnPoint.z .. ', ' .. spawnPoint.h)
+            local spawnIndex = math.random(#Config.WagonSpawnLocations)
+            local spawnPoint = Vector4ToTable(Config.WagonSpawnLocations[spawnIndex])
 
-        --local rawped = CreatePed(pedModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, true, false)
-        --vector4(-263.79, 784.93, 118.31, 88.84)
-        local pedcoords = { x = -263.79, y = 784.93, z = 118.31, h = 88.84}
-        local notRawWagonped = VORPutils.Peds:Create(rawPedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
-        local rawped = notRawWagonped:GetPed()
-        SetEntityVisible(rawped, true)
-        Wait(100)
-        local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
-        SetEntityVisible(wagonVehicle, true)
-        --CreatePedInsideVehicle(wagonVehicle, rawped, -1)
-        TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
-        SetEntityAsMissionEntity(wagonVehicle, true, true)
-        SetEntityAsMissionEntity(rawped, true, true)
-        Wait(50)
-        TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
-        CreateWagonBlip(wagonVehicle, wagonConfig.WagonName)
-        print('Wagon and ped created and blipped')
-        Wait(5000)
+            if not DoesEntityExist(wagonModel) then
+                local rawPedModel = Config.PedsInWagons[math.random(#Config.PedsInWagons)]
+                local pedModel = GetHashKey(rawPedModel)
+                requestmodel23(pedModel)
+                
+                -- Creating ped using the VORP utility
+                local pedcoords = { x = spawnPoint.x, y = spawnPoint.y, z = spawnPoint.z, h = spawnPoint.h }
+                local notRawWagonped = VORPutils.Peds:Create(rawPedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
+                local rawped = notRawWagonped:GetPed()
+                SetEntityVisible(rawped, true)
+
+                local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
+                SetEntityAsMissionEntity(wagonVehicle, true, true)
+                SetEntityAsMissionEntity(rawped, true, true)
+                TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
+                TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
+
+                if Config.isWagonBlipVisible then
+                    CreateWagonBlip(wagonVehicle, wagonConfig.WagonName)
+                end
+
+                print('Wagon and ped created and optionally blipped')
+                
+                -- Handle the timer for respawning the wagon, wait set by configuration
+                Citizen.Wait(Config.WagonSpawnTimer[wagonConfig.WagonType] * 1000)  -- Converts seconds to milliseconds
+            end
+        end
     end
 end
 
-local doneonce = false
 Citizen.CreateThread(function()
-    -- Spawn the loot wagons if doneonce is false
-    if not doneonce then
+    while true do
         SpawnLootWagons()
-        doneonce = true
+        -- Wait a short time before checking to spawn again
+        Citizen.Wait(1000) -- Check every second to reevaluate conditions
     end
 end)
