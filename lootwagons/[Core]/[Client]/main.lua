@@ -18,13 +18,22 @@ local Location = nil
 -- Public variables
 MissionStatus = false
 WagonStatus = false
-LootWagon = nil
+LootWagons = {}
 hasLooted = false
 isLooting = false
-LootWagonBlip = nil
-
--- Register Net Event
---RegisterNetEvent('RootLodge:LootWagons:C:Start')
+OilFinished = false
+CivilianFinished = false
+HighSocietyFinished = false
+MilitaryFinished = false
+OutlawFinished = false
+BankFinished = false 
+-- logic to count the number of wagons spawned for each type
+OilWagonCount = 0
+CivilianWagonCount = 0
+HighSocietyWagonCount = 0
+MilitaryWagonCount = 0
+OutlawWagonCount = 0
+BankWagonCount = 0
 
 
 -- To do list
@@ -37,64 +46,11 @@ LootWagonBlip = nil
 
 --------------------------------------------------------------------------------
 
--- Move code from OnResourceStart to a function
--- Create a function to spawn the loot wagons
--- Main spawning function for Loot Wagons
-
-OilFinished = false
-CivilianFinished = false
-HighSocietyFinished = false
-MilitaryFinished = false
-OutlawFinished = false
-BankFinished = false 
-
--- logic to count the number of wagons spawned for each type
-OilWagonCount = 0
-CivilianWagonCount = 0
-HighSocietyWagonCount = 0
-MilitaryWagonCount = 0
-OutlawWagonCount = 0
-BankWagonCount = 0
-
 -- logic function for checks if Config.isWagonTypeEnabled is true AND if the max amount of wagons has been spawned AND if the wagon type is finished or not
 -- if the wagon type is finished, it will skip the wagon type and move to the next one
 -- if the wagon type is not finished, it will spawn the wagon and increment the wagon count for that type
 -- if the wagon type is not enabled, it will skip the wagon type and move to the next one
-local function WagonChecks(wagonConfig)
-    if ((wagonConfig.WagonType == 'Oil' and Config.isOilWagonsEnabled) or
-        (wagonConfig.WagonType == 'Civilian' and Config.isCivilianWagonsEnabled) or
-        (wagonConfig.WagonType == 'Bank' and Config.isBankWagonsEnabled) or
-        (wagonConfig.WagonType == 'HighSociety' and Config.isHighSocietyWagonsEnabled) or
-        (wagonConfig.WagonType == 'Military' and Config.isMilitaryWagonsEnabled) or
-        (wagonConfig.WagonType == 'Outlaw' and Config.isOutlawWagonsEnabled)) then
 
-        if OilWagonCount >= Config.WagonMaxSpawnAmount.Oil then
-            OilFinished = true
-            return false
-        end
-        if CivilianWagonCount >= Config.WagonMaxSpawnAmount.Civilian then
-            CivilianFinished = true
-            return false
-        end
-        if HighSocietyWagonCount >= Config.WagonMaxSpawnAmount.HighSociety then
-            HighSocietyFinished = true
-            return false
-        end
-        if MilitaryWagonCount >= Config.WagonMaxSpawnAmount.Military then
-            MilitaryFinished = true
-            return false
-        end
-        if OutlawWagonCount >= Config.WagonMaxSpawnAmount.Outlaw then
-            OutlawFinished = true
-            return false
-        end
-        if BankWagonCount >= Config.WagonMaxSpawnAmount.Bank then
-            BankFinished = true
-            return false
-        end
-        return true
-    end
-end
 
 function SpawnLootWagons()
     for _, wagonConfig in ipairs(Config.Wagons) do
@@ -145,7 +101,7 @@ function SpawnLootWagons()
             requestmodel23(wagonModel)
 
             local spawnIndex = math.random(#Config.WagonSpawnLocations)
-            local spawnPoint = Vector4ToTable(Config.WagonSpawnLocations[spawnIndex])
+            local spawnPoint = Config.WagonSpawnLocations[spawnIndex]
 
             if not DoesEntityExist(wagonModel) then
                 local rawPedModel = Config.PedsInWagons[math.random(#Config.PedsInWagons)]
@@ -159,6 +115,8 @@ function SpawnLootWagons()
                 SetEntityVisible(rawped, true)
 
                 local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
+                -- add WagonVehicle to the loot wagon table and add what type of wagon it is
+                table.insert(LootWagons, { WagonVehicle = wagonVehicle, WagonType = wagonConfig.WagonType })
                 SetEntityAsMissionEntity(wagonVehicle, true, true)
                 SetEntityAsMissionEntity(rawped, true, true)
                 TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
@@ -168,7 +126,7 @@ function SpawnLootWagons()
                     CreateWagonBlip(wagonVehicle, wagonConfig.WagonName)
                 end
 
-                print('Wagon and ped created and optionally blipped')
+                print('Wagon and ped has been blipped')
                 
                 -- Handle the timer for respawning the wagon, wait set by configuration
                 
