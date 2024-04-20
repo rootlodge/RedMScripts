@@ -51,8 +51,8 @@ function GetRandomLootItem()
     return Config.LootItems[math.random(#Config.LootItems)]
 end
 
-function GetRandomBanditLootItem()
-    return Config.BanditLootItems[math.random(#Config.BanditLootItems)]
+function GetRandomOilLootItem()
+    return Config.OilLootItems[math.random(#Config.OilLootItems)]
 end
 
 function GetRandomCivilianLootItem()

@@ -10,23 +10,28 @@ Config = {}
 Config.locale = 'en'
 Config.DevMode = true
 Config.CheckForUpdates = true
+
 Config.AIRaidingCompanionBlip = true -- NOT USED YET
 Config.AIRaidingCompanion = false -- NOT USED YET
+
 Config.isAbandonedWagonsVisible = false -- TO DO
-Config.isWagonBlipVisible = true -- DONE, NEED TO IMPLEMENT
+Config.isWagonBlipVisible = true -- DONE
 Config.RivalWagonRaiders = true -- TO DO
-Config.isBankWagonsEnabled = true -- TO DO
-Config.isBanditWagonsEnabled = true
-Config.isCivilianWagonsEnabled = true
-Config.isHighSocietyWagonsEnabled = true
-Config.isMilitaryWagonsEnabled = true
-Config.isOutlawWagonsEnabled = true
+
+Config.isBankWagonsEnabled = true -- DONE
+Config.isOilWagonsEnabled = true -- DONE
+Config.isCivilianWagonsEnabled = true -- DONE
+Config.isHighSocietyWagonsEnabled = true -- DONE
+Config.isMilitaryWagonsEnabled = true -- DONE
+Config.isOutlawWagonsEnabled = true -- DONE
+
 Config.AvoidWagonSpawnNearPlayer = true -- TO DO 
 
 
 -- WE DO NOT RECOMMEND MORE THAN 3 WAGONS PER TYPE AS IT WILL BE TOO EASY TO FIND THEM
 Config.WagonMaxSpawnAmount = {
-    Bandit = 1,
+    Bank = 1,
+    Oil = 1,
     Civilian = 1,
     HighSociety = 1,
     Military = 1,
@@ -34,7 +39,8 @@ Config.WagonMaxSpawnAmount = {
 } -- TO DO 
 
 Config.WagonSpawnTimer = {
-    Bandit = 1800, -- 30 minutes
+    Bank = 1800, -- 30 minutes
+    Oil = 1800, -- 30 minutes
     Civilian = 1800, -- 30 minutes
     HighSociety = 1800, -- 30 minutes
     Military = 1800, -- 30 minutes
@@ -55,11 +61,12 @@ Config.WagonSpawnLocations = {
 }
 
 Config.Wagons = {
-    { WagonType = 'BanditWagons', WagonName = 'Bandit Wagon', WagonModel = 'wagon05x'},
-    { WagonType = 'CivilianWagons', WagonName = 'Civilian Wagon', WagonModel = 'wagon05x' },
-    { WagonType = 'HighSocietyWagons', WagonName = 'High Society Wagon', WagonModel = 'wagon05x' },
-    { WagonType = 'MilitaryWagons', WagonName = 'Military Wagon', WagonModel = 'armysupplywagon' },
-    { WagonType = 'OutlawWagons', WagonName = 'Outlaw Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'Bank', WagonName = 'Bank Wagon', WagonModel = 'wagon05x'}
+    { WagonType = 'Oil', WagonName = 'Oil Wagon', WagonModel = 'wagon05x'},
+    { WagonType = 'Civilian', WagonName = 'Civilian Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'HighSociety', WagonName = 'High Society Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'Military', WagonName = 'Military Wagon', WagonModel = 'armysupplywagon' },
+    { WagonType = 'Outlaw', WagonName = 'Outlaw Wagon', WagonModel = 'wagon05x' },
 }
 
 Config.ExtraSupportWagons = {
@@ -67,14 +74,19 @@ Config.ExtraSupportWagons = {
 }
 
 Config.Horses = {
-    { HorseType = 'Bandit', HorseModel = 'A_C_Horse_AmericanPaint_Greyovero' },
+    { HorseType = 'Bank', HorseModel = 'A_C_Horse_AmericanPaint_Overo'}
+    { HorseType = 'Oil', HorseModel = 'A_C_Horse_AmericanPaint_Greyovero' },
     { HorseType = 'Civilian', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
     { HorseType = 'HighSociety', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
     { HorseType = 'Military', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
     { HorseType = 'Outlaw', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
 }
 
-Config.PedsInWagonsBandit = {
+Config.PedsInWagonsBank = {
+    "A_M_M_Rancher_01",
+}
+
+Config.PedsInWagonsOil = {
     "A_M_M_GriSurvivalist_01",
 }
 
@@ -98,7 +110,7 @@ Config.PedsinBankWagons = {
     "A_M_M_Rancher_01",
 }
 
-Config.LootItems = {
+Config.BankLootItems = {
     { Item = 'goldbar', Name = 'Gold Bar', Label = 'Gold Bar', Weight = 10, Description = 'A bar of gold', Value = 500 },
     { Item = 'goldcoin', Name = 'Gold Coin', Label = 'Gold Coin', Weight = 0.01, Description = 'A gold coin', Value = 50 },
     { Item = 'goldwatch', Name = 'Gold Watch', Label = 'Gold Watch', Weight = 0.5, Description = 'A gold watch', Value = 100 },
@@ -109,7 +121,7 @@ Config.LootItems = {
 }
 
 
-Config.BanditLootItems = {
+Config.OilLootItems = {
     -- illegal items such as weapons, stolen jewelry, gold bars
     { Item = 'weapon_pistol', Name = 'Pistol', Label = 'Pistol', Weight = 2.0, Description = 'A standard pistol', Value = 500 },
     { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
