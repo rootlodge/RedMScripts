@@ -69,6 +69,9 @@ function SpawnLootWagons()
             (wagonConfig.WagonType == 'Military' and WagonChecks(wagonConfig)) or
             (wagonConfig.WagonType == 'Outlaw' and WagonChecks(wagonConfig))) then
 
+            -- Increment the wagon count for the wagon type
+            IncreaseWagonCount(wagonConfig.WagonType)
+
             local wagonModel = GetHashKey(wagonConfig.WagonModel)
             requestmodel23(wagonModel)
 
