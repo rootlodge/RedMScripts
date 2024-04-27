@@ -134,3 +134,4 @@ Config.Keys = {
   ["DOWN"] = 0x05CA7C52, ["UP"] = 0x6319DB71, ["LEFT"] = 0xA65EBAB4, ["RIGHT"] = 0xDEB34313,
 }
 
+return Config
