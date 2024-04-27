@@ -34,11 +34,9 @@ function GiveMoney(source, count)
         local Character = VORPcore.getUser(source)
 
         if Character then
-            /*
-                0 - money
-                1 - gold
-                2 - rol
-            */
+            --0 - money
+            --1 - gold
+            --2 - rol
         return Character.addCurrency(0, count)
         end
     end
