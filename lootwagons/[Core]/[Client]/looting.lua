@@ -7,6 +7,7 @@ function OilWagonLoot()
     -- get random amount of loot items between 1 and 5
     local amount = GetRandomLootAmount()
     TriggerServerEvent('RootLodge:LootWagons:S:AddItem', lootItem, amount)
+    CenterBottomNotify('You have looted the wagon', 5000)
 end
 
 function CivilianWagonLoot()
@@ -14,6 +15,7 @@ function CivilianWagonLoot()
     -- get random amount of loot items between 1 and 5
     local amount = GetRandomLootAmount()
     TriggerServerEvent('RootLodge:LootWagons:S:AddItem', lootItem, amount)
+    CenterBottomNotify('You have looted the wagon', 5000)
 end
 
 function BankWagonLoot()
@@ -21,6 +23,7 @@ function BankWagonLoot()
     -- get random amount of loot items between 1 and 5
     local amount = GetRandomLootAmount()
     TriggerServerEvent('RootLodge:LootWagons:S:AddItem', lootItem, amount)
+    CenterBottomNotify('You have looted the wagon', 5000)
 end
 
 function HighSocietyWagonLoot()
@@ -28,6 +31,7 @@ function HighSocietyWagonLoot()
     -- get random amount of loot items between 1 and 5
     local amount = GetRandomLootAmount()
     TriggerServerEvent('RootLodge:LootWagons:S:AddItem', lootItem, amount)
+    CenterBottomNotify('You have looted the wagon', 5000)
 end
 
 function MilitaryWagonLoot()
@@ -35,6 +39,7 @@ function MilitaryWagonLoot()
     -- get random amount of loot items between 1 and 5
     local amount = GetRandomLootAmount()
     TriggerServerEvent('RootLodge:LootWagons:S:AddItem', lootItem, amount)
+    CenterBottomNotify('You have looted the wagon', 5000)
 end
 
 function OutlawWagonLoot()
@@ -42,4 +47,5 @@ function OutlawWagonLoot()
     -- get random amount of loot items between 1 and 5
     local amount = GetRandomLootAmount()
     TriggerServerEvent('RootLodge:LootWagons:S:AddItem', lootItem, amount)
+    CenterBottomNotify('You have looted the wagon', 5000)
 end

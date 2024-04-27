@@ -1,4 +1,10 @@
--- Root Lodge
+--------------------------------------------------------------------------------
+----------------------------------- RootLodge -----------------------------------
+--------------------------------------------------------------------------------
+local VORPcore = {}
+TriggerEvent("getCore", function(core) VORPcore = core end)
+function Wait(args) Citizen.Wait(args) end
+
 
 --Utility Functions
 
@@ -78,3 +84,9 @@ end
 function GetRandomLootAmount()
     return math.random(Config.Payment.LootAmount.Min, Config.Payment.LootAmount.Max)
 end
+
+
+function CenterBottomNotify(text, time)
+    --slightly larger text in the center bottom of the screen
+    VORPcore.NotifyObjective(text, time)
+  end

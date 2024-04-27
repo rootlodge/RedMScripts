@@ -141,8 +141,8 @@ Citizen.CreateThread(function()
         
         for k, v in pairs(ActiveEnemyNpcs) do
             local EnemyCoords = GetEntityCoords(ActiveEnemyNpcs[k])
-            local distance = #(playerCoords - EnemyCoords)
-            if distance < 25.0 then
+            local truedistance = GetDistanceBetweenCoords(playerCoords, EnemyCoords)
+            if truedistance <= 25.0 then
                 if IsControlJustPressed(0, Config.Keys['G']) then
                     OilWagonLoot()
                 end
