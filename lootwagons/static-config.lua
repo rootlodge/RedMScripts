@@ -27,8 +27,5 @@ Config.Payment = {
     LootAmount = {
       Min = 3,         -- Minimal loot **amount** a player can get
       Max = 7,         -- Maximum loot **amount** a player can get
-    }
+    },
 }
-
-
-  
