@@ -51,6 +51,10 @@ function GetRandomLootItem()
     return Config.LootItems[math.random(#Config.LootItems)]
 end
 
+function GetRandomBankLootItem()
+    return Config.BankLootItems[math.random(#Config.BankLootItems)]
+end
+
 function GetRandomOilLootItem()
     return Config.OilLootItems[math.random(#Config.OilLootItems)]
 end
