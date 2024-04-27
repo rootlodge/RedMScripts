@@ -125,7 +125,7 @@ function SpawnLootWagons()
                 local pedcoords = { x = spawnPoint.x, y = spawnPoint.y, z = spawnPoint.z, h = spawnPoint.h }
                 local notRawWagonped = VORPutils.Peds:Create(rawPedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
                 local rawped = notRawWagonped:GetPed()
-                ActiveEnemyNpcs[k] = rawped
+                local ActiveEnemyNpcs[k] = notRawWagonped:GetPed()
                 table.insert(ActiveEnemyNpcs, rawped)
                 SetEntityVisible(rawped, true)
 
