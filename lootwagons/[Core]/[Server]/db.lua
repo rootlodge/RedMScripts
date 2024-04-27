@@ -4,7 +4,7 @@ function processItems(items, category)
         exports.oxmysql:execute("INSERT INTO items (`item`, `label`, `limit`, `can_remove`, `type`, `usable`, `desc`) VALUES (@item, @label, @limit, @can_remove, 'item_standard', @usable, @desc) ON DUPLICATE KEY UPDATE label=@label, `limit`=@limit, can_remove=@can_remove, type='item_standard', usable=@usable, `desc`=@desc", {
             ['@item'] = itemData.Item,
             ['@label'] = itemData.Label,
-            ['@limit'] = itemData.Limit,
+            ['@limit'] = '250',
             ['@can_remove'] = itemData.CanRemove,
             ['@usable'] = itemData.Usable,
             ['@desc'] = itemData.Description
