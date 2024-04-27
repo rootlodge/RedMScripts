@@ -114,8 +114,6 @@ Config.BankLootItems = {}
 Config.OilLootItems = {}
 Config.CivilianLootItems = {}
 
-addItemsToConfig()
-
 --------------------------------------------------------------------------------
 -------- Don't touch this!!! It can create a disturbance in the force! ---------
 --------------------------------------------------------------------------------
