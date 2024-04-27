@@ -1,52 +1,39 @@
 local usingVorp = true
-
-if usingVorp then
-   VORPinv = exports.vorp_inventory
-end
+VORPinv = exports.vorp_inventory
 
 function AddItem(source, item, amount)
-    if usingVorp then
+    -- Directly add item to inventory using VORP
     exports['vorp_inventory']:addItem(source, item, amount)
 end
 
 function RemoveItem(source, item, amount)
-    if usingVorp then
-        local itemId = exports['vorp_inventory']:getItem(source, item)
-        --TriggerClientEvent('vorpInventory:removeItem', source, item, itemId.id, amount)
-        exports.vorp_inventory:RemoveItem(source, item, amount)
+    -- Directly remove item from inventory using VORP
+    local itemData = exports['vorp_inventory']:getItem(source, item)
+    if itemData then
+        exports['vorp_inventory']:subItem(source, item, amount)
     end
 end
 
 function GetItemAmount(source, name)
-    if usingVorp then
-        local item = exports['vorp_inventory']:getItem(source, name)
-
-        if item then
-            return item.amount
-        end
-
-        return 0
+    -- Get the amount of an item a user has using VORP
+    local itemData = exports['vorp_inventory']:getItem(source, name)
+    if itemData then
+        return itemData.amount
     end
+    return 0
 end
 
 function GiveMoney(source, count)
-    if usingVorp then
-        local Character = VORPcore.getUser(source)
-
-        if Character then
-            --0 - money
-            --1 - gold
-            --2 - rol
-        return Character.addCurrency(0, count)
-        end
+    -- Give money to a character using VORP
+    local Character = VorpCore.getUser(source).getUsedCharacter
+    if Character then
+        Character.addCurrency(0, count)
     end
 end
 
-
--- if you dont want this, delete then, only allowed who have ace command allow or command.testscript
-RegisterCommand('testscript', function (source, args, raw)
-    if usingVorp then
-        VORPinv:addItem(source, 'goldcoin', 2)
-        VORPinv:addItem(source, 'goldbar', 2)
-    end
-end, true)
+-- Registering a command to test adding items
+RegisterCommand('testscript', function(source, args, rawCommand)
+    -- Adds items directly to a player's inventory
+    exports['vorp_inventory']:addItem(source, 'goldcoin', 2)
+    exports['vorp_inventory']:addItem(source, 'goldbar', 2)
+end, true) -- Ensure this command is restricted properly for admin use or testing
