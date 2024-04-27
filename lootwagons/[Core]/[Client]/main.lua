@@ -85,27 +85,27 @@ function SpawnLootWagons()
             end
 
             -- logic to end the wagon type if the max amount of wagons has been spawned
-            if OilWagonCount >= Config.WagonMaxSpawnAmount.Oil then
+            if OilWagonCount == Config.WagonMaxSpawnAmount.Oil then
                 OilFinished = true
                 OilTimer = true
             end
-            if CivilianWagonCount >= Config.WagonMaxSpawnAmount.Civilian then
+            if CivilianWagonCount == Config.WagonMaxSpawnAmount.Civilian then
                 CivilianFinished = true
                 CivilianTimer = true
             end
-            if HighSocietyWagonCount >= Config.WagonMaxSpawnAmount.HighSociety then
+            if HighSocietyWagonCount == Config.WagonMaxSpawnAmount.HighSociety then
                 HighSocietyFinished = true
                 HighSocietyTimer = true
             end
-            if MilitaryWagonCount >= Config.WagonMaxSpawnAmount.Military then
+            if MilitaryWagonCount == Config.WagonMaxSpawnAmount.Military then
                 MilitaryFinished = true
                 MilitaryTimer = true
             end
-            if OutlawWagonCount >= Config.WagonMaxSpawnAmount.Outlaw then
+            if OutlawWagonCount == Config.WagonMaxSpawnAmount.Outlaw then
                 OutlawFinished = true
                 OutlawTimer = true
             end
-            if BankWagonCount >= Config.WagonMaxSpawnAmount.Bank then
+            if BankWagonCount == Config.WagonMaxSpawnAmount.Bank then
                 BankFinished = true
                 BankTimer = true
             end
