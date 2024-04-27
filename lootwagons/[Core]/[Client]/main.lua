@@ -69,47 +69,6 @@ function SpawnLootWagons()
             (wagonConfig.WagonType == 'Military' and WagonChecks(wagonConfig)) or
             (wagonConfig.WagonType == 'Outlaw' and WagonChecks(wagonConfig))) then
 
-            -- logic to add a wagon to the count for what type of wagon it is
-            if wagonConfig.WagonType == 'Oil' then
-                OilWagonCount = OilWagonCount + 1
-            elseif wagonConfig.WagonType == 'Civilian' then
-                CivilianWagonCount = CivilianWagonCount + 1
-            elseif wagonConfig.WagonType == 'HighSociety' then
-                HighSocietyWagonCount = HighSocietyWagonCount + 1
-            elseif wagonConfig.WagonType == 'Military' then
-                MilitaryWagonCount = MilitaryWagonCount + 1
-            elseif wagonConfig.WagonType == 'Outlaw' then
-                OutlawWagonCount = OutlawWagonCount + 1
-            elseif wagonConfig.WagonType == 'Bank' then
-                BankWagonCount = BankWagonCount + 1
-            end
-
-            -- logic to end the wagon type if the max amount of wagons has been spawned
-            if OilWagonCount == Config.WagonMaxSpawnAmount.Oil then
-                OilFinished = true
-                OilTimer = true
-            end
-            if CivilianWagonCount == Config.WagonMaxSpawnAmount.Civilian then
-                CivilianFinished = true
-                CivilianTimer = true
-            end
-            if HighSocietyWagonCount == Config.WagonMaxSpawnAmount.HighSociety then
-                HighSocietyFinished = true
-                HighSocietyTimer = true
-            end
-            if MilitaryWagonCount == Config.WagonMaxSpawnAmount.Military then
-                MilitaryFinished = true
-                MilitaryTimer = true
-            end
-            if OutlawWagonCount == Config.WagonMaxSpawnAmount.Outlaw then
-                OutlawFinished = true
-                OutlawTimer = true
-            end
-            if BankWagonCount == Config.WagonMaxSpawnAmount.Bank then
-                BankFinished = true
-                BankTimer = true
-            end
-
             local wagonModel = GetHashKey(wagonConfig.WagonModel)
             requestmodel23(wagonModel)
 

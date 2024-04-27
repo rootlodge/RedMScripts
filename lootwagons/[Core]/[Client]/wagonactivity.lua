@@ -20,26 +20,32 @@ function WagonChecks(wagonConfig)
 
         if OilWagonCount >= Config.WagonMaxSpawnAmount.Oil then
             OilFinished = true
+            OilTimer = true
             return false
         end
         if CivilianWagonCount >= Config.WagonMaxSpawnAmount.Civilian then
             CivilianFinished = true
+            CivilianTimer = true
             return false
         end
         if HighSocietyWagonCount >= Config.WagonMaxSpawnAmount.HighSociety then
             HighSocietyFinished = true
+            HighSocietyTimer = true
             return false
         end
         if MilitaryWagonCount >= Config.WagonMaxSpawnAmount.Military then
             MilitaryFinished = true
+            MilitaryTimer = true
             return false
         end
         if OutlawWagonCount >= Config.WagonMaxSpawnAmount.Outlaw then
             OutlawFinished = true
+            OutlawTimer = true
             return false
         end
         if BankWagonCount >= Config.WagonMaxSpawnAmount.Bank then
             BankFinished = true
+            BankTimer = true
             return false
         end
         return true
