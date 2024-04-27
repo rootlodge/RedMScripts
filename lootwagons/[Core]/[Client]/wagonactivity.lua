@@ -89,8 +89,8 @@ function GetWagonArray()
         -- return WagonHash and WagonType
         return WagonHash, WagonType
     end
-    console.log('WagonHash: ' .. WagonHash)
-    console.log('WagonType: ' .. WagonType)
+    --console.log('WagonHash: ' .. WagonHash)
+    --console.log('WagonType: ' .. WagonType)
     return WagonHash, WagonType
 end
 
