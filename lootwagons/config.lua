@@ -110,9 +110,75 @@ Config.PedsinBankWagons = {
     "A_M_M_Rancher_01",
 }
 
-Config.BankLootItems = {}
-Config.OilLootItems = {}
-Config.CivilianLootItems = {}
+Config.BankLootItems = {
+    { Item = 'goldbar', Name = 'Gold Bar', Label = 'Gold Bar', Weight = 10, Description = 'A bar of gold', Value = 500 },
+    { Item = 'goldcoin', Name = 'Gold Coin', Label = 'Gold Coin', Weight = 0.01, Description = 'A gold coin', Value = 50 },
+    { Item = 'goldwatch', Name = 'Gold Watch', Label = 'Gold Watch', Weight = 0.5, Description = 'A gold watch', Value = 100 },
+    { Item = 'goldnecklace', Name = 'Gold Necklace', Label = 'Gold Necklace', Weight = 0.5, Description = 'A gold necklace', Value = 100 },
+    { Item = 'goldring', Name = 'Gold Ring', Label = 'Gold Ring', Weight = 0.1, Description = 'A gold ring', Value = 50 },
+    { Item = 'goldtooth', Name = 'Gold Tooth', Label = 'Gold Tooth', Weight = 0.01, Description = 'A gold tooth', Value = 10 },
+    { Item = 'goldnugget', Name = 'Gold Nugget', Label = 'Gold Nugget', Weight = 0.01, Description = 'A gold nugget', Value = 10 },
+}
+
+
+Config.OilLootItems = {
+    -- illegal items such as weapons, stolen jewelry, gold bars
+    { Item = 'weapon_pistol', Name = 'Pistol', Label = 'Pistol', Weight = 2.0, Description = 'A standard pistol', Value = 500 },
+    { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
+    { Item = 'stolen_goldbar', Name = 'Stolen Gold Bar', Label = 'Stolen Gold Bar', Weight = 10, Description = 'A gold bar stolen from a vault', Value = 500 },
+    { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 },
+    { Item = 'weapon_knife', Name = 'Knife', Label = 'Knife', Weight = 0.5, Description = 'A sharp knife', Value = 50 },
+    { Item = 'weapon_machete', Name = 'Machete', Label = 'Machete', Weight = 1.0, Description = 'A large machete', Value = 100 },
+}
+
+
+Config.CivilianLootItems = {
+    -- regular items that any civilian would have, with some stolen cash
+    { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 },
+    { Item = 'apple', Name = 'Apple', Label = 'Apple', Weight = 0.1, Description = 'A fresh apple', Value = 5 },
+    { Item = 'bread', Name = 'Bread', Label = 'Bread', Weight = 0.5, Description = 'A loaf of bread', Value = 10 },
+    { Item = 'water', Name = 'Water', Label = 'Water', Weight = 0.5, Description = 'A bottle of water', Value = 5 },
+    { Item = 'cannedfood', Name = 'Canned Food', Label = 'Canned Food', Weight = 0.5, Description = 'A can of food', Value = 10 },
+    { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
+    { Item = 'weapon_knife', Name = 'Knife', Label = 'Knife', Weight = 0.5, Description = 'A sharp knife', Value = 50 },
+}
+
+Config.HighSocietyLootItems = {
+    -- high society items such as gold bars, jewelry, and cash
+    { Item = 'goldbar', Name = 'Gold Bar', Label = 'Gold Bar', Weight = 10, Description = 'A bar of gold', Value = 500 },
+    { Item = 'goldcoin', Name = 'Gold Coin', Label = 'Gold Coin', Weight = 0.01, Description = 'A gold coin', Value = 50 },
+    { Item = 'goldwatch', Name = 'Gold Watch', Label = 'Gold Watch', Weight = 0.5, Description = 'A gold watch', Value = 100 },
+    { Item = 'goldnecklace', Name = 'Gold Necklace', Label = 'Gold Necklace', Weight = 0.5, Description = 'A gold necklace', Value = 100 },
+    { Item = 'goldring', Name = 'Gold Ring', Label = 'Gold Ring', Weight = 0.1, Description = 'A gold ring', Value = 50 },
+    { Item = 'goldtooth', Name = 'Gold Tooth', Label = 'Gold Tooth', Weight = 0.01, Description = 'A gold tooth', Value = 10 },
+    { Item = 'goldnugget', Name = 'Gold Nugget', Label = 'Gold Nugget', Weight = 0.01, Description = 'A gold nugget', Value = 10 },
+    { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 },
+    { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
+}
+
+Config.MilitaryLootItems = {
+    -- military items such as weapons, ammo, and rations
+    { Item = 'weapon_pistol', Name = 'Pistol', Label = 'Pistol', Weight = 2.0, Description = 'A standard pistol', Value = 500 },
+    { Item = 'weapon_rifle', Name = 'Rifle', Label = 'Rifle', Weight = 5.0, Description = 'A standard rifle', Value = 1000 },
+    { Item = 'weapon_shotgun', Name = 'Shotgun', Label = 'Shotgun', Weight = 5.0, Description = 'A standard shotgun', Value = 1000 },
+    { Item = 'weapon_knife', Name = 'Knife', Label = 'Knife', Weight = 0.5, Description = 'A sharp knife', Value = 50 },
+    { Item = 'weapon_machete', Name = 'Machete', Label = 'Machete', Weight = 1.0, Description = 'A large machete', Value = 100 },
+    { Item = 'ammo_pistol', Name = 'Pistol Ammo', Label = 'Pistol Ammo', Weight = 0.1, Description = 'Ammo for a pistol', Value = 10 },
+    { Item = 'ammo_rifle', Name = 'Rifle Ammo', Label = 'Rifle Ammo', Weight = 0.1, Description = 'Ammo for a rifle', Value = 10 },
+    { Item = 'ammo_shotgun', Name = 'Shotgun Ammo', Label = 'Shotgun Ammo', Weight = 0.1, Description = 'Ammo for a shotgun', Value = 10 },
+}
+
+Config.OutlawLootItems = {
+    -- outlaw items such as stolen cash, weapons, and jewelry
+    { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 },
+    { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
+    { Item = 'weapon_pistol', Name = 'Pistol', Label = 'Pistol', Weight = 2.0, Description = 'A standard pistol', Value = 500 },
+    { Item = 'weapon_rifle', Name = 'Rifle', Label = 'Rifle', Weight = 5.0, Description = 'A standard rifle', Value = 1000 },
+    { Item = 'weapon_shotgun', Name = 'Shotgun', Label = 'Shotgun', Weight = 5.0, Description = 'A standard shotgun', Value = 1000 },
+    { Item = 'weapon_knife', Name = 'Knife', Label = 'Knife', Weight = 0.5, Description = 'A sharp knife', Value = 50 },
+    { Item = 'weapon_machete', Name = 'Machete', Label = 'Machete', Weight = 1.0, Description = 'A large machete', Value = 100 },
+}
+
 
 --------------------------------------------------------------------------------
 -------- Don't touch this!!! It can create a disturbance in the force! ---------

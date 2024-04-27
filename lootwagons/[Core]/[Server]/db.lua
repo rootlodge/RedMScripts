@@ -14,9 +14,7 @@ end
 
 -- Main thread to run the script
 Citizen.CreateThread(function()
-    addItemsToConfig()  -- First, add items to the Config dynamically
-
-    -- Now, process each category of items
+    --process each category of items
     processItems(Config.BankLootItems, 'Bank')
     processItems(Config.OilLootItems, 'Oil')
     processItems(Config.CivilianLootItems, 'Civilian')
