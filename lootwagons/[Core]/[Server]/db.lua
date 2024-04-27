@@ -5,7 +5,7 @@ function processItems(items, category)
             ['@item'] = itemData.Item,
             ['@label'] = itemData.Label,
             ['@limit'] = '250',
-            ['@can_remove'] = itemData.CanRemove,
+            ['@can_remove'] = '1',
             ['@usable'] = itemData.Usable,
             ['@desc'] = itemData.Description
         })
