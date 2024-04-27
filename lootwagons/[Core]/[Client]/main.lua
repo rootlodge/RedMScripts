@@ -116,7 +116,9 @@ function SpawnLootWagons()
             local spawnIndex = math.random(#Config.WagonSpawnLocations)
             local spawnPoint = Config.WagonSpawnLocations[spawnIndex]
 
-            if not DoesEntityExist(wagonModel) then
+            local placeholderfalse = false
+
+            if not placeholderfalse then
                 local rawPedModel = Config.PedsInWagons[math.random(#Config.PedsInWagons)]
                 local pedModel = GetHashKey(rawPedModel)
                 requestmodel23(pedModel)
