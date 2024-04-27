@@ -104,10 +104,6 @@ end
 
 -- function to loot a wagon
 function LootWagon(WagonType)
-    -- get the wagon type
-    local WagonHash, WagonType = GetWagonArray()
-    local TypeWagon = WagonType
-    -- syn_minigame
     -- if the wagon type is Oil, call the function OilWagonLoot
     if TypeWagon == 'Oil' then
         OilWagonLoot()
@@ -148,7 +144,7 @@ Citizen.CreateThread(function()
             local distance = #(playerCoords - EnemyCoords)
             if distance < 25.0 then
                 if IsControlJustPressed(0, Config.Keys['G']) then
-                    LootWagon('Oil')
+                    OilWagonLoot()
                 end
             end
         end
