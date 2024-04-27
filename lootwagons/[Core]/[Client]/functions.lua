@@ -3,6 +3,38 @@
 --Utility Functions
 
 --function to convert vector4(-2476.13, -1297.48, 160.37, 283.96) to { x = -2476.13, y = -1297.48, z = 160.37, h = 283.96 }
+function addItemsToConfig()
+    -- Adding items to BankLootItems
+    table.insert(Config.BankLootItems, { Item = 'goldbar', Label = 'Gold Bar', Limit = 1, CanRemove = 1, Usable = 0, Description = 'A bar of gold' })
+    table.insert(Config.BankLootItems, { Item = 'goldcoin', Label = 'Gold Coin', Limit = 50, CanRemove = 1, Usable = 0, Description = 'A gold coin' })
+    -- Add more items as needed...
+
+    -- Adding items to OilLootItems
+    table.insert(Config.OilLootItems, { Item = 'weapon_pistol', Label = 'Pistol', Limit = 2, CanRemove = 1, Useable = 0, Description = 'A standard pistol' })
+    table.insert(Config.OilLootItems, { Item = 'stolen_jewelry', Label = 'Stolen Jewelry', Limit = 5, CanRemove = 1, Usable = 0, Description = 'Jewelry stolen from unsuspecting victims' })
+    -- Add more items as needed...
+
+    -- Adding items to CivilianLootItems
+    table.insert(Config.CivilianLootItems, { Item = 'gold_apple', Label = 'Apple', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A fresh apple' })
+    table.insert(Config.CivilianLootItems, { Item = 'shitty_water', Label = 'Water', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A bottle of water' })
+    -- Add more items as needed...
+
+    -- Adding items to HighSocietyLootItems
+    table.insert(Config.HighSocietyLootItems, { Item = 'gold_apple', Label = 'Apple', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A fresh apple' })
+    table.insert(Config.HighSocietyLootItems, { Item = 'shitty_water', Label = 'Water', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A bottle of water' })
+    -- Add more items as needed...
+
+    -- Adding items to MilitaryLootItems
+    table.insert(Config.MilitaryLootItems, { Item = 'gold_apple', Label = 'Apple', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A fresh apple' })
+    table.insert(Config.MilitaryLootItems, { Item = 'shitty_water', Label = 'Water', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A bottle of water' })
+    -- Add more items as needed...
+
+    -- Adding items to OutlawLootItems
+    table.insert(Config.OutlawLootItems, { Item = 'gold_apple', Label = 'Apple', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A fresh apple' })
+    table.insert(Config.OutlawLootItems, { Item = 'shitty_water', Label = 'Water', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A bottle of water' })
+    -- Add more items as needed...
+end
+
 function Vector4ToTable(vector4)
     return { x = vector4.x, y = vector4.y, z = vector4.z, h = vector4.h }
 end
