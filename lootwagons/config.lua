@@ -82,6 +82,10 @@ Config.Horses = {
     { HorseType = 'Outlaw', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
 }
 
+Config.PedsInWagons = {
+    "A_M_M_Rancher_01",
+}
+
 Config.PedsInWagonsBank = {
     "A_M_M_Rancher_01",
 }
@@ -103,10 +107,6 @@ Config.PedsInWagonsMilitary = {
 }
 
 Config.PedsInWagonsOutlaw = {
-    "A_M_M_Rancher_01",
-}
-
-Config.PedsinBankWagons = {
     "A_M_M_Rancher_01",
 }
 
