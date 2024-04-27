@@ -150,3 +150,23 @@ Citizen.CreateThread(function()
         end
     end
 end)
+
+-- rewrite the above thread to check if the player is within 25 units of a wagon, and if they are, it will trigger the looting animation and the looting progress bar
+-- also checks if the player is within the loot wagon
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(1)
+        local playerPed = PlayerPedId()
+        local playerCoords = GetEntityCoords(playerPed)
+        
+        for k, v in pairs(ActiveEnemyNpcs) do
+            local EnemyCoords = GetEntityCoords(ActiveEnemyNpcs[k])
+            local distance = #(playerCoords - EnemyCoords)
+            if distance < 25.0 then
+                if IsControlJustPressed(0, Config.Keys['G']) then
+                    LootWagon('Oil')
+                end
+            end
+    end
+end)

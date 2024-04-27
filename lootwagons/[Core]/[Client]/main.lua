@@ -42,7 +42,7 @@ HighSocietyTimer = false
 MilitaryTimer = false
 OutlawTimer = false
 
-
+ActiveEnemyNpcs = {}
 -- To do list
 -- Add a check to see if the player is in the correct location
 -- Logic to place objects in the loot wagon
@@ -125,6 +125,8 @@ function SpawnLootWagons()
                 local pedcoords = { x = spawnPoint.x, y = spawnPoint.y, z = spawnPoint.z, h = spawnPoint.h }
                 local notRawWagonped = VORPutils.Peds:Create(rawPedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
                 local rawped = notRawWagonped:GetPed()
+                ActiveEnemyNpcs[k] = rawped
+                table.insert(ActiveEnemyNpcs, rawped)
                 SetEntityVisible(rawped, true)
 
                 local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
