@@ -12,11 +12,6 @@ if Config.CheckForUpdates then
                 return
             end
             ChangeLog('success', ('Latest Changes: %s'):format(text))
-            if text:gsub("%s+", "") == currentChange:gsub("%s+", "") then
-                ChangeLog('success', 'Please update if you have not!')
-            else
-                ChangeLog('error', ('Unkown ChangeLog error, please contact Root Lodge Script Support! %s'):format(text))
-            end
         end)
     end
 
