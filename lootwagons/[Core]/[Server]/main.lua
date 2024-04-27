@@ -9,6 +9,7 @@ function Invoke(args, bool) Citizen.InvokeNative(args, bool) end
 -- Event Register
 RegisterServerEvent('RootLodge:LootWagons:S:PayDay')
 RegisterServerEvent('RootLodge:LootWagons:S:CheckCharacter')
+RegisterServerEvent('RootLodge:LootWagons:S:AddItem')
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
@@ -48,24 +49,19 @@ AddEventHandler('RootLodge:LootWagons:S:PayDay', function(KillCount)
     xPay = vEXP
   end
 
-  -- Logic for the lootwagons
-  local LootMin = Config.Payment.Loot.Min
-  local LootMax = Config.Payment.Loot.Max
-  local LootAmountMin = Config.Payment.LootAmount.Min
-  local LootAmountMax = Config.Payment.LootAmount.Max
-  local LootAmount = math.random(LootAmountMin, LootAmountMax)
-  local LootItem = Config.LootItems[math.random(1, #Config.LootItems)]
-  local Item = LootItem.Item
-  local ItemName = LootItem.Name
-  local ItemLabel = LootItem.Label
-  local ItemWeight = LootItem.Weight
-  local ItemDesc = LootItem.Description
-  local ItemValue = LootItem.Value
-    --Char.addInventory(Item, LootAmount)
-
   TriggerClientEvent('RootLodge:LootWagons:C:ResetTotalKills', _source)
   VORPcore.NotifyRightTip(_source, "You received $"..mPay..' and '..xPay..' XP', 5000)
 end)
+
+-- Event Handler to Add Items
+AddEventHandler('RootLodge:LootWagons:S:AddItem', function(Item, Amount)
+  local User = VORPcore.getUser(source)
+  if User ~= nil then
+    local Character = User.getUsedCharacter
+    exports['vorp_inventory']:addItem(source, item, amount)
+  end
+end)
+
 
 AddEventHandler('RootLodge:LootWagons:S:CheckCharacter', function()
   local User = VORPcore.getUser(source)

@@ -36,7 +36,7 @@ Config.WagonMaxSpawnAmount = {
     HighSociety = 1,
     Military = 1,
     Outlaw = 1,
-} -- TO DO 
+}
 
 Config.WagonSpawnTimer = {
     Bank = 1800, -- 30 minutes
@@ -126,8 +126,23 @@ function addItemsToConfig()
     -- Add more items as needed...
 
     -- Adding items to CivilianLootItems
-    table.insert(Config.CivilianLootItems, { Item = 'apple', Label = 'Apple', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A fresh apple' })
-    table.insert(Config.CivilianLootItems, { Item = 'water', Label = 'Water', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A bottle of water' })
+    table.insert(Config.CivilianLootItems, { Item = 'gold_apple', Label = 'Apple', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A fresh apple' })
+    table.insert(Config.CivilianLootItems, { Item = 'shitty_water', Label = 'Water', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A bottle of water' })
+    -- Add more items as needed...
+
+    -- Adding items to HighSocietyLootItems
+    table.insert(Config.HighSocietyLootItems, { Item = 'gold_apple', Label = 'Apple', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A fresh apple' })
+    table.insert(Config.HighSocietyLootItems, { Item = 'shitty_water', Label = 'Water', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A bottle of water' })
+    -- Add more items as needed...
+
+    -- Adding items to MilitaryLootItems
+    table.insert(Config.MilitaryLootItems, { Item = 'gold_apple', Label = 'Apple', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A fresh apple' })
+    table.insert(Config.MilitaryLootItems, { Item = 'shitty_water', Label = 'Water', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A bottle of water' })
+    -- Add more items as needed...
+
+    -- Adding items to OutlawLootItems
+    table.insert(Config.OutlawLootItems, { Item = 'gold_apple', Label = 'Apple', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A fresh apple' })
+    table.insert(Config.OutlawLootItems, { Item = 'shitty_water', Label = 'Water', Limit = 50, CanRemove = 1, Useable = 0, Description = 'A bottle of water' })
     -- Add more items as needed...
 end
 

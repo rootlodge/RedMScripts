@@ -94,6 +94,8 @@ function GetWagonArray()
     return WagonHash, WagonType
 end
 
+-- function to get random loot item for each category type and pass it to the server to add to the player's inventory
+
 -- function to loot a wagon
 function LootWagon(WagonType)
     -- get the wagon type
@@ -129,7 +131,7 @@ end
 -- check if player is within 25 units of a wagon
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Citizen.Wait(1)
         local playerPed = PlayerPedId()
         local playerCoords = GetEntityCoords(playerPed)
         -- get the closest wagon to the player, compare it to the LootWagons array, then get the hash of the wagon if it's in the array

@@ -35,6 +35,13 @@ MilitaryWagonCount = 0
 OutlawWagonCount = 0
 BankWagonCount = 0
 
+BankTimer = false
+OilTimer = false
+CivilianTimer = false
+HighSocietyTimer = false
+MilitaryTimer = false
+OutlawTimer = false
+
 
 -- To do list
 -- Add a check to see if the player is in the correct location
@@ -80,21 +87,27 @@ function SpawnLootWagons()
             -- logic to end the wagon type if the max amount of wagons has been spawned
             if OilWagonCount >= Config.WagonMaxSpawnAmount.Oil then
                 OilFinished = true
+                OilTimer = true
             end
             if CivilianWagonCount >= Config.WagonMaxSpawnAmount.Civilian then
                 CivilianFinished = true
+                CivilianTimer = true
             end
             if HighSocietyWagonCount >= Config.WagonMaxSpawnAmount.HighSociety then
                 HighSocietyFinished = true
+                HighSocietyTimer = true
             end
             if MilitaryWagonCount >= Config.WagonMaxSpawnAmount.Military then
                 MilitaryFinished = true
+                MilitaryTimer = true
             end
             if OutlawWagonCount >= Config.WagonMaxSpawnAmount.Outlaw then
                 OutlawFinished = true
+                OutlawTimer = true
             end
             if BankWagonCount >= Config.WagonMaxSpawnAmount.Bank then
                 BankFinished = true
+                BankTimer = true
             end
 
             local wagonModel = GetHashKey(wagonConfig.WagonModel)
@@ -127,10 +140,6 @@ function SpawnLootWagons()
                 end
 
                 print('Wagon and ped has been blipped')
-                
-                -- Handle the timer for respawning the wagon, wait set by configuration
-                
-                --Citizen.Wait(Config.WagonSpawnTimer[wagonConfig.WagonType])  -- Converts seconds to milliseconds
             end
         end
     end
@@ -148,21 +157,61 @@ end)
 -- citizen thread to check if WagonType is finished and if the max amount of wagons has been spawned, and if so, to wait for the timer to respawn the wagons IF one of the wagons has been looted and/or exploded/destroyed
 Citizen.CreateThread(function()
     while true do
-        if OilFinished and CivilianFinished and HighSocietyFinished and MilitaryFinished and OutlawFinished and BankFinished then
-            Wait(1000)
+        Wait(500)
+        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
+        if OilTimer then
+            WaitForOil()
         end
 
-        -- Wait a short time before checking to spawn again
-        -- start a timer to respawn the wagons, actively checking if any have been looted or exploded/destroyed to replenish the count
-        local timer = 0
-        while timer < 1000 do
-            if hasLooted or WagonStatus then
-                timer = 0
-                hasLooted = false
-                WagonStatus = false
-            end
-            timer = timer + 1
-            Wait(1)
+        if CivilianTimer then
+            WaitForCivilian()
+        end
+        
+        if HighSocietyTimer then
+            WaitForHighSociety()
+        end
+
+        if MilitaryTimer then
+            WaitForMilitary()
+        end
+
+        if OutlawTimer then
+            WaitForOutlaw()
+        end
+
+        if BankTimer then
+            WaitForBank()
+        end
+
+        function WaitForOil()
+            Wait(Config.WagonSpawnTimer.Oil)
+            OilFinished = false
+            OilTimer = false
+        end
+        function WaitForCivilian()
+            Wait(Config.WagonSpawnTimer.Civilian)
+            CivilianFinished = false
+            CivilianTimer = false
+        end
+        function WaitForHighSociety()
+            Wait(Config.WagonSpawnTimer.HighSociety)
+            HighSocietyFinished = false
+            HighSocietyTimer = false
+        end
+        function WaitForMilitary()
+            Wait(Config.WagonSpawnTimer.Military)
+            MilitaryFinished = false
+            MilitaryTimer = false
+        end
+        function WaitForOutlaw()
+            Wait(Config.WagonSpawnTimer.Outlaw)
+            OutlawFinished = false
+            OutlawTimer = false
+        end
+        function WaitForBank()
+            Wait(Config.WagonSpawnTimer.Bank)
+            BankFinished = false
+            BankTimer = false
         end
     end
 end)
