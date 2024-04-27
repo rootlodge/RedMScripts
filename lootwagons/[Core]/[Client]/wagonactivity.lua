@@ -128,29 +128,6 @@ function LootWagon(WagonType)
     end
 end
 
--- check if player is within 25 units of a wagon
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(1)
-        local playerPed = PlayerPedId()
-        local playerCoords = GetEntityCoords(playerPed)
-        -- get the closest wagon to the player, compare it to the LootWagons array, then get the hash of the wagon if it's in the array
-        -- call the LootWagonsArray to check if the wagon is in the array
-        local PedEntityCoords = GetEntityCoords(playerPed)
-
-        local WagonHash, WagonType = GetWagonArray()
-        local wagon = GetClosestVehicle(playerCoords, 25.0, WagonHash)
-        local wagonCoords = GetEntityCoords(wagon)
-        local distance = #(playerCoords - wagonCoords)
-        if distance < 25.0 then
-            -- if G is pressed, call the function LootWagon(WagonType)
-            if IsControlJustPressed(0, Config.Keys['G']) then
-                LootWagon('Oil')
-            end
-        end
-    end
-end)
-
 -- rewrite the above thread to check if the player is within 25 units of a wagon, and if they are, it will trigger the looting animation and the looting progress bar
 -- also checks if the player is within the loot wagon
 
@@ -168,5 +145,6 @@ Citizen.CreateThread(function()
                     LootWagon('Oil')
                 end
             end
+        end
     end
 end)
