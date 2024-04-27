@@ -61,11 +61,11 @@ Config.WagonSpawnLocations = {
 }
 
 Config.Wagons = {
-    { WagonType = 'Bank', WagonName = 'Bank Wagon', WagonModel = 'wagon05x'}
-    { WagonType = 'Oil', WagonName = 'Oil Wagon', WagonModel = 'wagon05x'},
-    { WagonType = 'Civilian', WagonName = 'Civilian Wagon', WagonModel = 'wagon05x' },
-    { WagonType = 'HighSociety', WagonName = 'High Society Wagon', WagonModel = 'wagon05x' },
-    { WagonType = 'Military', WagonName = 'Military Wagon', WagonModel = 'armysupplywagon' },
+    { WagonType = 'Bank', WagonName = 'Bank Wagon', WagonModel = 'wagon05x' },  -- Added comma
+    { WagonType = 'Oil', WagonName = 'Oil Wagon', WagonModel = 'wagon05x' },  -- Added comma
+    { WagonType = 'Civilian', WagonName = 'Civilian Wagon', WagonModel = 'wagon05x' },  -- Added comma
+    { WagonType = 'HighSociety', WagonName = 'High Society Wagon', WagonModel = 'wagon05x' },  -- Added comma
+    { WagonType = 'Military', WagonName = 'Military Wagon', WagonModel = 'armysupplywagon' },  -- Added comma
     { WagonType = 'Outlaw', WagonName = 'Outlaw Wagon', WagonModel = 'wagon05x' },
 }
 
@@ -74,11 +74,11 @@ Config.ExtraSupportWagons = {
 }
 
 Config.Horses = {
-    { HorseType = 'Bank', HorseModel = 'A_C_Horse_AmericanPaint_Overo'}
-    { HorseType = 'Oil', HorseModel = 'A_C_Horse_AmericanPaint_Greyovero' },
-    { HorseType = 'Civilian', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
-    { HorseType = 'HighSociety', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
-    { HorseType = 'Military', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
+    { HorseType = 'Bank', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },  -- Added comma
+    { HorseType = 'Oil', HorseModel = 'A_C_Horse_AmericanPaint_Greyovero' },  -- Added comma
+    { HorseType = 'Civilian', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },  -- Added comma
+    { HorseType = 'HighSociety', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },  -- Added comma
+    { HorseType = 'Military', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },  -- Added comma
     { HorseType = 'Outlaw', HorseModel = 'A_C_Horse_AmericanPaint_Overo' },
 }
 
