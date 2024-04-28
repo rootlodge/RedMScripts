@@ -159,7 +159,11 @@ Citizen.CreateThread(function()
             local EnemyCoords = GetEntityCoords(ActiveEnemyNpcs[k])
             local truedistance = GetDistanceBetweenCoords(playerCoords, EnemyCoords)
             if truedistance <= 25.0 then
-                local label = CreateVarString(10, 'LITERAL_STRING', 'Loot')
+
+                local lootingtext = "Looting"
+                local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
+                PromptSetEnabled(openWagons, 1)
+                PromptSetVisible(openWagons, 1)
                 PromptSetActiveGroupThisFrame(prompts, label)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, openWagons) then
                     OilWagonLoot()
@@ -167,6 +171,11 @@ Citizen.CreateThread(function()
                 --if IsControlJustPressed(0, Config.Keys['G']) then
                     --OilWagonLoot()
                 --end
+            end
+            -- if distance is not less than 25 units, then it will reset the prompt
+            if truedistance > 25.0 then
+                PromptSetEnabled(openWagons, 0)
+                PromptSetVisible(openWagons, 0)
             end
         end
     end
