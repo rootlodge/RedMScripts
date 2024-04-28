@@ -5,6 +5,16 @@ if Config.CheckForUpdates then
         print(('^8[Loot Wagons]%s %s^7'):format(color, log))
     end
 
+    local function CheckChangeLog()
+        PerformHttpRequest('https://raw.githubusercontent.com/rootlodge/RedMScripts/master/lootwagons-changelog.txt', function(err, text, headers)
+            if not text then
+                ChangeLog('error', 'Currently unable to run a Change check.')
+                return
+            end
+            ChangeLog('success', ('Latest Changes: %s'):format(text))
+        end)
+    end
+
     local function CheckMenuVersion()
         PerformHttpRequest('https://raw.githubusercontent.com/rootlodge/RedMScripts/master/lootwagons.txt', function(err, text, headers)
             local currentVersion = GetResourceMetadata(GetCurrentResourceName(), 'version')
@@ -18,6 +28,7 @@ if Config.CheckForUpdates then
                 VersionLog('success', 'You are running the latest version of Loot Wagons!')
             else
                 VersionLog('error', ('You are currently running an outdated version of Loot Wagons, please update to version %s'):format(text))
+                CheckChangeLog()
             end
         end)
     end
