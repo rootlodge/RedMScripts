@@ -116,131 +116,100 @@ end
 Citizen.CreateThread(function()
     while true do
 
+        Wait(500)
         if OilWagonCount < Config.WagonMaxSpawnAmount.Oil then
             SpawnLootWagons()
+            Wait(500)
         end
         if CivilianWagonCount < Config.WagonMaxSpawnAmount.Civilian then
             SpawnLootWagons()
+            Wait(500)
         end
 
         if HighSocietyWagonCount < Config.WagonMaxSpawnAmount.HighSociety then
             SpawnLootWagons()
+            Wait(500)
         end
 
         if MilitaryWagonCount < Config.WagonMaxSpawnAmount.Military then
             SpawnLootWagons()
+            Wait(500)
         end
 
         if OutlawWagonCount < Config.WagonMaxSpawnAmount.Outlaw then
             SpawnLootWagons()
+            Wait(500)
         end
 
         if BankWagonCount < Config.WagonMaxSpawnAmount.Bank then
             SpawnLootWagons()
+            Wait(500)
         end
-    end
-end)
-
-
--- citizen thread to check if WagonType is finished and if the max amount of wagons has been spawned, and if so, to wait for the timer to respawn the wagons IF one of the wagons has been looted and/or exploded/destroyed
-Citizen.CreateThread(function()
-    while true do  
         Wait(500)
-        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
-        if OilTimer then
-            WaitForOil()
-        end
     end
 end)
 
+-- Citizen thread to manage all wagon respawn timers
 Citizen.CreateThread(function()
-    while true do  
-        Wait(500)
-        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
-        if CivilianTimer then
-            WaitForCivilian()
-        end
+    while true do
+        Wait(500) -- General wait time for the loop
+
+        -- Check and manage the timers for each wagon category
+        ManageTimer("Oil", OilTimer, WaitForOil)
+        ManageTimer("Civilian", CivilianTimer, WaitForCivilian)
+        ManageTimer("HighSociety", HighSocietyTimer, WaitForHighSociety)
+        ManageTimer("Military", MilitaryTimer, WaitForMilitary)
+        ManageTimer("Outlaw", OutlawTimer, WaitForOutlaw)
+        ManageTimer("Bank", BankTimer, WaitForBank)
     end
 end)
 
-Citizen.CreateThread(function()
-    while true do  
-        Wait(500)
-        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
-        if HighSocietyTimer then
-            WaitForHighSociety()
-        end
+-- Function to handle timers for each wagon category
+function ManageTimer(category, timerFlag, callback)
+    if timerFlag then
+        callback()
     end
-end)
+end
 
-Citizen.CreateThread(function()
-    while true do  
-        Wait(500)
-        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
-        if MilitaryTimer then
-            WaitForMilitary()
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do  
-        Wait(500)
-        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
-        if OutlawTimer then
-            WaitForOutlaw()
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do  
-        Wait(500)
-        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
-        if BankTimer then
-            WaitForBank()
-        end
-    end
-end)
-
--- Function to handle Oil wagon spawn timer
+-- Function definitions for waiting specific categories
 function WaitForOil()
     Wait(Config.WagonSpawnTimer.Oil)
     OilFinished = false
     OilTimer = false
+    print("Oil wagon timer reset.")
 end
 
--- Function to handle Civilian wagon spawn timer
 function WaitForCivilian()
     Wait(Config.WagonSpawnTimer.Civilian)
     CivilianFinished = false
     CivilianTimer = false
+    print("Civilian wagon timer reset.")
 end
 
--- Function to handle High Society wagon spawn timer
 function WaitForHighSociety()
     Wait(Config.WagonSpawnTimer.HighSociety)
     HighSocietyFinished = false
     HighSocietyTimer = false
+    print("High Society wagon timer reset.")
 end
 
--- Function to handle Military wagon spawn timer
 function WaitForMilitary()
     Wait(Config.WagonSpawnTimer.Military)
     MilitaryFinished = false
     MilitaryTimer = false
+    print("Military wagon timer reset.")
 end
 
--- Function to handle Outlaw wagon spawn timer
 function WaitForOutlaw()
     Wait(Config.WagonSpawnTimer.Outlaw)
     OutlawFinished = false
     OutlawTimer = false
+    print("Outlaw wagon timer reset.")
 end
 
--- Function to handle Bank wagon spawn timer
 function WaitForBank()
     Wait(Config.WagonSpawnTimer.Bank)
     BankFinished = false
     BankTimer = false
+    print("Bank wagon timer reset.")
 end
