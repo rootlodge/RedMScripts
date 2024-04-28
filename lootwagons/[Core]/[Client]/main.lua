@@ -110,42 +110,93 @@ function SpawnLootWagons()
     end
 end
 
+-- count how many wagons should be spawned for each type
+-- if wagon max spawn amount is 0, then it will spawn an wagon until the max amount of wagons has been spawned
+
 Citizen.CreateThread(function()
     while true do
-        SpawnLootWagons()
-        -- Wait a short time before checking to spawn again
-        Citizen.Wait(1000) -- Check every second to reevaluate conditions
+
+        if OilWagonCount < Config.WagonMaxSpawnAmount.Oil then
+            SpawnLootWagons()
+        end
+        if CivilianWagonCount < Config.WagonMaxSpawnAmount.Civilian then
+            SpawnLootWagons()
+        end
+
+        if HighSocietyWagonCount < Config.WagonMaxSpawnAmount.HighSociety then
+            SpawnLootWagons()
+        end
+
+        if MilitaryWagonCount < Config.WagonMaxSpawnAmount.Military then
+            SpawnLootWagons()
+        end
+
+        if OutlawWagonCount < Config.WagonMaxSpawnAmount.Outlaw then
+            SpawnLootWagons()
+        end
+
+        if BankWagonCount < Config.WagonMaxSpawnAmount.Bank then
+            SpawnLootWagons()
+        end
     end
 end)
 
 
 -- citizen thread to check if WagonType is finished and if the max amount of wagons has been spawned, and if so, to wait for the timer to respawn the wagons IF one of the wagons has been looted and/or exploded/destroyed
 Citizen.CreateThread(function()
-    while true do
-        
+    while true do  
         Wait(500)
-
         -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
         if OilTimer then
             WaitForOil()
         end
+    end
+end)
 
+Citizen.CreateThread(function()
+    while true do  
+        Wait(500)
+        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
         if CivilianTimer then
             WaitForCivilian()
         end
-        
+    end
+end)
+
+Citizen.CreateThread(function()
+    while true do  
+        Wait(500)
+        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
         if HighSocietyTimer then
             WaitForHighSociety()
         end
+    end
+end)
 
+Citizen.CreateThread(function()
+    while true do  
+        Wait(500)
+        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
         if MilitaryTimer then
             WaitForMilitary()
         end
+    end
+end)
 
+Citizen.CreateThread(function()
+    while true do  
+        Wait(500)
+        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
         if OutlawTimer then
             WaitForOutlaw()
         end
+    end
+end)
 
+Citizen.CreateThread(function()
+    while true do  
+        Wait(500)
+        -- if Category Timer is true, then wait for the timer to respawn the wagons. Use Config.WagonSpawnTimer.Category to set the time in seconds
         if BankTimer then
             WaitForBank()
         end
