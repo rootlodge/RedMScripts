@@ -197,11 +197,14 @@ Citizen.CreateThread(function()
                 if truedistance >= 50.0 then
                     local wagon = GetVehiclePedIsIn(npcped, true)
                     local wagonHash = GetHashKey(wagon)
+                    print('WagonHash: ' .. wagonHash)
                     local blip = GetBlipFromEntity(wagon)
                     local blipHash = GetHashKey(blip)
+                    local pedhash = GetHashKey(npcped)
+                    print('BlipHash: ' .. blipHash)
                     DeleteBlip(blipHash)
                     DeleteWagon(wagonHash)
-                    DeletePed(npcped)
+                    DeletePed(pedhash)
                 end
             end
             -- if distance is not less than 25 units, then it will reset the prompt
