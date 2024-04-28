@@ -161,7 +161,7 @@ Citizen.CreateThread(function()
             if truedistance <= 25.0 then
                 local label = CreateVarString(10, 'LITERAL_STRING', 'Loot')
                 PromptSetActiveGroupThisFrame(prompts, label)
-                if Citizen.InvokeNative(0xC92AC953F0A982AE, openButcher) then
+                if Citizen.InvokeNative(0xC92AC953F0A982AE, openWagons) then
                     OilWagonLoot()
                 end
                 --if IsControlJustPressed(0, Config.Keys['G']) then
