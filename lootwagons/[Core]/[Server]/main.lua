@@ -70,7 +70,7 @@ end
 AddEventHandler('RootLodge:LootWagons:S:AddItem', function(Item, Amount)
   local User = VORPcore.getUser(source)
   if User ~= nil then
-    local Character = User.getUsedCharacter()
+    local Character = User.getUsedCharacter
     if Character ~= nil then
       -- Assuming 'Item' is the table and 'Item.Item' is the identifier used in the addItem function
       exports['vorp_inventory']:addItem(source, Item.Item, Amount)
