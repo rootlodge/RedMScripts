@@ -8,10 +8,10 @@ if Config.CheckForUpdates then
     local function CheckChangeLog()
         PerformHttpRequest('https://raw.githubusercontent.com/rootlodge/RedMScripts/master/lootwagons-changelog.txt', function(err, text, headers)
             if not text then
-                ChangeLog('error', 'Currently unable to run a Change check.')
+                VersionLog('error', 'Currently unable to run a Change check.')
                 return
             end
-            ChangeLog('success', ('Latest Changes: %s'):format(text))
+            VersionLog('success', ('Latest Changes: %s'):format(text))
         end)
     end
 
