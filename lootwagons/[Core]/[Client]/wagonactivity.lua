@@ -170,8 +170,8 @@ Citizen.CreateThread(function()
         local playerPed = PlayerPedId()
         local playerCoords = GetEntityCoords(playerPed)
         
-        for k, v in pairs(ActiveEnemyNpcs) do
-            local EnemyCoords = GetEntityCoords(ActiveEnemyNpcs[k])
+        for k, npcped in pairs(ActiveEnemyNpcs) do
+            local EnemyCoords = GetEntityCoords(npcped)
             local truedistance = GetDistanceBetweenCoords(playerCoords, EnemyCoords)
             if truedistance <= 25.0 then
 
@@ -193,20 +193,19 @@ Citizen.CreateThread(function()
                     PromptSetEnabled(openWagons, 0)
                     PromptSetVisible(openWagons, 0)
                 end
+            else
+                if truedistance >= 50.0 then
+                    local wagon = GetVehiclePedIsIn(npcped, true)
+                    local wagonHash = GetHashKey(wagon)
+                    local blip = GetBlipFromEntity(wagon)
+                    local blipHash = GetHashKey(blip)
+                    DeleteBlip(blipHash)
+                    DeleteWagon(wagonHash)
+                    DeletePed(npcped)
+                end
             end
             -- if distance is not less than 25 units, then it will reset the prompt
-            if truedistance > 25.0 then
-                local Ped = ActiveEnemyNpcs[k]
-                local PedHash = GetHashKey(Ped)
-                local Wagon = GetVehiclePedIsIn(PedHash, true)
-                local WagonHash = GetHashKey(Wagon)
-                -- get the blip from the wagon
-                local Blip = GetBlipFromEntity(WagonHash)
-                local BlipHash = GetHashKey(Blip)
-                DeleteWagon(WagonHash)
-                DeletePed(PedHash)
-                DeleteBlip(BlipHash)
-            end
+            
         end
     end
 end)
