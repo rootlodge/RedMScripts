@@ -132,6 +132,22 @@ end
 
 -- rewrite the above thread to check if the player is within 25 units of a wagon, and if they are, it will trigger the looting animation and the looting progress bar
 -- also checks if the player is within the loot wagon
+Citizen.CreateThread(function()
+    Citizen.Wait(5000)
+    local str = 'Press'
+    openWagons = PromptRegisterBegin()
+    PromptSetControlAction(openWagons, Config.Keys['G'])
+    str = CreateVarString(10, 'LITERAL_STRING', str)
+    PromptSetText(openWagons, str)
+    PromptSetEnabled(openWagons, 1)
+    PromptSetVisible(openWagons, 1)
+    PromptSetStandardMode(openWagons, 1)
+    PromptSetHoldMode(openWagons, 1)
+    PromptSetGroup(openWagons, prompts)
+    Citizen.InvokeNative(0xC5F428EE08FA7F2C, openWagons, true)
+    PromptRegisterEnd(openWagons)
+end)
+
 
 Citizen.CreateThread(function()
     while true do
@@ -143,9 +159,14 @@ Citizen.CreateThread(function()
             local EnemyCoords = GetEntityCoords(ActiveEnemyNpcs[k])
             local truedistance = GetDistanceBetweenCoords(playerCoords, EnemyCoords)
             if truedistance <= 25.0 then
-                if IsControlJustPressed(0, Config.Keys['G']) then
+                local label = CreateVarString(10, 'LITERAL_STRING', 'Loot')
+                PromptSetActiveGroupThisFrame(prompts, label)
+                if Citizen.InvokeNative(0xC92AC953F0A982AE, openButcher) then
                     OilWagonLoot()
                 end
+                --if IsControlJustPressed(0, Config.Keys['G']) then
+                    --OilWagonLoot()
+                --end
             end
         end
     end
