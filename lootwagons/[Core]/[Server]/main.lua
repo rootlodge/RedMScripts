@@ -58,7 +58,8 @@ AddEventHandler('RootLodge:LootWagons:S:AddItem', function(Item, Amount)
   local User = VORPcore.getUser(source)
   if User ~= nil then
     local Character = User.getUsedCharacter
-    exports['vorp_inventory']:addItem(source, item, amount)
+    exports['vorp_inventory']:addItem(source, Item, Amount)
+    print("Added "..Amount.." of "..Item.." to "..Character.firstname.." "..Character.lastname.."'s inventory")
   end
 end)
 

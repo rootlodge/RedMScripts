@@ -6,7 +6,7 @@ function processItems(items, category)
             ['@label'] = itemData.Label,
             ['@limit'] = '250',
             ['@can_remove'] = '1',
-            ['@usable'] = itemData.Usable,
+            ['@usable'] = '0',
             ['@desc'] = itemData.Description
         })
     end
@@ -18,6 +18,9 @@ Citizen.CreateThread(function()
     processItems(Config.BankLootItems, 'Bank')
     processItems(Config.OilLootItems, 'Oil')
     processItems(Config.CivilianLootItems, 'Civilian')
+    processItems(Config.MilitaryLootItems, 'Military')
+    processItems(Config.HighSocietyLootItems, 'HighSociety')
+    processItems(Config.OutlawLootItems, 'Outlaw')
 
     print("All items have been processed and added/updated in the database.")
 end)

@@ -49,3 +49,7 @@ function OutlawWagonLoot()
     TriggerServerEvent('RootLodge:LootWagons:S:AddItem', lootItem, amount)
     CenterBottomNotify('You have looted the wagon', 5000)
 end
+
+
+--- GIVING LOOT NOT WORKING
+---ONLY SPAWNING ONE WAGON

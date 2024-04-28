@@ -67,3 +67,5 @@ https://github.com/DevDokus/RedM-BountyHunter
 https://github.com/zelbeus/useful_codes/blob/main/useful_codes1.lua
 https://github.com/DarrenJDocherty/RedM-Witnesses
 https://github.com/JuanDeag-dev/juan_hunting/
+https://docs.enpwr-scripts.com/weed-script/accessible-code
+https://docs.acura.gg/redm/ad_mining/configuration-files
