@@ -148,6 +148,22 @@ Citizen.CreateThread(function()
     PromptRegisterEnd(openWagons)
 end)
 
+function DeleteWagon(WagonHash)
+    -- delete the wagon
+    DeleteEntity(WagonHash)
+    -- remove the wagon from the LootWagons array
+    table.remove(LootWagons, 1)
+end
+
+function DeletePed(PedHash)
+    -- delete the ped
+    DeleteEntity(PedHash)
+end
+
+function DeleteBlip(BlipHash)
+    -- delete the blip
+    RemoveBlip(BlipHash)
+end
 
 Citizen.CreateThread(function()
     while true do
@@ -166,11 +182,22 @@ Citizen.CreateThread(function()
                 PromptSetVisible(openWagons, 1)
                 PromptSetActiveGroupThisFrame(prompts, label)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, openWagons) then
+                    -- animation to begin looting
                     OilWagonLoot()
+                    Citizen.Wait(5000)
+                    PromptSetEnabled(openWagons, 0)
+                    PromptSetVisible(openWagons, 0)
+                    -- get ped hash
+                    local Ped = ActiveEnemyNpcs[k]
+                    local PedHash = GetHashKey(Ped)
+                    -- delete the ped
+                    DeletePed(PedHash)
+                    -- get wagon hash by what ped was in
+                    local Wagon = GetVehiclePedIsIn(PedHash, true)
+                    local WagonHash = GetHashKey(Wagon)
+                    -- delete the wagon
+                    DeleteWagon(WagonHash)
                 end
-                --if IsControlJustPressed(0, Config.Keys['G']) then
-                    --OilWagonLoot()
-                --end
             end
             -- if distance is not less than 25 units, then it will reset the prompt
             if truedistance > 25.0 then
