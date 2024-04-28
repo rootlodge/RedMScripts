@@ -196,8 +196,6 @@ Citizen.CreateThread(function()
             end
             -- if distance is not less than 25 units, then it will reset the prompt
             if truedistance > 25.0 then
-                PromptSetEnabled(openWagons, 0)
-                PromptSetVisible(openWagons, 0)
                 local Ped = ActiveEnemyNpcs[k]
                 local PedHash = GetHashKey(Ped)
                 local Wagon = GetVehiclePedIsIn(PedHash, true)
