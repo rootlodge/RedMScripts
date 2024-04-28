@@ -177,8 +177,6 @@ Citizen.CreateThread(function()
 
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
-                PromptSetEnabled(openWagons, 1)
-                PromptSetVisible(openWagons, 1)
                 PromptSetActiveGroupThisFrame(prompts, label)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, openWagons) then
                     -- animation to begin looting
@@ -190,8 +188,6 @@ Citizen.CreateThread(function()
                     OilWagonLoot()
                     Animations.endAnimation("craft")
                     Citizen.Wait(5000)
-                    PromptSetEnabled(openWagons, 0)
-                    PromptSetVisible(openWagons, 0)
                 end
             else
                 if truedistance >= 50.0 then
