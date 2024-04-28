@@ -2,3 +2,4 @@ Added Items into Script
 Added Item injection into DB via oxmysql
 Added Looting Logic
 Added Changelog
+Added Prompting
