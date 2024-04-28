@@ -1,6 +1,5 @@
 -- Monitors the activity of the wagons, and changes variables if they have been looted
-
-
+local Animations = exports.vorp_animations.initiate()
 
 
 
@@ -183,26 +182,28 @@ Citizen.CreateThread(function()
                 PromptSetActiveGroupThisFrame(prompts, label)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, openWagons) then
                     -- animation to begin looting
+                    Animations.startAnimation("craft")
+                    -- timer it takes to loot the wagon
+                    NotifyRightTip("Looting the wagon...", 15000)
+                    Wait(15000)
+                    NotifyRightTip("You have looted the wagon", 5000)
                     OilWagonLoot()
+                    Animations.endAnimation("craft")
                     Citizen.Wait(5000)
                     PromptSetEnabled(openWagons, 0)
                     PromptSetVisible(openWagons, 0)
-                    -- get ped hash
-                    local Ped = ActiveEnemyNpcs[k]
-                    local PedHash = GetHashKey(Ped)
-                    -- delete the ped
-                    DeletePed(PedHash)
-                    -- get wagon hash by what ped was in
-                    local Wagon = GetVehiclePedIsIn(PedHash, true)
-                    local WagonHash = GetHashKey(Wagon)
-                    -- delete the wagon
-                    DeleteWagon(WagonHash)
                 end
             end
             -- if distance is not less than 25 units, then it will reset the prompt
             if truedistance > 25.0 then
                 PromptSetEnabled(openWagons, 0)
                 PromptSetVisible(openWagons, 0)
+                local Ped = ActiveEnemyNpcs[k]
+                local PedHash = GetHashKey(Ped)
+                local Wagon = GetVehiclePedIsIn(PedHash, true)
+                local WagonHash = GetHashKey(Wagon)
+                DeleteWagon(WagonHash)
+                DeletePed(PedHash)
             end
         end
     end
