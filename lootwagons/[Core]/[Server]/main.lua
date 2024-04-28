@@ -53,13 +53,29 @@ AddEventHandler('RootLodge:LootWagons:S:PayDay', function(KillCount)
   VORPcore.NotifyRightTip(_source, "You received $"..mPay..' and '..xPay..' XP', 5000)
 end)
 
+-- A helper function to print table contents
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
 -- Event Handler to Add Items
 AddEventHandler('RootLodge:LootWagons:S:AddItem', function(Item, Amount)
   local User = VORPcore.getUser(source)
   if User ~= nil then
     local Character = User.getUsedCharacter
     exports['vorp_inventory']:addItem(source, Item, Amount)
-    print("Added "..Amount.." of "..Item.." to "..Character.firstname.." "..Character.lastname.."'s inventory")
+    -- Log the entire item table to see its structure
+    print("Item table:", dump(Item))
+    --print("Added "..Amount.." of "..Item.." to "..Character.firstname.." "..Character.lastname.."'s inventory")
   end
 end)
 
