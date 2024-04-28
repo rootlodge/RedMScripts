@@ -12,15 +12,16 @@ function processItems(items, category)
     end
 end
 
--- Main thread to run the script
-Citizen.CreateThread(function()
-    --process each category of items
+-- on resource start, create the items table if it doesn't exist
+AddEventHandler('onResourceStart', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+        return
+    end
+
     processItems(Config.BankLootItems, 'Bank')
     processItems(Config.OilLootItems, 'Oil')
     processItems(Config.CivilianLootItems, 'Civilian')
     processItems(Config.MilitaryLootItems, 'Military')
     processItems(Config.HighSocietyLootItems, 'HighSociety')
     processItems(Config.OutlawLootItems, 'Outlaw')
-
-    print("All items have been processed and added/updated in the database.")
 end)
