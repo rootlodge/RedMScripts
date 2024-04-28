@@ -67,15 +67,20 @@ function dump(o)
    end
 end
 
--- Event Handler to Add Items
 AddEventHandler('RootLodge:LootWagons:S:AddItem', function(Item, Amount)
   local User = VORPcore.getUser(source)
   if User ~= nil then
-    local Character = User.getUsedCharacter
-    exports['vorp_inventory']:addItem(source, Item, Amount)
-    -- Log the entire item table to see its structure
-    print("Item table:", dump(Item))
-    --print("Added "..Amount.." of "..Item.." to "..Character.firstname.." "..Character.lastname.."'s inventory")
+    local Character = User.getUsedCharacter()
+    if Character ~= nil then
+      -- Assuming 'Item' is the table and 'Item.Item' is the identifier used in the addItem function
+      exports['vorp_inventory']:addItem(source, Item.Item, Amount)
+      -- Using 'Item.Name' to display the name of the item in the print statement
+      print("Added " .. Amount .. " of " .. Item.Name .. " to " .. Character.firstname .. " " .. Character.lastname .. "'s inventory")
+    else
+      print("Character not found for user")
+    end
+  else
+    print("User not found")
   end
 end)
 
