@@ -202,8 +202,12 @@ Citizen.CreateThread(function()
                 local PedHash = GetHashKey(Ped)
                 local Wagon = GetVehiclePedIsIn(PedHash, true)
                 local WagonHash = GetHashKey(Wagon)
+                -- get the blip from the wagon
+                local Blip = GetBlipFromEntity(WagonHash)
+                local BlipHash = GetHashKey(Blip)
                 DeleteWagon(WagonHash)
                 DeletePed(PedHash)
+                DeleteBlip(BlipHash)
             end
         end
     end
