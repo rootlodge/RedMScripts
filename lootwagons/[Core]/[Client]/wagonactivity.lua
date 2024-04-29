@@ -78,15 +78,15 @@ Citizen.CreateThread(function()
                     isLooting = true
                     Animations.startAnimation("craft")
                     NotifyRightTip("Looting the wagon...", 15000)
-                    Citizen.Wait(15000)
+                    Wait(15000)
                     StartLooting(npcped)  -- Perform the looting
                     Animations.endAnimation("craft")
                     NotifyRightTip("You have looted the wagon", 5000)
-                    Citizen.Wait(5000)
+                    Wait(5000)
                     PayPlayerClient()
                     NotifyRightTip("You have been paid for looting the wagon", 5000)
                     NotifyObjective("Wagon will explode in 10 seconds, leave the area!", 10000)
-                    Citizen.Wait(10000)
+                    Wait(10000)
                     ExplodeVehicle(GetWagonFromPed(npcped))
                     isLooting = false
                     hasLooted = true
