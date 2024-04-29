@@ -111,7 +111,16 @@ Citizen.CreateThread(function()
             print('Players are active')
             -- Trigger the spawning of wagons based on configured amounts
             for wagonType, amount in pairs(Config.WagonMaxSpawnAmount) do
-                local wagonConfig = Config.Wagons[wagonType]
+                --local wagonConfig = Config.Wagons[wagonType]
+                -- wagon config equals the wagon type if the wagon types are the same
+                local wagonConfig = nil
+                print('Checking for wagon type: ' .. wagonType)
+                for _, wagon in ipairs(Config.Wagons) do
+                    if wagon.WagonType == wagonType then
+                        wagonConfig = wagon
+                        dump(wagonConfig)
+                    end
+                end
                 if wagonConfig then
                     for i = 1, amount do
                         -- Pass the wagon type, model, and name to the event
