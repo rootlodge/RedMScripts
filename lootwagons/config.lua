@@ -138,7 +138,7 @@ Config.CivilianLootItems = {
     { Item = 'cannedfood', Name = 'Canned Food', Label = 'Canned Food', Weight = 0.5, Description = 'A can of food', Value = 10 },
     { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
     { Item = 'weapon_knife', Name = 'Knife', Label = 'Knife', Weight = 0.5, Description = 'A sharp knife', Value = 50 },
-    { Item = 'diamond_ring', Name = 'Diamond Ring', Label = 'Diamond Ring', Weight = 0.2, Description = 'A diamond ring', Value = 100 },
+    { Item = 'stolen_diamond_ring', Name = 'Stolen Diamond Ring', Label = 'Stolen Diamond Ring', Weight = 0.5, Description = 'A diamond ring stolen from a wealthy victim', Value = 200 },
     { Item = 'diamond_necklace', Name = 'Diamond Necklace', Label = 'Diamond Necklace', Weight = 0.5, Description = 'A diamond necklace', Value = 200 },
     { Item = 'diamond_bracelet', Name = 'Diamond Bracelet', Label = 'Diamond Bracelet', Weight = 0.5, Description = 'A diamond bracelet', Value = 200 },
     { Item = 'diamond_earrings', Name = 'Diamond Earrings', Label = 'Diamond Earrings', Weight = 0.1, Description = 'A pair of diamond earrings', Value = 100 },
@@ -179,6 +179,10 @@ Config.OutlawLootItems = {
     { Item = 'weapon_knife', Name = 'Knife', Label = 'Knife', Weight = 0.5, Description = 'A sharp knife', Value = 50 },
     { Item = 'weapon_machete', Name = 'Machete', Label = 'Machete', Weight = 1.0, Description = 'A large machete', Value = 100 },
     { Item = 'stolen_goldbar', Name = 'Stolen Gold Bar', Label = 'Stolen Gold Bar', Weight = 10, Description = 'A gold bar stolen from a vault', Value = 500 },
+    -- stolen diamond ring
+    -- stolen diamond necklace
+    { Item = 'stolen_diamond_ring', Name = 'Stolen Diamond Ring', Label = 'Stolen Diamond Ring', Weight = 0.5, Description = 'A diamond ring stolen from a wealthy victim', Value = 200 },
+    { Item = 'stolen_diamond_earrings', Name = 'Stolen Diamond Earrings', Label = 'Stolen Diamond Earrings', Weight = 0.1, Description = 'A pair of diamond earrings stolen from a wealthy victim', Value = 100 },
 }
 
 
