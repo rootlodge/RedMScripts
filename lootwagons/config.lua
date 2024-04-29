@@ -64,11 +64,11 @@ Config.WagonSpawnLocations = {
 
 Config.Wagons = {
     { WagonType = 'Bank', WagonName = 'Bank Wagon', WagonModel = 'wagon05x' },  -- Added comma
-    { WagonType = 'Oil', WagonName = 'Oil Wagon', WagonModel = 'wagon05x' },  -- Added comma
-    { WagonType = 'Civilian', WagonName = 'Civilian Wagon', WagonModel = 'wagon05x' },  -- Added comma
-    { WagonType = 'HighSociety', WagonName = 'High Society Wagon', WagonModel = 'wagon05x' },  -- Added comma
+    { WagonType = 'Oil', WagonName = 'Oil Wagon', WagonModel = 'oilwagon01x' },  -- Added comma
+    { WagonType = 'Civilian', WagonName = 'Civilian Wagon', WagonModel = 'buggy02' },  -- Added comma
+    { WagonType = 'HighSociety', WagonName = 'High Society Wagon', WagonModel = 'coach4' },  -- Added comma
     { WagonType = 'Military', WagonName = 'Military Wagon', WagonModel = 'armysupplywagon' },  -- Added comma
-    { WagonType = 'Outlaw', WagonName = 'Outlaw Wagon', WagonModel = 'wagon05x' },
+    { WagonType = 'Outlaw', WagonName = 'Outlaw Wagon', WagonModel = 'wagonarmoured01x' },
 }
 
 Config.ExtraSupportWagons = {
@@ -133,7 +133,6 @@ Config.OilLootItems = {
 
 
 Config.CivilianLootItems = {
-    -- regular items that any civilian would have, with some stolen cash
     { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 },
     { Item = 'cannedfood', Name = 'Canned Food', Label = 'Canned Food', Weight = 0.5, Description = 'A can of food', Value = 10 },
     { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
@@ -145,7 +144,6 @@ Config.CivilianLootItems = {
 }
 
 Config.HighSocietyLootItems = {
-    -- high society items such as gold bars, jewelry, and cash
     { Item = 'goldbar', Name = 'Gold Bar', Label = 'Gold Bar', Weight = 10, Description = 'A bar of gold', Value = 500 },
     { Item = 'goldcoin', Name = 'Gold Coin', Label = 'Gold Coin', Weight = 0.01, Description = 'A gold coin', Value = 50 },
     { Item = 'goldwatch', Name = 'Gold Watch', Label = 'Gold Watch', Weight = 0.5, Description = 'A gold watch', Value = 100 },
@@ -158,7 +156,6 @@ Config.HighSocietyLootItems = {
 }
 
 Config.MilitaryLootItems = {
-    -- military items such as weapons, ammo, and rations
     { Item = 'weapon_pistol', Name = 'Pistol', Label = 'Pistol', Weight = 2.0, Description = 'A standard pistol', Value = 500 },
     { Item = 'weapon_rifle', Name = 'Rifle', Label = 'Rifle', Weight = 5.0, Description = 'A standard rifle', Value = 1000 },
     { Item = 'weapon_shotgun', Name = 'Shotgun', Label = 'Shotgun', Weight = 5.0, Description = 'A standard shotgun', Value = 1000 },
@@ -179,8 +176,6 @@ Config.OutlawLootItems = {
     { Item = 'weapon_knife', Name = 'Knife', Label = 'Knife', Weight = 0.5, Description = 'A sharp knife', Value = 50 },
     { Item = 'weapon_machete', Name = 'Machete', Label = 'Machete', Weight = 1.0, Description = 'A large machete', Value = 100 },
     { Item = 'stolen_goldbar', Name = 'Stolen Gold Bar', Label = 'Stolen Gold Bar', Weight = 10, Description = 'A gold bar stolen from a vault', Value = 500 },
-    -- stolen diamond ring
-    -- stolen diamond necklace
     { Item = 'stolen_diamond_ring', Name = 'Stolen Diamond Ring', Label = 'Stolen Diamond Ring', Weight = 0.5, Description = 'A diamond ring stolen from a wealthy victim', Value = 200 },
     { Item = 'stolen_diamond_earrings', Name = 'Stolen Diamond Earrings', Label = 'Stolen Diamond Earrings', Weight = 0.1, Description = 'A pair of diamond earrings stolen from a wealthy victim', Value = 100 },
 }

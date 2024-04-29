@@ -43,6 +43,10 @@ MilitaryTimer = false
 OutlawTimer = false
 
 ActiveEnemyNpcs = {}
+activeWagons = {} -- table to store the active wagons
+WagonIDCounter = 0 -- counter to keep track of the wagon ID
+activePeds = {} -- table to store the active peds
+activePedIDCounter = 0 -- counter to keep track of the ped ID
 -- To do list
 -- Add a check to see if the player is in the correct location
 -- Logic to place objects in the loot wagon
@@ -95,9 +99,27 @@ function SpawnLootWagons()
                 local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
                 -- add WagonVehicle to the loot wagon table and add what type of wagon it is
                 table.insert(LootWagons, { WagonVehicle = wagonVehicle, WagonType = wagonConfig.WagonType })
+
+                WagonIDCounter = WagonIDCounter + 1
+                activeWagons[WagonIDCounter] = {
+                    id = WagonIDCounter,
+                    type = wagonConfig.WagonType,
+                    vehicle = wagonVehicle,
+                }
+
+                activePedIDCounter = activePedIDCounter + 1
+                activePeds[activePedIDCounter] = {
+                    id = activePedIDCounter,
+                    ped = rawped,
+                    vehicle = wagonVehicle,
+                    loottype = wagonConfig.WagonType,
+                }
+
                 SetEntityAsMissionEntity(wagonVehicle, true, true)
                 SetEntityAsMissionEntity(rawped, true, true)
+                Wait(1)
                 TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
+                Wait(1)
                 TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
 
                 if Config.isWagonBlipVisible then

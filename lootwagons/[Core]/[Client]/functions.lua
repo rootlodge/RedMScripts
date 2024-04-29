@@ -253,6 +253,54 @@ function WaitForBank()
     print("Bank wagon timer reset.")
 end
 
+function LootforEachCategoryType(wagonType)
+    if wagonType == 'Oil' then
+        OilWagonLoot()
+    elseif wagonType == 'Civilian' then
+        CivilianWagonLoot()
+    elseif wagonType == 'Bank' then
+        BankWagonLoot()
+    elseif wagonType == 'HighSociety' then
+        HighSocietyWagonLoot()
+    elseif wagonType == 'Military' then
+        MilitaryWagonLoot()
+    elseif wagonType == 'Outlaw' then
+        OutlawWagonLoot()
+    end
+end
+
+function StartLooting(npcped)
+    for id, data in pairs(activePeds) do
+        if data.ped == npcped then  -- Match the ped being looted with the stored peds
+            -- Call the function to handle looting based on the category type
+            LootforEachCategoryType(data.loottype)
+
+            -- Optional: Clean up after looting
+            DeleteEntity(data.ped)
+            DeleteVehicle(data.vehicle)
+            activePeds[id] = nil  -- Remove this ped from the activePeds array
+            break  -- Exit the loop after handling the correct ped
+        end
+    end
+end
+
+function CleanupAfterLooting(npcped)
+    for id, data in pairs(activePeds) do
+        if data.ped == npcped then
+            -- Directly delete the ped and vehicle
+            DeletePed(data.ped)
+            DeleteVehicle(data.vehicle)
+            if DoesBlipExist(GetBlipFromEntity(data.vehicle)) then
+                RemoveBlip(GetBlipFromEntity(data.vehicle))  -- Remove blip if it exists
+            end
+            
+            -- Remove the ped and vehicle data from activePeds table
+            activePeds[id] = nil
+            break  -- Exit loop after cleaning up
+        end
+    end
+end
+
 
 -- For core loot functions
 
