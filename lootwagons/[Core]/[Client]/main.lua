@@ -114,7 +114,7 @@ Citizen.CreateThread(function()
                 if wagonConfig then
                     for i = 1, amount do
                         -- Pass the wagon type, model, and name to the event
-                        TriggerEvent('RootLodge:C:LootWagonsStart', wagonType, wagonConfig.WagonModel, wagonConfig.WagonName)
+                        TriggerEvent('RootLodge:C:SpawnLootWagons', wagonType, wagonConfig.WagonModel, wagonConfig.WagonName)
                         Citizen.Wait(1000)  -- Wait a second before triggering the next spawn to prevent spam
                     end
                 end
