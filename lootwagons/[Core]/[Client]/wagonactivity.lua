@@ -92,7 +92,7 @@ Citizen.CreateThread(function()
                     canplayerloot = false
                     UiPromptDelete(openWagons)
                 end
-            elseif isControlJustReleased(0, Config.Keys['G']) then
+            elseif IsControlJustPressed(0, Config.Keys['G']) then
                 if cantheyloot(truedistance) then
                     ShowthePrompt()
                     local lootingtext = "Looting"
