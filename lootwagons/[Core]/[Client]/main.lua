@@ -60,10 +60,6 @@ currentWagonCounts = {} -- table to store the current count of each wagon type
 RegisterNetEvent('RootLodge:LootWagons:C:SpawnLootWagons')
 AddEventHandler('RootLodge:LootWagons:C:SpawnLootWagons', function(wagonType, remainingAmount, wagonModel, wagonName)
     for _, wagonConfig in ipairs(Config.Wagons) do
-        --if not wagonConfig then return end
-        if not wagonConfig.WagonType then return end
-        if not wagonConfig.WagonModel then return end
-        if not wagonConfig.WagonName then return end
         wagonModel = nil
         wagonName = nil
         if wagonConfig.WagonType == wagonType then
