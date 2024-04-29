@@ -73,7 +73,7 @@ Citizen.CreateThread(function()
                 --ShowthePrompt()
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
-                PromptSetActiveGroupThisFrame(openWagons, label)
+                UiPromptSetActiveGroupThisFrame(label, 1, 1, 1, openWagons)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, openWagons) then
                     isLooting = true
                     Animations.startAnimation("craft")
