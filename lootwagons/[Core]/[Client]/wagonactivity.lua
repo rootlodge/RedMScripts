@@ -1,6 +1,6 @@
 -- Monitors the activity of the wagons, and changes variables if they have been looted
 local Animations = exports.vorp_animations.initiate()
-
+local prompts = GetRandomIntInRange(0, 0xffffff)
 -- rewrite the above thread to check if the player is within 25 units of a wagon, and if they are, it will trigger the looting animation and the looting progress bar
 -- also checks if the player is within the loot wagon
 
@@ -22,10 +22,13 @@ Citizen.CreateThread(function()
     PromptRegisterEnd(WagonPrompt)
 end)
 
+AddEventHandler("onResourceStop",
+    function(resourceName)
+    if resourceName == GetCurrentResourceName() then
+        PromptDelete(prompts)
+    end
+end)
 
-function DeletePrompt(prompt)
-    UiPromptDelete(prompt)
-end
 
 local paydayenabled = Config.ShouldBePaidForWagonLoot
 function PayPlayerClient()
@@ -88,7 +91,7 @@ Citizen.CreateThread(function()
             local enemyCoords = GetEntityCoords(ActiveEnemyNpcs[index])
             local truedistance = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
             
-            if cantheyloot(truedistance) then
+            if truedistance <= 10.0 then
                 --ShowthePrompt()
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
