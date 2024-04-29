@@ -56,7 +56,7 @@ activePedIDCounter = 0 -- counter to keep track of the ped ID
 
 --------------------------------------------------------------------------------
 -- put the SpawnLootWagons function into a client event
-RegisterNetEvent('RootLodge:LootWagons:C:SpawnWagons')
+RegisterNetEvent('RootLodge:LootWagons:C:SpawnLootWagons')
 AddEventHandler('RootLodge:LootWagons:C:SpawnLootWagons', function(wagonType, wagonModel, wagonName)
     for _, wagonConfig in ipairs(Config.Wagons) do
         --if not wagonConfig then return end
@@ -115,7 +115,8 @@ Citizen.CreateThread(function()
                 if wagonConfig then
                     for i = 1, amount do
                         -- Pass the wagon type, model, and name to the event
-                        TriggerEvent('RootLodge:C:SpawnLootWagons', wagonType, wagonConfig.WagonModel, wagonConfig.WagonName)
+                        TriggerEvent('RootLodge:LootWagons:C:SpawnLootWagons', wagonType, wagonConfig.WagonModel, wagonConfig.WagonName)
+
                         Citizen.Wait(1000)  -- Wait a second before triggering the next spawn to prevent spam
                     end
                 end
