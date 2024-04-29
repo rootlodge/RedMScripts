@@ -92,6 +92,30 @@ Citizen.CreateThread(function()
                     canplayerloot = false
                     UiPromptDelete(openWagons)
                 end
+            elseif isControlJustReleased(0, Config.Keys['G']) then
+                if cantheyloot(truedistance) then
+                    ShowthePrompt()
+                    local lootingtext = "Looting"
+                    local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
+                    PromptSetActiveGroupThisFrame(prompts, label)
+                    isLooting = true
+                    Animations.startAnimation("craft")
+                    NotifyRightTip("Looting the wagon...", 15000)
+                    Citizen.Wait(15000)
+                    StartLooting(npcped)  -- Perform the looting
+                    Animations.endAnimation("craft")
+                    NotifyRightTip("You have looted the wagon", 5000)
+                    Citizen.Wait(5000)
+                    PayPlayerClient()
+                    NotifyRightTip("You have been paid for looting the wagon", 5000)
+                    NotifyObjective("Wagon will explode in 10 seconds, leave the area!", 10000)
+                    Citizen.Wait(10000)
+                    ExplodeVehicle(GetWagonFromPed(npcped))
+                    isLooting = false
+                    hasLooted = true
+                    canplayerloot = false
+                    UiPromptDelete(openWagons)
+                end
             elseif truedistance >= 11.0 and ifDeadPed(npcped) then
                 -- Cleanup when the player is far enough away
                 -- remove the ped from ActiveEnemyNpcs

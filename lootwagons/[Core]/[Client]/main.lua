@@ -120,7 +120,7 @@ Citizen.CreateThread(function()
             for _, config in ipairs(Config.WagonMaxSpawnAmount) do
                 local wagonType = config.WagonType
                 local maxAmount = config.MaxAmount
-                local currentCount = activeWagonIDCounter
+                local currentCount = currentCountForCategory(wagonType)
 
                 if currentCount < maxAmount then
                     local remainingAmount = maxAmount - currentCount
@@ -135,6 +135,21 @@ Citizen.CreateThread(function()
     end
 end)
 
+function currentCountForCategory(wagonType)
+    if wagonType == "Oil" then
+        return OilWagonCount
+    elseif wagonType == "Civilian" then
+        return CivilianWagonCount
+    elseif wagonType == "HighSociety" then
+        return HighSocietyWagonCount
+    elseif wagonType == "Military" then
+        return MilitaryWagonCount
+    elseif wagonType == "Outlaw" then
+        return OutlawWagonCount
+    elseif wagonType == "Bank" then
+        return BankWagonCount
+    end
+end
 
 -- Citizen thread to manage all wagon respawn timers
 Citizen.CreateThread(function()
