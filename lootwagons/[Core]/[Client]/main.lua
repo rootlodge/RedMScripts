@@ -105,9 +105,10 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(8000)  -- Check every 8 seconds
-
+        print('Checking for active players')
         local players = GetActivePlayers()
         if #players > 0 then  -- Check if there are any active players
+            print('Players are active')
             -- Trigger the spawning of wagons based on configured amounts
             for wagonType, amount in pairs(Config.WagonMaxSpawnAmount) do
                 local wagonConfig = Config.Wagons[wagonType]
