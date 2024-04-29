@@ -1,3 +1,5 @@
+Added Explosions
+Fixed only one wagon spawning
 Added Items into Script
 Added Item injection into DB via oxmysql
 Added Looting Logic
