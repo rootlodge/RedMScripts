@@ -1,0 +1,1 @@
+Drag into vorp_inventory/html/img/items

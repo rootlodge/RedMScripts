@@ -51,6 +51,209 @@ function GetRandomPed()
     return peds[math.random(#peds)]
 end
 
+function DeleteWagon(WagonHash)
+    -- delete the wagon
+    DeleteEntity(WagonHash)
+    -- remove the wagon from the LootWagons array
+    table.remove(LootWagons, 1)
+end
+
+function DeletePed(PedHash)
+    -- delete the ped
+    DeleteEntity(PedHash)
+end
+
+function DeleteBlip(BlipHash)
+    -- delete the blip
+    RemoveBlip(BlipHash)
+end
+
+function RemovePedWagonBlip(PedHash, WagonHash, BlipHash)
+    -- delete the ped
+    DeleteEntity(PedHash)
+    -- delete the wagon
+    DeleteEntity(WagonHash)
+    -- delete the blip
+    RemoveBlip(BlipHash)
+    return true
+end
+
+-- logic function for checks if Config.isWagonTypeEnabled is true AND if the max amount of wagons has been spawned AND if the wagon type is finished or not
+-- if the wagon type is finished, it will skip the wagon type and move to the next one
+-- if the wagon type is not finished, it will spawn the wagon and increment the wagon count for that type
+-- if the wagon type is not enabled, it will skip the wagon type and move to the next one
+
+function WagonChecks(wagonConfig)
+    if ((wagonConfig.WagonType == 'Oil' and Config.isOilWagonsEnabled) or
+        (wagonConfig.WagonType == 'Civilian' and Config.isCivilianWagonsEnabled) or
+        (wagonConfig.WagonType == 'Bank' and Config.isBankWagonsEnabled) or
+        (wagonConfig.WagonType == 'HighSociety' and Config.isHighSocietyWagonsEnabled) or
+        (wagonConfig.WagonType == 'Military' and Config.isMilitaryWagonsEnabled) or
+        (wagonConfig.WagonType == 'Outlaw' and Config.isOutlawWagonsEnabled)) then
+
+        if OilWagonCount >= Config.WagonMaxSpawnAmount.Oil then
+            OilFinished = true
+            OilTimer = true
+            return false
+        end
+        if CivilianWagonCount >= Config.WagonMaxSpawnAmount.Civilian then
+            CivilianFinished = true
+            CivilianTimer = true
+            return false
+        end
+        if HighSocietyWagonCount >= Config.WagonMaxSpawnAmount.HighSociety then
+            HighSocietyFinished = true
+            HighSocietyTimer = true
+            return false
+        end
+        if MilitaryWagonCount >= Config.WagonMaxSpawnAmount.Military then
+            MilitaryFinished = true
+            MilitaryTimer = true
+            return false
+        end
+        if OutlawWagonCount >= Config.WagonMaxSpawnAmount.Outlaw then
+            OutlawFinished = true
+            OutlawTimer = true
+            return false
+        end
+        if BankWagonCount >= Config.WagonMaxSpawnAmount.Bank then
+            BankFinished = true
+            BankTimer = true
+            return false
+        end
+        return true
+    end
+end
+
+-- decrease the count of the wagon type if it has been looted
+function DecreaseWagonCount(wagonType) 
+    if wagonType == 'Oil' then
+        OilWagonCount = OilWagonCount - 1
+    elseif wagonType == 'Civilian' then
+        CivilianWagonCount = CivilianWagonCount - 1
+    elseif wagonType == 'HighSociety' then
+        HighSocietyWagonCount = HighSocietyWagonCount - 1
+    elseif wagonType == 'Military' then
+        MilitaryWagonCount = MilitaryWagonCount - 1
+    elseif wagonType == 'Outlaw' then
+        OutlawWagonCount = OutlawWagonCount - 1
+    elseif wagonType == 'Bank' then
+        BankWagonCount = BankWagonCount - 1
+    end
+end
+
+function IncreaseWagonCount(wagonType) 
+    if wagonType == 'Oil' then
+        OilWagonCount = OilWagonCount + 1
+    elseif wagonType == 'Civilian' then
+        CivilianWagonCount = CivilianWagonCount + 1
+    elseif wagonType == 'HighSociety' then
+        HighSocietyWagonCount = HighSocietyWagonCount + 1
+    elseif wagonType == 'Military' then
+        MilitaryWagonCount = MilitaryWagonCount + 1
+    elseif wagonType == 'Outlaw' then
+        OutlawWagonCount = OutlawWagonCount + 1
+    elseif wagonType == 'Bank' then
+        BankWagonCount = BankWagonCount + 1
+    end
+end
+
+function GetWagonArray()
+    local WagonHash = nil
+    local WagonType = nil
+    -- get the LootWagons array in main.lua
+    for _, wagon in ipairs(LootWagons) do
+        WagonHash = GetHashKey(wagon.WagonVehicle)
+        WagonType = wagon.WagonType
+        -- return WagonHash and WagonType
+        return WagonHash, WagonType
+    end
+    --console.log('WagonHash: ' .. WagonHash)
+    --console.log('WagonType: ' .. WagonType)
+    return WagonHash, WagonType
+end
+
+-- function to get random loot item for each category type and pass it to the server to add to the player's inventory
+
+-- function to loot a wagon
+function LootWagon(WagonType)
+    -- if the wagon type is Oil, call the function OilWagonLoot
+    if TypeWagon == 'Oil' then
+        OilWagonLoot()
+    end
+    -- if the wagon type is Civilian, call the function CivilianWagonLoot
+    if TypeWagon == 'Civilian' then
+        CivilianWagonLoot()
+    end
+    -- if the wagon type is Bank, call the function BankWagonLoot
+    if TypeWagon == 'Bank' then
+        BankWagonLoot()
+    end
+    -- if the wagon type is HighSociety, call the function HighSocietyWagonLoot
+    if TypeWagon == 'HighSociety' then
+        HighSocietyWagonLoot()
+    end
+    -- if the wagon type is Military, call the function MilitaryWagonLoot
+    if TypeWagon == 'Military' then
+        MilitaryWagonLoot()
+    end
+    -- if the wagon type is Outlaw, call the function OutlawWagonLoot
+    if TypeWagon == 'Outlaw' then
+        OutlawWagonLoot()
+    end
+end
+
+-- Function to handle timers for each wagon category
+function ManageTimer(category, timerFlag, callback)
+    if timerFlag then
+        callback()
+    end
+end
+
+-- Function definitions for waiting specific categories
+function WaitForOil()
+    Wait(Config.WagonSpawnTimer.Oil)
+    OilFinished = false
+    OilTimer = false
+    print("Oil wagon timer reset.")
+end
+
+function WaitForCivilian()
+    Wait(Config.WagonSpawnTimer.Civilian)
+    CivilianFinished = false
+    CivilianTimer = false
+    print("Civilian wagon timer reset.")
+end
+
+function WaitForHighSociety()
+    Wait(Config.WagonSpawnTimer.HighSociety)
+    HighSocietyFinished = false
+    HighSocietyTimer = false
+    print("High Society wagon timer reset.")
+end
+
+function WaitForMilitary()
+    Wait(Config.WagonSpawnTimer.Military)
+    MilitaryFinished = false
+    MilitaryTimer = false
+    print("Military wagon timer reset.")
+end
+
+function WaitForOutlaw()
+    Wait(Config.WagonSpawnTimer.Outlaw)
+    OutlawFinished = false
+    OutlawTimer = false
+    print("Outlaw wagon timer reset.")
+end
+
+function WaitForBank()
+    Wait(Config.WagonSpawnTimer.Bank)
+    BankFinished = false
+    BankTimer = false
+    print("Bank wagon timer reset.")
+end
+
+
 -- For core loot functions
 
 function GetRandomLootItem()

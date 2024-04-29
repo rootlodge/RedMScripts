@@ -26,7 +26,9 @@ Config.isMilitaryWagonsEnabled = true -- DONE
 Config.isOutlawWagonsEnabled = true -- DONE
 
 Config.AvoidWagonSpawnNearPlayer = true -- TO DO 
+Config.AvoidWagonSpawnNearPlayerDistance = 100 -- TO DO
 
+Config.ShouldBePaidForWagonLoot = true -- this is if you want to pay the player for looting wagons on top of the loot they get
 
 -- WE DO NOT RECOMMEND MORE THAN 3 WAGONS PER TYPE AS IT WILL BE TOO EASY TO FIND THEM
 Config.WagonMaxSpawnAmount = {
@@ -116,28 +118,30 @@ Config.BankLootItems = {
     { Item = 'goldwatch', Name = 'Gold Watch', Label = 'Gold Watch', Weight = 0.5, Description = 'A gold watch', Value = 100 },
     { Item = 'goldnecklace', Name = 'Gold Necklace', Label = 'Gold Necklace', Weight = 0.5, Description = 'A gold necklace', Value = 100 },
     { Item = 'goldring', Name = 'Gold Ring', Label = 'Gold Ring', Weight = 0.1, Description = 'A gold ring', Value = 50 },
-    { Item = 'goldtooth', Name = 'Gold Tooth', Label = 'Gold Tooth', Weight = 0.01, Description = 'A gold tooth', Value = 10 },
     { Item = 'goldnugget', Name = 'Gold Nugget', Label = 'Gold Nugget', Weight = 0.01, Description = 'A gold nugget', Value = 10 },
+    { Item = 'stolen_banknotes', Name = 'Stolen Banknotes', Label = 'Stolen Banknotes', Weight = 0.1, Description = 'Cash stolen from a bank or their armored convoy', Value = 100 },
+    { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
 }
 
 
 Config.OilLootItems = {
-    { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
     { Item = 'stolen_goldbar', Name = 'Stolen Gold Bar', Label = 'Stolen Gold Bar', Weight = 10, Description = 'A gold bar stolen from a vault', Value = 500 },
     { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 },
     { Item = 'oilbarrel', Name = 'Oil Barrel', Label = 'Oil Barrel', Weight = 10, Description = 'A barrel of oil', Value = 500 },
+    { Item = 'oil_bonds', Name = 'Oil Bonds', Label = 'Oil Bonds', Weight = 0.1, Description = 'Bonds for the oil company', Value = 1000 },
 }
 
 
 Config.CivilianLootItems = {
     -- regular items that any civilian would have, with some stolen cash
     { Item = 'stolen_cash', Name = 'Stolen Cash', Label = 'Stolen Cash', Weight = 0.1, Description = 'Cash stolen from unsuspecting victims', Value = 100 },
-    { Item = 'apple', Name = 'Apple', Label = 'Apple', Weight = 0.1, Description = 'A fresh apple', Value = 5 },
-    { Item = 'bread', Name = 'Bread', Label = 'Bread', Weight = 0.5, Description = 'A loaf of bread', Value = 10 },
-    { Item = 'water', Name = 'Water', Label = 'Water', Weight = 0.5, Description = 'A bottle of water', Value = 5 },
     { Item = 'cannedfood', Name = 'Canned Food', Label = 'Canned Food', Weight = 0.5, Description = 'A can of food', Value = 10 },
     { Item = 'stolen_jewelry', Name = 'Stolen Jewelry', Label = 'Stolen Jewelry', Weight = 0.5, Description = 'Jewelry stolen from unsuspecting victims', Value = 200 },
     { Item = 'weapon_knife', Name = 'Knife', Label = 'Knife', Weight = 0.5, Description = 'A sharp knife', Value = 50 },
+    { Item = 'diamond_ring', Name = 'Diamond Ring', Label = 'Diamond Ring', Weight = 0.2, Description = 'A diamond ring', Value = 100 },
+    { Item = 'diamond_necklace', Name = 'Diamond Necklace', Label = 'Diamond Necklace', Weight = 0.5, Description = 'A diamond necklace', Value = 200 },
+    { Item = 'diamond_bracelet', Name = 'Diamond Bracelet', Label = 'Diamond Bracelet', Weight = 0.5, Description = 'A diamond bracelet', Value = 200 },
+    { Item = 'diamond_earrings', Name = 'Diamond Earrings', Label = 'Diamond Earrings', Weight = 0.1, Description = 'A pair of diamond earrings', Value = 100 },
 }
 
 Config.HighSocietyLootItems = {
@@ -174,6 +178,7 @@ Config.OutlawLootItems = {
     { Item = 'weapon_shotgun', Name = 'Shotgun', Label = 'Shotgun', Weight = 5.0, Description = 'A standard shotgun', Value = 1000 },
     { Item = 'weapon_knife', Name = 'Knife', Label = 'Knife', Weight = 0.5, Description = 'A sharp knife', Value = 50 },
     { Item = 'weapon_machete', Name = 'Machete', Label = 'Machete', Weight = 1.0, Description = 'A large machete', Value = 100 },
+    { Item = 'stolen_goldbar', Name = 'Stolen Gold Bar', Label = 'Stolen Gold Bar', Weight = 10, Description = 'A gold bar stolen from a vault', Value = 500 },
 }
 
 

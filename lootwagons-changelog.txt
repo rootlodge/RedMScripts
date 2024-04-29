@@ -3,3 +3,5 @@ Added Item injection into DB via oxmysql
 Added Looting Logic
 Added Changelog
 Added Prompting
+Fixed various bugs
+Added many different types of wagons/peds

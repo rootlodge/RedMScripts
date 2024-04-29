@@ -12,7 +12,7 @@ end)
 
 --------------------------------------------------------------------------------
 -- Varables
-local InRange = false
+InRange = false
 local Location = nil
 
 -- Public variables
@@ -163,53 +163,3 @@ Citizen.CreateThread(function()
         ManageTimer("Bank", BankTimer, WaitForBank)
     end
 end)
-
--- Function to handle timers for each wagon category
-function ManageTimer(category, timerFlag, callback)
-    if timerFlag then
-        callback()
-    end
-end
-
--- Function definitions for waiting specific categories
-function WaitForOil()
-    Wait(Config.WagonSpawnTimer.Oil)
-    OilFinished = false
-    OilTimer = false
-    print("Oil wagon timer reset.")
-end
-
-function WaitForCivilian()
-    Wait(Config.WagonSpawnTimer.Civilian)
-    CivilianFinished = false
-    CivilianTimer = false
-    print("Civilian wagon timer reset.")
-end
-
-function WaitForHighSociety()
-    Wait(Config.WagonSpawnTimer.HighSociety)
-    HighSocietyFinished = false
-    HighSocietyTimer = false
-    print("High Society wagon timer reset.")
-end
-
-function WaitForMilitary()
-    Wait(Config.WagonSpawnTimer.Military)
-    MilitaryFinished = false
-    MilitaryTimer = false
-    print("Military wagon timer reset.")
-end
-
-function WaitForOutlaw()
-    Wait(Config.WagonSpawnTimer.Outlaw)
-    OutlawFinished = false
-    OutlawTimer = false
-    print("Outlaw wagon timer reset.")
-end
-
-function WaitForBank()
-    Wait(Config.WagonSpawnTimer.Bank)
-    BankFinished = false
-    BankTimer = false
-    print("Bank wagon timer reset.")
-end
