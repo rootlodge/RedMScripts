@@ -35,7 +35,7 @@ end
 
 local canplayerloot = true
 
-function cantheyloot(distance, isLooting)
+function cantheyloot(distance)
     if isLooting then
         return false
     end
@@ -68,7 +68,7 @@ Citizen.CreateThread(function()
             local enemyCoords = GetEntityCoords(ActiveEnemyNpcs[index])
             local truedistance = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
             
-            if cantheyloot(truedistance, isLooting) then
+            if cantheyloot(truedistance) then
                 ShowthePrompt()
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
