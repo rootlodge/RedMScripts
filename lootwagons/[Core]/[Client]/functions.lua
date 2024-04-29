@@ -286,7 +286,7 @@ function StartLooting(npcped)
             LootforEachCategoryType(data.loottype)
             break  -- Exit the loop after handling the correct ped
         elseif
-            return print('Ped not found')
+            print('Ped not found')
         end
     end
 end
