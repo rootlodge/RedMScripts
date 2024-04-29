@@ -3,10 +3,11 @@ local Animations = exports.vorp_animations.initiate()
 
 -- rewrite the above thread to check if the player is within 25 units of a wagon, and if they are, it will trigger the looting animation and the looting progress bar
 -- also checks if the player is within the loot wagon
-openWagons = nil
 
-function ShowthePrompt()
-    Citizen.Wait(500)
+local openWagons = nil
+
+Citizen.CreateThread(function()
+    Citizen.Wait(5000)
     local str = 'Start Looting'
     openWagons = PromptRegisterBegin()
     PromptSetControlAction(openWagons, Config.Keys['G'])
@@ -19,7 +20,8 @@ function ShowthePrompt()
     PromptSetGroup(openWagons, prompts)
     Citizen.InvokeNative(0xC5F428EE08FA7F2C, openWagons, true)
     PromptRegisterEnd(openWagons)
-end
+end)
+
 
 function DeletePrompt(prompt)
     UiPromptDelete(prompt)
@@ -69,10 +71,10 @@ Citizen.CreateThread(function()
             local truedistance = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
             
             if cantheyloot(truedistance) then
-                ShowthePrompt()
+                --ShowthePrompt()
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
-                PromptSetActiveGroupThisFrame(prompts, label)
+                PromptSetActiveGroupThisFrame(openWagons, label)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, openWagons) then
                     isLooting = true
                     Animations.startAnimation("craft")
@@ -90,14 +92,10 @@ Citizen.CreateThread(function()
                     isLooting = false
                     hasLooted = true
                     canplayerloot = false
-                    UiPromptDelete(openWagons)
                 end
             elseif IsControlJustPressed(0, Config.Keys['G']) then
                 if cantheyloot(truedistance) then
-                    ShowthePrompt()
-                    local lootingtext = "Looting"
-                    local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
-                    PromptSetActiveGroupThisFrame(prompts, label)
+                    --ShowthePrompt()
                     isLooting = true
                     Animations.startAnimation("craft")
                     NotifyRightTip("Looting the wagon...", 15000)
@@ -114,13 +112,14 @@ Citizen.CreateThread(function()
                     isLooting = false
                     hasLooted = true
                     canplayerloot = false
-                    UiPromptDelete(openWagons)
+                    UiPromptDisablePromptsThisFrame()
                 end
             elseif truedistance >= 11.0 and ifDeadPed(npcped) then
                 -- Cleanup when the player is far enough away
                 -- remove the ped from ActiveEnemyNpcs
                 CleanupAfterLooting(npcped)
-                UiPromptDelete(openWagons)
+                UiPromptDisablePromptsThisFrame()
+                --UiPromptDelete(openWagons)
                 canplayerloot = true
                 hasLooted = false  -- Reset looting flag after cleanup
                 CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
