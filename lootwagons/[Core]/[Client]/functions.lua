@@ -21,7 +21,7 @@ end
 function requestmodel23(modelHash)
     RequestModel(modelHash)
     while not HasModelLoaded(modelHash) do
-        Citizen.Wait(1)
+        Wait(1)
     end
 end
 
@@ -279,13 +279,14 @@ function StartLooting(npcped)
     for id, data in pairs(activePeds) do
         if data.ped == npcped then  -- Match the ped being looted with the stored peds
             -- Call the function to handle looting based on the category type
+            print('Looting wagon...')
+            print('Loot type: ' .. data.loottype)
+            -- print data.ped
+            print('Ped: ' .. data.ped)
             LootforEachCategoryType(data.loottype)
-
-            -- Optional: Clean up after looting
-            DeleteEntity(data.ped)
-            DeleteVehicle(data.vehicle)
-            activePeds[id] = nil  -- Remove this ped from the activePeds array
             break  -- Exit the loop after handling the correct ped
+        elseif
+            return print('Ped not found')
         end
     end
 end

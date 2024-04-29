@@ -113,7 +113,7 @@ end)
 
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(8000)  -- Check every 8 seconds
+        Wait(8000)  -- Check every 8 seconds
         local players = GetActivePlayers()
         if #players > 0 then  -- Only proceed if there are active players
             print('Players are active')

@@ -4,21 +4,21 @@ local Animations = exports.vorp_animations.initiate()
 -- rewrite the above thread to check if the player is within 25 units of a wagon, and if they are, it will trigger the looting animation and the looting progress bar
 -- also checks if the player is within the loot wagon
 
-local openWagons = nil
+local WagonPrompt = nil
 
 Citizen.CreateThread(function()
     local str = 'Start Looting'
-    openWagons = PromptRegisterBegin()
-    PromptSetControlAction(openWagons, Config.Keys['G'])
+    WagonPrompt = PromptRegisterBegin()
+    PromptSetControlAction(WagonPrompt, Config.Keys['G'])
     str = CreateVarString(10, 'LITERAL_STRING', str)
-    PromptSetText(openWagons, str)
-    PromptSetEnabled(openWagons, 1)
-    PromptSetVisible(openWagons, 1)
-    PromptSetStandardMode(openWagons, 1)
-    PromptSetHoldMode(openWagons, 1)
-    PromptSetGroup(openWagons, prompts)
-    Citizen.InvokeNative(0xC5F428EE08FA7F2C, openWagons, true)
-    PromptRegisterEnd(openWagons)
+    PromptSetText(WagonPrompt, str)
+    PromptSetEnabled(WagonPrompt, 1)
+    PromptSetVisible(WagonPrompt, 1)
+    PromptSetStandardMode(WagonPrompt, 1)
+    PromptSetHoldMode(WagonPrompt, 1)
+    PromptSetGroup(WagonPrompt, prompts)
+    Citizen.InvokeNative(0xC5F428EE08FA7F2C, WagonPrompt, true)
+    PromptRegisterEnd(WagonPrompt)
 end)
 
 
@@ -59,6 +59,24 @@ function ifDeadPed(ped)
     return false
 end
 
+function duringLooting(npcped)
+    isLooting = true
+    --Animations.startAnimation("craft")
+    NotifyRightTip("Looting the wagon...", 15000)
+    Wait(15000)
+    StartLooting(npcped)  -- Perform the looting
+    --Animations.endAnimation("craft")
+    Wait(5000)
+    PayPlayerClient()
+    NotifyRightTip("You have been paid for looting the wagon", 5000)
+    NotifyObjective("Wagon will explode in 10 seconds, leave the area!", 10000)
+    Wait(10000)
+    ExplodeVehicle(GetWagonFromPed(npcped))
+    isLooting = false
+    hasLooted = true
+    canplayerloot = false
+end
+
 Citizen.CreateThread(function()
     while true do
         Wait(1)
@@ -74,29 +92,15 @@ Citizen.CreateThread(function()
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
                 PromptSetActiveGroupThisFrame(prompts, label)
-                if Citizen.InvokeNative(0xC92AC953F0A982AE, openWagons) then
-                    isLooting = true
-                    Animations.startAnimation("craft")
-                    NotifyRightTip("Looting the wagon...", 15000)
-                    Wait(15000)
-                    StartLooting(npcped)  -- Perform the looting
-                    Animations.endAnimation("craft")
-                    NotifyRightTip("You have looted the wagon", 5000)
-                    Wait(5000)
-                    PayPlayerClient()
-                    NotifyRightTip("You have been paid for looting the wagon", 5000)
-                    NotifyObjective("Wagon will explode in 10 seconds, leave the area!", 10000)
-                    Wait(10000)
-                    ExplodeVehicle(GetWagonFromPed(npcped))
-                    isLooting = false
-                    hasLooted = true
-                    canplayerloot = false
+                if Citizen.InvokeNative(0xC92AC953F0A982AE, WagonPrompt) then
+                    duringLooting(npcped)
                 end
             elseif truedistance >= 11.0 and ifDeadPed(npcped) then
                 -- Cleanup when the player is far enough away
                 -- remove the ped from ActiveEnemyNpcs
+                Wait(6000)
                 CleanupAfterLooting(npcped)
-                --UiPromptDelete(openWagons)
+                --UiPromptDelete(WagonPrompt)
                 canplayerloot = true
                 hasLooted = false  -- Reset looting flag after cleanup
                 CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
