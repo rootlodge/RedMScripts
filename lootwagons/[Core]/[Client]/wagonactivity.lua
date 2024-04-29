@@ -7,6 +7,7 @@ local Animations = exports.vorp_animations.initiate()
 local WagonPrompt = nil
 
 Citizen.CreateThread(function()
+    Wait(5000)
     local str = 'Start Looting'
     WagonPrompt = PromptRegisterBegin()
     PromptSetControlAction(WagonPrompt, Config.Keys['G'])
@@ -94,6 +95,7 @@ Citizen.CreateThread(function()
                 PromptSetActiveGroupThisFrame(prompts, label)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, WagonPrompt) then
                     duringLooting(npcped)
+                    Wait(100)
                 end
             elseif truedistance >= 11.0 and ifDeadPed(npcped) then
                 -- Cleanup when the player is far enough away
