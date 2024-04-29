@@ -48,7 +48,6 @@ WagonIDCounter = 0 -- counter to keep track of the wagon ID
 activePeds = {} -- table to store the active peds
 activePedIDCounter = 0 -- counter to keep track of the ped ID
 -- To do list
--- Add a check to see if the player is in the correct location
 -- Logic to place objects in the loot wagon
 -- Logic to remove objects from the loot wagon after looting/exploding
 -- Logic to make the loot wagon explode
@@ -56,120 +55,75 @@ activePedIDCounter = 0 -- counter to keep track of the ped ID
 -- Logic to make the loot wagon respawn after a certain amount of time and distance from the player
 
 --------------------------------------------------------------------------------
-
--- logic function for checks if Config.isWagonTypeEnabled is true AND if the max amount of wagons has been spawned AND if the wagon type is finished or not
--- if the wagon type is finished, it will skip the wagon type and move to the next one
--- if the wagon type is not finished, it will spawn the wagon and increment the wagon count for that type
--- if the wagon type is not enabled, it will skip the wagon type and move to the next one
-
-
-function SpawnLootWagons()
+-- put the SpawnLootWagons function into a client event
+RegisterNetEvent('RootLodge:LootWagons:C:SpawnWagons')
+AddEventHandler('RootLodge:LootWagons:C:SpawnLootWagons', function(wagonType, wagonModel, wagonName)
     for _, wagonConfig in ipairs(Config.Wagons) do
-        -- Explicit checks for each wagon type's enablement
-        if ((wagonConfig.WagonType == 'Oil' and WagonChecks(wagonConfig)) or
-            (wagonConfig.WagonType == 'Civilian' and WagonChecks(wagonConfig)) or
-            (wagonConfig.WagonType == 'Bank' and WagonChecks(wagonConfig)) or
-            (wagonConfig.WagonType == 'HighSociety' and WagonChecks(wagonConfig)) or
-            (wagonConfig.WagonType == 'Military' and WagonChecks(wagonConfig)) or
-            (wagonConfig.WagonType == 'Outlaw' and WagonChecks(wagonConfig))) then
-
-            -- Increment the wagon count for the wagon type
-            IncreaseWagonCount(wagonConfig.WagonType)
-
-            local wagonModel = GetHashKey(wagonConfig.WagonModel)
-            requestmodel23(wagonModel)
-
-            local spawnIndex = math.random(#Config.WagonSpawnLocations)
-            local spawnPoint = Config.WagonSpawnLocations[spawnIndex]
-
-            local placeholderfalse = false
-
-            if not placeholderfalse then
-                local rawPedModel = Config.PedsInWagons[math.random(#Config.PedsInWagons)]
-                local pedModel = GetHashKey(rawPedModel)
-                requestmodel23(pedModel)
-                
-                -- Creating ped using the VORP utility
-                local pedcoords = { x = spawnPoint.x, y = spawnPoint.y, z = spawnPoint.z, h = spawnPoint.h }
-                local notRawWagonped = VORPutils.Peds:Create(rawPedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
-                local rawped = notRawWagonped:GetPed()
-                table.insert(ActiveEnemyNpcs, rawped)
-                SetEntityVisible(rawped, true)
-
-                local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
-                -- add WagonVehicle to the loot wagon table and add what type of wagon it is
-                table.insert(LootWagons, { WagonVehicle = wagonVehicle, WagonType = wagonConfig.WagonType })
-
-                WagonIDCounter = WagonIDCounter + 1
-                activeWagons[WagonIDCounter] = {
-                    id = WagonIDCounter,
-                    type = wagonConfig.WagonType,
-                    vehicle = wagonVehicle,
-                }
-
-                activePedIDCounter = activePedIDCounter + 1
-                activePeds[activePedIDCounter] = {
-                    id = activePedIDCounter,
-                    ped = rawped,
-                    vehicle = wagonVehicle,
-                    loottype = wagonConfig.WagonType,
-                }
-
-                SetEntityAsMissionEntity(wagonVehicle, true, true)
-                SetEntityAsMissionEntity(rawped, true, true)
-                Wait(1)
-                TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
-                Wait(1)
-                TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
-
-                if Config.isWagonBlipVisible then
-                    CreateWagonBlip(wagonVehicle, wagonConfig.WagonName)
-                end
-
-                print('Wagon and ped has been blipped')
-            end
+        --if not wagonConfig then return end
+        IncreaseWagonCount(wagonType)
+        local wagonModel = GetHashKey(wagonModel)
+        requestmodel23(wagonModel)
+        local spawnIndex = math.random(#Config.WagonSpawnLocations)
+        local spawnPoint = Config.WagonSpawnLocations[spawnIndex]
+        local rawpedModel = Config.PedsInWagons[math.random(#Config.PedsInWagons)]
+        local pedModel = GetHashKey(rawpedModel)
+        requestmodel23(pedModel)
+        local pedcoords = { x = spawnPoint.x, y = spawnPoint.y, z = spawnPoint.z, h = spawnPoint.h }
+        local notRawWagonped = VORPutils.Peds:Create(rawpedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
+        local rawped = notRawWagonped:GetPed()
+        table.insert(ActiveEnemyNpcs, rawped)
+        SetEntityVisible(rawped, true)
+        local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
+        table.insert(LootWagons, { WagonVehicle = wagonVehicle, WagonType = wagonType })
+        WagonIDCounter = WagonIDCounter + 1
+        activeWagons[WagonIDCounter] = {
+            id = WagonIDCounter,
+            type = wagonType,
+            vehicle = wagonVehicle,
+        }
+        activePedIDCounter = activePedIDCounter + 1
+        activePeds[activePedIDCounter] = {
+            id = activePedIDCounter,
+            ped = rawped,
+            vehicle = wagonVehicle,
+            loottype = wagonType,
+        }
+        SetEntityAsMissionEntity(wagonVehicle, true, true)
+        SetEntityAsMissionEntity(rawped, true, true)
+        Wait(1)
+        TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
+        Wait(1)
+        TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
+        if Config.isWagonBlipVisible then
+            CreateWagonBlip(wagonVehicle, wagonName)
         end
-    end
-end
-
--- count how many wagons should be spawned for each type
--- if wagon max spawn amount is 0, then it will spawn an wagon until the max amount of wagons has been spawned
-
-Citizen.CreateThread(function()
-    while true do
-
-        Wait(500)
-        if OilWagonCount < Config.WagonMaxSpawnAmount.Oil then
-            SpawnLootWagons()
-            Wait(500)
-        end
-        if CivilianWagonCount < Config.WagonMaxSpawnAmount.Civilian then
-            SpawnLootWagons()
-            Wait(500)
-        end
-
-        if HighSocietyWagonCount < Config.WagonMaxSpawnAmount.HighSociety then
-            SpawnLootWagons()
-            Wait(500)
-        end
-
-        if MilitaryWagonCount < Config.WagonMaxSpawnAmount.Military then
-            SpawnLootWagons()
-            Wait(500)
-        end
-
-        if OutlawWagonCount < Config.WagonMaxSpawnAmount.Outlaw then
-            SpawnLootWagons()
-            Wait(500)
-        end
-
-        if BankWagonCount < Config.WagonMaxSpawnAmount.Bank then
-            SpawnLootWagons()
-            Wait(500)
-        end
-        Wait(500)
+        print('Wagon and ped has been blipped')
     end
 end)
+
+-- Main thread to monitor player activity and manage wagon spawning
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(8000)  -- Check every 8 seconds
+
+        local players = GetActivePlayers()
+        if #players > 0 then  -- Check if there are any active players
+            -- Trigger the spawning of wagons based on configured amounts
+            for wagonType, amount in pairs(Config.WagonMaxSpawnAmount) do
+                local wagonConfig = Config.Wagons[wagonType]
+                if wagonConfig then
+                    for i = 1, amount do
+                        -- Pass the wagon type, model, and name to the event
+                        TriggerEvent('RootLodge:C:LootWagonsStart', wagonType, wagonConfig.WagonModel, wagonConfig.WagonName)
+                        Citizen.Wait(1000)  -- Wait a second before triggering the next spawn to prevent spam
+                    end
+                end
+            end
+        end
+        -- If no players are active, do nothing and just wait for the next check
+    end
+end)
+
 
 -- Citizen thread to manage all wagon respawn timers
 Citizen.CreateThread(function()

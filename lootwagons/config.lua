@@ -17,6 +17,9 @@ Config.AIRaidingCompanion = false -- NOT USED YET
 Config.isAbandonedWagonsVisible = false -- TO DO
 Config.isWagonBlipVisible = true -- DONE
 Config.RivalWagonRaiders = true -- TO DO
+Config.RivalWagonRaidersBlip = true -- TO DO
+
+Config.isLootableWagonsTrap = true -- TO DO - Basically, a wagon (not all) that will have a trap for the player and the player will have to kill all of the enemies to loot the wagon
 
 Config.isBankWagonsEnabled = true -- DONE
 Config.isOilWagonsEnabled = true -- DONE
@@ -29,6 +32,10 @@ Config.AvoidWagonSpawnNearPlayer = true -- TO DO
 Config.AvoidWagonSpawnNearPlayerDistance = 100 -- TO DO
 
 Config.ShouldBePaidForWagonLoot = true -- this is if you want to pay the player for looting wagons on top of the loot they get
+Config.MysteriousPersonSellingLocations = true -- TO DO
+Config.MysteriousPersonSellingLocationsBlip = true -- TO DO
+Config.MysteriousPersonBuysLoot = true -- TO DO
+Config.LocalsCanBuyLoot = false -- TO DO
 
 -- WE DO NOT RECOMMEND MORE THAN 3 WAGONS PER TYPE AS IT WILL BE TOO EASY TO FIND THEM
 Config.WagonMaxSpawnAmount = {

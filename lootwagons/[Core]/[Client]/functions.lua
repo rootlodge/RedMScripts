@@ -8,6 +8,11 @@ function Wait(args) Citizen.Wait(args) end
 
 --Utility Functions
 
+function arePlayersActive()
+    local players = GetActivePlayers()
+    return #players > 0
+end
+
 --function to convert vector4(-2476.13, -1297.48, 160.37, 283.96) to { x = -2476.13, y = -1297.48, z = 160.37, h = 283.96 }
 function Vector4ToTable(vector4)
     return { x = vector4.x, y = vector4.y, z = vector4.z, h = vector4.h }
@@ -25,6 +30,7 @@ function CreateWagonBlip(wagon, name)
     local wagonBlip = Citizen.InvokeNative(0x23F74C2FDA6E7C61, `BLIP_STYLE_MP_PLAYER`, wagon)
     SetBlipSprite(wagonBlip, `blip_mp_player_wagon`, true)
     SetBlipScale(wagonBlip, 1.0)
+    SetBlipFlashes(wagonBlip, true)
     Citizen.InvokeNative(0x9CB1A1623062F402, wagonBlip, name) --SetBlipName
 end
 
@@ -297,6 +303,15 @@ function CleanupAfterLooting(npcped)
             -- Remove the ped and vehicle data from activePeds table
             activePeds[id] = nil
             break  -- Exit loop after cleaning up
+        end
+    end
+end
+
+--using the code from the above funciton, we can get the ped and return the wagon they belong to
+function GetWagonFromPed(npcped)
+    for id, data in pairs(activePeds) do
+        if data.ped == npcped then
+            return data.vehicle
         end
     end
 end

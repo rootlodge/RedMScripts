@@ -5,7 +5,7 @@ description 'A customizable Wagon Looting script for RedM'
 author 'RootLodge Github'
 fx_version "adamant"
 games {"rdr3"}
-version '0.0.9-PRODUCTION'
+version '1.0.1-BETA'
 
 shared_script { 'config.lua', 'static-config.lua' }
 client_scripts { 'config.lua', 'static-config.lua', '[Core]/[Client]/*.lua' }
