@@ -95,7 +95,7 @@ Citizen.CreateThread(function()
                 PromptSetActiveGroupThisFrame(prompts, label)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, WagonPrompt) then
                     duringLooting(npcped)
-                    Wait(100)
+                    Wait(500)
                 end
             elseif truedistance >= 11.0 and ifDeadPed(npcped) then
                 -- Cleanup when the player is far enough away
