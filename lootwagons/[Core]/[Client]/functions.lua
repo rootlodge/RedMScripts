@@ -374,4 +374,4 @@ function dump(o)
     else
        return tostring(o)
     end
- end
+end

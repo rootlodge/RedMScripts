@@ -48,8 +48,6 @@ function cantheyloot(distance, isLooting)
     return false
 end
 
-local thetruevalueistrue = true
-
 function ifDeadPed(ped)
     if IsEntityDead(ped) then
         return true
@@ -66,11 +64,11 @@ Citizen.CreateThread(function()
         local playerPed = PlayerPedId()
         local playerCoords = GetEntityCoords(playerPed)
         
-        for k, npcped in pairs(ActiveEnemyNpcs) do
-            local enemyCoords = GetEntityCoords(npcped)
+        for index, npcped in pairs(ActiveEnemyNpcs) do
+            local enemyCoords = GetEntityCoords(ActiveEnemyNpcs[index])
             local truedistance = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
             
-            if thetruevalueistrue and cantheyloot(truedistance, isLooting) then
+            if cantheyloot(truedistance, isLooting) then
                 ShowthePrompt()
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
@@ -102,6 +100,8 @@ Citizen.CreateThread(function()
                 canplayerloot = true
                 hasLooted = false  -- Reset looting flag after cleanup
                 CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
+                dump(ActiveEnemyNpcs)
+                table.remove(ActiveEnemyNpcs, index)
             end
         end
     end
