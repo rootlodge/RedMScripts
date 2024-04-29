@@ -136,7 +136,7 @@ Citizen.CreateThread(function()
 end)
 
 function CountActiveWagonsOfType(wagonType)
-    local count = nil
+    local count = 0
     for _, wagon in pairs(activeWagons) do
         if wagon.type == wagonType then
             count = activeWagonIDCounter
