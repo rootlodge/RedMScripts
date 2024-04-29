@@ -41,7 +41,7 @@ function cantheyloot(distance, isLooting)
     end
 
     if canplayerloot then
-        if distance <= 25.0 then
+        if distance <= 10.0 then
             return true
         end
     end
@@ -49,6 +49,16 @@ function cantheyloot(distance, isLooting)
 end
 
 local thetruevalueistrue = true
+
+function ifDeadPed(ped)
+    if IsEntityDead(ped) then
+        return true
+    end
+    if hasLooted then
+        return true
+    end
+    return false
+end
 
 Citizen.CreateThread(function()
     while true do
@@ -84,8 +94,9 @@ Citizen.CreateThread(function()
                     canplayerloot = false
                     UiPromptDelete(openWagons)
                 end
-            elseif truedistance >= 50.0 and hasLooted then
+            elseif truedistance >= 11.0 and ifDeadPed(npcped) then
                 -- Cleanup when the player is far enough away
+                -- remove the ped from ActiveEnemyNpcs
                 CleanupAfterLooting(npcped)
                 UiPromptDelete(openWagons)
                 canplayerloot = true

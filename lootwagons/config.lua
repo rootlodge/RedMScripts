@@ -37,14 +37,15 @@ Config.MysteriousPersonSellingLocationsBlip = true -- TO DO
 Config.MysteriousPersonBuysLoot = true -- TO DO
 Config.LocalsCanBuyLoot = false -- TO DO
 
--- WE DO NOT RECOMMEND MORE THAN 3 WAGONS PER TYPE AS IT WILL BE TOO EASY TO FIND THEM
+-- WE DO NOT RECOMMEND MORE THAN 2 WAGONS PER TYPE AS IT WILL BE TOO EASY TO FIND THEM
+
 Config.WagonMaxSpawnAmount = {
-    Bank = 1,
-    Oil = 1,
-    Civilian = 1,
-    HighSociety = 1,
-    Military = 1,
-    Outlaw = 1,
+    { WagonType = 'Bank', MaxAmount = 1 },
+    { WagonType = 'Oil', MaxAmount = 1 },
+    { WagonType = 'Civilian', MaxAmount = 1 },
+    { WagonType = 'HighSociety', MaxAmount = 1 },
+    { WagonType = 'Military', MaxAmount = 1 },
+    { WagonType = 'Outlaw', MaxAmount = 1 },
 }
 
 Config.WagonSpawnTimer = {

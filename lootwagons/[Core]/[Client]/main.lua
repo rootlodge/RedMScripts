@@ -47,6 +47,7 @@ activeWagons = {} -- table to store the active wagons
 WagonIDCounter = 0 -- counter to keep track of the wagon ID
 activePeds = {} -- table to store the active peds
 activePedIDCounter = 0 -- counter to keep track of the ped ID
+currentWagonCounts = {} -- table to store the current count of each wagon type
 -- To do list
 -- Logic to place objects in the loot wagon
 -- Logic to remove objects from the loot wagon after looting/exploding
@@ -101,7 +102,6 @@ AddEventHandler('RootLodge:LootWagons:C:SpawnLootWagons', function(wagonType, wa
     end
 end)
 
--- Main thread to monitor player activity and manage wagon spawning
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(8000)  -- Check every 8 seconds
@@ -109,25 +109,46 @@ Citizen.CreateThread(function()
         local players = GetActivePlayers()
         if #players > 0 then  -- Check if there are any active players
             print('Players are active')
-            -- Trigger the spawning of wagons based on configured amounts
-            for wagonType, amount in pairs(Config.WagonMaxSpawnAmount) do
-                --local wagonConfig = Config.Wagons[wagonType]
-                -- wagon config equals the wagon type if the wagon types are the same
-                local wagonConfig = nil
-                print('Checking for wagon type: ' .. wagonType)
-                for _, wagon in ipairs(Config.Wagons) do
-                    if wagon.WagonType == wagonType then
-                        wagonConfig = wagon
-                        dump(wagonConfig)
-                    end
+            -- Calculate the current count of each type of wagon
+            for _, wagon in pairs(activeWagons) do
+                if not currentWagonCounts[wagon.type] then
+                    currentWagonCounts[wagon.type] = 0
                 end
-                if wagonConfig then
-                    for i = 1, amount do
-                        -- Pass the wagon type, model, and name to the event
-                        TriggerEvent('RootLodge:LootWagons:C:SpawnLootWagons', wagonType, wagonConfig.WagonModel, wagonConfig.WagonName)
-                        print('Wagon spawned')
-                        Citizen.Wait(10000)  -- Wait a second before triggering the next spawn to prevent spam
+                currentWagonCounts[wagon.type] = currentWagonCounts[wagon.type] + 1
+            end
+
+            -- Trigger the spawning of wagons based on configured amounts
+            for _, config in ipairs(Config.WagonMaxSpawnAmount) do
+                local wagonType = config.WagonType
+                local maxAmount = config.MaxAmount
+                local currentCount = currentWagonCounts[wagonType] or 0
+
+                print('Checking for wagon type: ' .. wagonType .. ' | Current count: ' .. currentCount .. ' | Max allowed: ' .. maxAmount)
+
+                if currentCount < maxAmount then
+                    -- Find the wagon configuration
+                    for _, wagon in ipairs(Config.Wagons) do
+                        if wagon.WagonType == wagonType then
+                            -- Calculate how many more wagons of this type can be spawned
+                            local remainingAmount = maxAmount - currentCount
+                            for i = 1, remainingAmount do
+                                WagonIDCounter = WagonIDCounter + 1
+                                local wagonVehicle = CreateVehicle(wagon.WagonModel, spawnLocation.x, spawnLocation.y, spawnLocation.z, spawnRotation, true, false)
+                                -- Store the new wagon in activeWagons table
+                                activeWagons[WagonIDCounter] = {
+                                    id = WagonIDCounter,
+                                    type = wagonType,
+                                    vehicle = wagonVehicle,
+                                }
+                                print('Wagon spawned: ' .. wagon.WagonName .. ' with ID ' .. WagonIDCounter)
+                                TriggerEvent('RootLodge:LootWagons:C:SpawnLootWagons', wagon.WagonType, wagon.WagonModel, wagon.WagonName)
+                                Citizen.Wait(10000)  -- Wait to prevent spawn spam
+                            end
+                            break
+                        end
                     end
+                else
+                    print('Maximum wagons of type ' .. wagonType .. ' already spawned.')
                 end
             end
         end
