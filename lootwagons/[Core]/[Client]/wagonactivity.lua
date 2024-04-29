@@ -7,7 +7,6 @@ local Animations = exports.vorp_animations.initiate()
 local openWagons = nil
 
 Citizen.CreateThread(function()
-    Citizen.Wait(5000)
     local str = 'Start Looting'
     openWagons = PromptRegisterBegin()
     PromptSetControlAction(openWagons, Config.Keys['G'])
@@ -93,27 +92,6 @@ Citizen.CreateThread(function()
                     hasLooted = true
                     canplayerloot = false
                 end
-            elseif IsControlJustPressed(0, Config.Keys['G']) then
-                if cantheyloot(truedistance) then
-                    --ShowthePrompt()
-                    isLooting = true
-                    Animations.startAnimation("craft")
-                    NotifyRightTip("Looting the wagon...", 15000)
-                    Citizen.Wait(15000)
-                    StartLooting(npcped)  -- Perform the looting
-                    Animations.endAnimation("craft")
-                    NotifyRightTip("You have looted the wagon", 5000)
-                    Citizen.Wait(5000)
-                    PayPlayerClient()
-                    NotifyRightTip("You have been paid for looting the wagon", 5000)
-                    NotifyObjective("Wagon will explode in 10 seconds, leave the area!", 10000)
-                    Citizen.Wait(10000)
-                    ExplodeVehicle(GetWagonFromPed(npcped))
-                    isLooting = false
-                    hasLooted = true
-                    canplayerloot = false
-                    UiPromptDisablePromptsThisFrame()
-                end
             elseif truedistance >= 11.0 and ifDeadPed(npcped) then
                 -- Cleanup when the player is far enough away
                 -- remove the ped from ActiveEnemyNpcs
@@ -124,6 +102,8 @@ Citizen.CreateThread(function()
                 hasLooted = false  -- Reset looting flag after cleanup
                 CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
                 dump(ActiveEnemyNpcs)
+            elseif truedistance >= 12.0 then
+                UiPromptDisablePromptsThisFrame()    
             end
         end
     end
