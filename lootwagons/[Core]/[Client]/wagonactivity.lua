@@ -73,7 +73,7 @@ Citizen.CreateThread(function()
                 --ShowthePrompt()
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
-                UiPromptSetActiveGroupThisFrame(label, 1, 1, 1, openWagons)
+                PromptSetActiveGroupThisFrame(prompts, label)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, openWagons) then
                     isLooting = true
                     Animations.startAnimation("craft")
@@ -96,7 +96,6 @@ Citizen.CreateThread(function()
                 -- Cleanup when the player is far enough away
                 -- remove the ped from ActiveEnemyNpcs
                 CleanupAfterLooting(npcped)
-                UiPromptDisablePromptsThisFrame()
                 --UiPromptDelete(openWagons)
                 canplayerloot = true
                 hasLooted = false  -- Reset looting flag after cleanup
