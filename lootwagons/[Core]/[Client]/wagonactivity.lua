@@ -102,8 +102,6 @@ Citizen.CreateThread(function()
                 hasLooted = false  -- Reset looting flag after cleanup
                 CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
                 dump(ActiveEnemyNpcs)
-            elseif truedistance >= 12.0 then
-                UiPromptDisablePromptsThisFrame()    
             end
         end
     end
