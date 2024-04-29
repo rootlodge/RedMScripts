@@ -120,7 +120,7 @@ Citizen.CreateThread(function()
             for _, config in ipairs(Config.WagonMaxSpawnAmount) do
                 local wagonType = config.WagonType
                 local maxAmount = config.MaxAmount
-                local currentCount = CountActiveWagonsOfType(wagonType)
+                local currentCount = activeWagonIDCounter
 
                 if currentCount < maxAmount then
                     local remainingAmount = maxAmount - currentCount
@@ -134,18 +134,6 @@ Citizen.CreateThread(function()
         end
     end
 end)
-
-function CountActiveWagonsOfType(wagonType)
-    local count = 0
-    for _, wagon in pairs(activeWagons) do
-        if wagon.type == wagonType then
-            count = activeWagonIDCounter
-            return count
-        end
-    end
-    return count
-end
-
 
 
 -- Citizen thread to manage all wagon respawn timers
