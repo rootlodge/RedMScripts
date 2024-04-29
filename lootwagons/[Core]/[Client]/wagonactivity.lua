@@ -101,7 +101,6 @@ Citizen.CreateThread(function()
                 hasLooted = false  -- Reset looting flag after cleanup
                 CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
                 dump(ActiveEnemyNpcs)
-                table.remove(ActiveEnemyNpcs, index)
             end
         end
     end

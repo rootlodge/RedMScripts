@@ -302,7 +302,21 @@ function CleanupAfterLooting(npcped)
             
             -- Remove the ped and vehicle data from activePeds table
             activePeds[id] = nil
-            break  -- Exit loop after cleaning up
+            for i, ped in ipairs(ActiveEnemyNpcs) do
+                if ped == npcped then
+                    table.remove(ActiveEnemyNpcs, i)
+                    for i, wagon in ipairs(LootWagons) do
+                        if wagon.WagonVehicle == data.vehicle then
+                            table.remove(LootWagons, i)
+                            for i, wagon in ipairs(Config.WagonMaxSpawnAmount) do
+                                if wagon.WagonType == data.loottype then
+                                    DecreaseWagonCount(data.loottype)
+                                end
+                            end
+                        end
+                    end
+                end
+            end
         end
     end
 end
