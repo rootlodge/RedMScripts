@@ -46,7 +46,7 @@ function cantheyloot(distance)
     end
 
     if canplayerloot then
-        if distance <= 10.0 then
+        if distance < 12.0 then
             return true
         end
     end
@@ -81,6 +81,7 @@ function duringLooting(npcped)
     canplayerloot = false
 end
 
+local isinMissionfr = false
 Citizen.CreateThread(function()
     while true do
         Wait(1)
@@ -89,9 +90,9 @@ Citizen.CreateThread(function()
         
         for index, npcped in pairs(ActiveEnemyNpcs) do
             local enemyCoords = GetEntityCoords(ActiveEnemyNpcs[index])
-            local truedistance = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
+            local dist = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
             
-            if truedistance <= 10.0 then
+            if dist < 10.0 then
                 --ShowthePrompt()
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
@@ -100,26 +101,18 @@ Citizen.CreateThread(function()
                     duringLooting(npcped)
                     Wait(500)
                 end
-            elseif truedistance >= 11.0 and ifDeadPed(npcped) then
-                -- Cleanup when the player is far enough away
-                -- remove the ped from ActiveEnemyNpcs
-                Wait(6000)
-                CleanupAfterLooting(npcped)
-                --UiPromptDelete(WagonPrompt)
-                canplayerloot = true
-                hasLooted = false  -- Reset looting flag after cleanup
-                CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
-                dump(ActiveEnemyNpcs)
-            elseif truedistance >= 11.0 and hasLooted then
-                -- Cleanup when the player is far enough away
-                -- remove the ped from ActiveEnemyNpcs
-                Wait(2000)
-                CleanupAfterLooting(npcped)
-                --UiPromptDelete(WagonPrompt)
-                canplayerloot = true
-                hasLooted = false  -- Reset looting flag after cleanup
-                CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
-                dump(ActiveEnemyNpcs)
+            else
+                if dist > 11.0 and ifDeadPed(npcped) or hasLooted then
+                    -- Cleanup when the player is far enough away
+                    -- remove the ped from ActiveEnemyNpcs
+                    Wait(6000)
+                    CleanupAfterLooting(npcped)
+                    --UiPromptDelete(WagonPrompt)
+                    canplayerloot = true
+                    hasLooted = false  -- Reset looting flag after cleanup
+                    CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
+                    dump(ActiveEnemyNpcs)
+                end
             end
         end
     end
