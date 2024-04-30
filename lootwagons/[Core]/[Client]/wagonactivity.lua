@@ -110,6 +110,16 @@ Citizen.CreateThread(function()
                 hasLooted = false  -- Reset looting flag after cleanup
                 CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
                 dump(ActiveEnemyNpcs)
+            elseif truedistance >= 11.0 and hasLooted then
+                -- Cleanup when the player is far enough away
+                -- remove the ped from ActiveEnemyNpcs
+                Wait(2000)
+                CleanupAfterLooting(npcped)
+                --UiPromptDelete(WagonPrompt)
+                canplayerloot = true
+                hasLooted = false  -- Reset looting flag after cleanup
+                CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
+                dump(ActiveEnemyNpcs)
             end
         end
     end
