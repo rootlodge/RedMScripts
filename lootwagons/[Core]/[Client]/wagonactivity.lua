@@ -53,7 +53,7 @@ function cantheyloot(distance)
     return false
 end
 
-function ifDeadPed(ped)
+function isPedDead(ped)
     if IsEntityDead(ped) then
         return true
     end
@@ -82,15 +82,21 @@ function duringLooting(npcped)
 end
 
 local isinMissionfr = false
+local completedmission = false
+local dist = 0.0
+local passthroughindex = nil
+local passthroughnpcped = nil
 Citizen.CreateThread(function()
     while true do
-        Wait(800)  -- Adjusted for performance; tweak based on your needs
+        Wait(500)  -- Adjusted for performance; tweak based on your needs
         local playerPed = PlayerPedId()
         local playerCoords = GetEntityCoords(playerPed)
 
         for index, npcped in pairs(ActiveEnemyNpcs) do
             local enemyCoords = GetEntityCoords(npcped)
-            local dist = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
+            dist = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
+            passthroughindex = index
+            passthroughnpcped = npcped
 
             if dist < 10.0 then
                 -- Show the looting prompt
@@ -99,19 +105,26 @@ Citizen.CreateThread(function()
                 PromptSetActiveGroupThisFrame(prompts, label)
                 if Citizen.InvokeNative(0xC92AC953F0A982AE, WagonPrompt) then
                     duringLooting(npcped)
+                    completedmission = true
                     Wait(500)
                 end
-            elseif dist > 11.0 and (ifDeadPed(npcped) or hasLooted) then
-                -- Cleanup when the player is far enough away
-                Wait(6000)  -- Delay cleanup to ensure player has moved away
-                CleanupAfterLooting(npcped)
-                -- UiPromptDelete(WagonPrompt)
-                Wait(5)
-                canplayerloot = true
-                hasLooted = false  -- Reset looting flag after cleanup
-                CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
-                dump(ActiveEnemyNpcs)
             end
+        end
+    end
+end)
+
+
+Citizen.CreateThread(function()
+    while true do 
+        Wait(500)
+        if dist > 20.0 and completedmission then
+            Wait(500)
+            CleanupAfterLooting(npcped)
+            Wait(50)
+            canplayerloot = true
+            hasLooted = false
+            CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
+            completedmission = false
         end
     end
 end)

@@ -148,16 +148,16 @@ function currentCountForCategory(wagonType)
 end
 
 -- Citizen thread to manage all wagon respawn timers
-Citizen.CreateThread(function()
-    while true do
-        Wait(500) -- General wait time for the loop
+--Citizen.CreateThread(function()
+    --while true do
+        --Wait(500) -- General wait time for the loop
 
         -- Check and manage the timers for each wagon category
-        ManageTimer("Oil", OilTimer, WaitForOil)
-        ManageTimer("Civilian", CivilianTimer, WaitForCivilian)
-        ManageTimer("HighSociety", HighSocietyTimer, WaitForHighSociety)
-        ManageTimer("Military", MilitaryTimer, WaitForMilitary)
-        ManageTimer("Outlaw", OutlawTimer, WaitForOutlaw)
-        ManageTimer("Bank", BankTimer, WaitForBank)
-    end
-end)
+        --ManageTimer("Oil", OilTimer, WaitForOil)
+        --ManageTimer("Civilian", CivilianTimer, WaitForCivilian)
+        --ManageTimer("HighSociety", HighSocietyTimer, WaitForHighSociety)
+        --ManageTimer("Military", MilitaryTimer, WaitForMilitary)
+        --ManageTimer("Outlaw", OutlawTimer, WaitForOutlaw)
+        --ManageTimer("Bank", BankTimer, WaitForBank)
+    --end
+--end)
