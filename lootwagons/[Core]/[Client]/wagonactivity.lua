@@ -84,16 +84,16 @@ end
 local isinMissionfr = false
 Citizen.CreateThread(function()
     while true do
-        Wait(1)
+        Wait(800)  -- Adjusted for performance; tweak based on your needs
         local playerPed = PlayerPedId()
         local playerCoords = GetEntityCoords(playerPed)
-        
+
         for index, npcped in pairs(ActiveEnemyNpcs) do
-            local enemyCoords = GetEntityCoords(ActiveEnemyNpcs[index])
+            local enemyCoords = GetEntityCoords(npcped)
             local dist = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
-            
+
             if dist < 10.0 then
-                --ShowthePrompt()
+                -- Show the looting prompt
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
                 PromptSetActiveGroupThisFrame(prompts, label)
@@ -101,18 +101,15 @@ Citizen.CreateThread(function()
                     duringLooting(npcped)
                     Wait(500)
                 end
-            else
-                if dist > 11.0 and ifDeadPed(npcped) or hasLooted then
-                    -- Cleanup when the player is far enough away
-                    -- remove the ped from ActiveEnemyNpcs
-                    Wait(6000)
-                    CleanupAfterLooting(npcped)
-                    --UiPromptDelete(WagonPrompt)
-                    canplayerloot = true
-                    hasLooted = false  -- Reset looting flag after cleanup
-                    CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
-                    dump(ActiveEnemyNpcs)
-                end
+            elseif dist > 11.0 and (ifDeadPed(npcped) or hasLooted) then
+                -- Cleanup when the player is far enough away
+                Wait(6000)  -- Delay cleanup to ensure player has moved away
+                CleanupAfterLooting(npcped)
+                -- UiPromptDelete(WagonPrompt)
+                canplayerloot = true
+                hasLooted = false  -- Reset looting flag after cleanup
+                CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
+                dump(ActiveEnemyNpcs)
             end
         end
     end
