@@ -106,6 +106,7 @@ Citizen.CreateThread(function()
                 Wait(6000)  -- Delay cleanup to ensure player has moved away
                 CleanupAfterLooting(npcped)
                 -- UiPromptDelete(WagonPrompt)
+                Wait(5)
                 canplayerloot = true
                 hasLooted = false  -- Reset looting flag after cleanup
                 CenterBottomNotify('The law may arrive soon, get out of there partner!', 5000)
