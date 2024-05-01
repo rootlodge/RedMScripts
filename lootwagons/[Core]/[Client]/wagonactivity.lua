@@ -75,7 +75,8 @@ function duringLooting(npcped)
     NotifyRightTip("You have been paid for looting the wagon", 5000)
     CenterBottomNotify("Wagon will explode in 10 seconds, leave the area!", 10000)
     Wait(10000)
-    ExplodeVehicle(GetWagonFromPed(npcped))
+    local wagon = GetWagonFromPed(npcped)
+    ExplodeVehicle(wagon)
     isLooting = false
     hasLooted = true
     canplayerloot = false
