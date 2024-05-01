@@ -94,7 +94,7 @@ Citizen.CreateThread(function()
 
         for index, npcped in pairs(ActiveEnemyNpcs) do
             local enemyCoords = GetEntityCoords(npcped)
-            dist = GetDistanceBetweenCoords(playerCoords, enemyCoords, true)
+            dist = GetDistanceBetweenCoords(playerCoords.x, playerCoords.y, playerCoords.z, enemyCoords.x, enemyCoords.y, enemyCoords.z, 0)
             passthroughindex = index
             passthroughnpcped = npcped
 
