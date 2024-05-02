@@ -147,6 +147,58 @@ AddEventHandler('onResourceStart', function(resourceName)
     SetupMission()
 end)
 
+-- Registers a function that is called when the resource stops
+AddEventHandler('onResourceStop', function(resourceName)
+    if GetCurrentResourceName() ~= resourceName then
+        return
+    end
+
+    print('Cleaning up resources for: ' .. resourceName)
+
+    -- Cleanup all peds
+    for id, data in pairs(activePeds) do
+        if DoesEntityExist(data.ped) then
+            DeletePed(data.ped)
+        end
+        if DoesEntityExist(data.vehicle) then
+            DeleteVehicle(data.vehicle)
+        end
+        local blip = GetBlipFromEntity(data.vehicle)
+        if blip and DoesBlipExist(blip) then
+            RemoveBlip(blip)
+        end
+    end
+    activePeds = {}
+
+    -- Cleanup all enemy NPCs
+    for i, ped in ipairs(ActiveEnemyNpcs) do
+        if DoesEntityExist(ped) then
+            DeletePed(ped)
+        end
+    end
+    ActiveEnemyNpcs = {}
+
+    -- Cleanup all vehicles from LootWagons
+    for i, wagon in ipairs(LootWagons) do
+        if DoesEntityExist(wagon.WagonVehicle) then
+            DeleteVehicle(wagon.WagonVehicle)
+        end
+    end
+    LootWagons = {}
+
+    -- Additional cleanup for activeWagons
+    for i, wagon in ipairs(activeWagons) do
+        if DoesEntityExist(wagon.vehicle) then
+            DeleteVehicle(wagon.vehicle)
+        end
+    end
+    activeWagons = {}
+
+    -- Log cleanup completion
+    print('All entities cleaned up for resource: ' .. resourceName)
+end)
+
+
 
 function currentCountForCategory(wagonType)
     if wagonType == "Oil" then
