@@ -98,7 +98,7 @@ AddEventHandler('RootLodge:LootWagons:C:MainMission', function()
             dist = GetDistanceBetweenCoords(playerCoords.x, playerCoords.y, playerCoords.z, enemyCoords.x, enemyCoords.y, enemyCoords.z, 0)
             passthroughindex = index
             passthroughnpcped = npcped
-            if dist < 10.0 then
+            if dist < 10.0 and not completedmission then
                 local lootingtext = "Looting"
                 local label = CreateVarString(10, 'LITERAL_STRING', lootingtext)
                 PromptSetActiveGroupThisFrame(prompts, label)
