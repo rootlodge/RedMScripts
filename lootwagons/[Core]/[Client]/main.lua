@@ -71,7 +71,7 @@ AddEventHandler('RootLodge:LootWagons:C:SetupMission', function()
                 -- make sure to check if the wagon type matches the wagon type in the config
                 -- if the wagon type doesn't match, then continue to the next wagon config
                 if wagonConfig.WagonType ~= wagonType then
-                    break
+                    return false
                 end
 
                 wagonModel = wagonConfig.WagonModel
