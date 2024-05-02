@@ -94,6 +94,7 @@ AddEventHandler('RootLodge:LootWagons:C:SetupMission', function()
                     id = activeWagonIDCounter,
                     type = wagonType,
                     vehicle = wagonVehicle,
+                    ped = rawped,
                 }
                 activePedIDCounter = activePedIDCounter + 1
                 activePeds[activePedIDCounter] = {

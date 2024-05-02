@@ -292,32 +292,49 @@ function StartLooting(npcped)
 end
 
 function CleanupAfterLooting(npcped)
+    -- First, find and delete the ped and vehicle from activePeds
     for id, data in pairs(activePeds) do
         if data.ped == npcped then
-            -- Directly delete the ped and vehicle
+            -- Delete the ped and vehicle
             DeletePed(data.ped)
             DeleteVehicle(data.vehicle)
-            if DoesBlipExist(GetBlipFromEntity(data.vehicle)) then
-                RemoveBlip(GetBlipFromEntity(data.vehicle))  -- Remove blip if it exists
+
+            -- Remove the blip if it exists
+            local blip = GetBlipFromEntity(data.vehicle)
+            if DoesBlipExist(blip) then
+                RemoveBlip(blip)
             end
-            
-            -- Remove the ped and vehicle data from activePeds table
-            activePeds[id] = nil
-            for i, ped in ipairs(ActiveEnemyNpcs) do
-                if ped == npcped then
+
+            -- Remove the ped from ActiveEnemyNpcs
+            for i = #ActiveEnemyNpcs, 1, -1 do
+                if ActiveEnemyNpcs[i] == data.ped then
                     table.remove(ActiveEnemyNpcs, i)
-                    for i, wagon in ipairs(LootWagons) do
-                        if wagon.WagonVehicle == data.vehicle then
-                            table.remove(LootWagons, i)
-                            for i, wagon in ipairs(Config.WagonMaxSpawnAmount) do
-                                if wagon.WagonType == data.loottype then
-                                    DecreaseWagonCount(data.loottype)
-                                end
-                            end
-                        end
-                    end
+                    break  -- Break since the ped was found and removed
                 end
             end
+
+            -- Remove the vehicle from LootWagons
+            for i = #LootWagons, 1, -1 do
+                if LootWagons[i].WagonVehicle == data.vehicle then
+                    table.remove(LootWagons, i)
+                    break  -- Break since the vehicle was found and removed
+                end
+            end
+
+            -- Remove the wagon entry from activeWagons
+            for i = #activeWagons, 1, -1 do
+                if activeWagons[i].vehicle == data.vehicle then
+                    table.remove(activeWagons, i)
+                    break  -- Break since the wagon was found and removed
+                end
+            end
+
+            -- Adjust wagon count
+            DecreaseWagonCount(data.loottype)
+
+            -- Finally, remove the entry from activePeds
+            activePeds[id] = nil
+            break  -- Assuming each ped is unique and once found, no need to continue
         end
     end
 end
@@ -336,6 +353,15 @@ function GetPedFromWagon(wagon)
     for id, data in pairs(activePeds) do
         if data.vehicle == wagon then
             return data.ped
+        end
+    end
+end
+
+-- get ID from ped
+function GetIDFromPed(npcped)
+    for id, data in pairs(activePeds) do
+        if data.ped == npcped then
+            return id
         end
     end
 end
