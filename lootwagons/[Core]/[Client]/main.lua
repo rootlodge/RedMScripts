@@ -131,6 +131,13 @@ end)
 -- trigger the MainMission event when the player presses a button
 --TriggerEvent('RootLodge:LootWagons:C:SetupMission')
 --TriggerEvent('RootLodge:LootWagons:C:MainMission')
+function SetupMission()
+    TriggerEvent('RootLodge:LootWagons:C:SetupMission')
+    Wait(1000)
+    TriggerEvent('RootLodge:LootWagons:C:MainMission')
+end
+
+SetupMission()
 
 function currentCountForCategory(wagonType)
     if wagonType == "Oil" then
