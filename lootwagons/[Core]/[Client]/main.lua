@@ -129,8 +129,8 @@ end)
 -- DO NOT FORGET TO ADD RESET KILL EVENT HANDLER
 
 -- trigger the MainMission event when the player presses a button
-TriggerEvent('RootLodge:LootWagons:C:SetupMission')
-TriggerEvent('RootLodge:LootWagons:C:MainMission')
+--TriggerEvent('RootLodge:LootWagons:C:SetupMission')
+--TriggerEvent('RootLodge:LootWagons:C:MainMission')
 
 function currentCountForCategory(wagonType)
     if wagonType == "Oil" then
