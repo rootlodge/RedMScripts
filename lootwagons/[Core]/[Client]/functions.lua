@@ -331,6 +331,15 @@ function GetWagonFromPed(npcped)
     end
 end
 
+-- get ped from wagon
+function GetPedFromWagon(wagon)
+    for id, data in pairs(activePeds) do
+        if data.vehicle == wagon then
+            return data.ped
+        end
+    end
+end
+
 
 -- For core loot functions
 

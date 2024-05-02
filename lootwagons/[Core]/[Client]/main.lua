@@ -48,88 +48,87 @@ activeWagonIDCounter = 0 -- counter to keep track of the wagon ID
 activePeds = {} -- table to store the active peds
 activePedIDCounter = 0 -- counter to keep track of the ped ID
 currentWagonCounts = {} -- table to store the current count of each wagon type
+
+TotalKilled = 0
 -- To do list
 -- Logic to place objects in the loot wagon
 -- Logic to remove objects from the loot wagon after looting/exploding
 -- Logic to make the loot wagon explode
--- Logic to make the loot wagon the player interacted with and finished looting, despawn after a certain amount of time and distance from the player
 -- Logic to make the loot wagon respawn after a certain amount of time and distance from the player
-
+-- LOGIC TO REIMPLMENT THE TOTAL KILLED FUNCTIONALITY FOR PAYDAY
 --------------------------------------------------------------------------------
--- put the SpawnLootWagons function into a client event
-RegisterNetEvent('RootLodge:LootWagons:C:SpawnLootWagons')
-AddEventHandler('RootLodge:LootWagons:C:SpawnLootWagons', function(wagonType, remainingAmount, wagonModel, wagonName)
-    for _, wagonConfig in ipairs(Config.Wagons) do
-        wagonModel = nil
-        wagonName = nil
-        if wagonConfig.WagonType == wagonType then
-            wagonModel = wagonConfig.WagonModel
-            wagonName = wagonConfig.WagonName
-        end
-        IncreaseWagonCount(wagonType)
-        local wagonModel = GetHashKey(wagonModel)
-        requestmodel23(wagonModel)
-        local spawnIndex = math.random(#Config.WagonSpawnLocations)
-        local spawnPoint = Config.WagonSpawnLocations[spawnIndex]
-        local rawpedModel = Config.PedsInWagons[math.random(#Config.PedsInWagons)]
-        local pedModel = GetHashKey(rawpedModel)
-        requestmodel23(pedModel)
-        local pedcoords = { x = spawnPoint.x, y = spawnPoint.y, z = spawnPoint.z, h = spawnPoint.h }
-        local notRawWagonped = VORPutils.Peds:Create(rawpedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
-        local rawped = notRawWagonped:GetPed()
-        table.insert(ActiveEnemyNpcs, rawped)
-        SetEntityVisible(rawped, true)
-        local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
-        table.insert(LootWagons, { WagonVehicle = wagonVehicle, WagonType = wagonType })
-        activeWagonIDCounter = activeWagonIDCounter + 1
-        activeWagons[activeWagonIDCounter] = {
-            id = activeWagonIDCounter,
-            type = wagonType,
-            vehicle = wagonVehicle,
-        }
-        activePedIDCounter = activePedIDCounter + 1
-        activePeds[activePedIDCounter] = {
-            id = activePedIDCounter,
-            ped = rawped,
-            vehicle = wagonVehicle,
-            loottype = wagonType,
-        }
-        SetEntityAsMissionEntity(wagonVehicle, true, true)
-        SetEntityAsMissionEntity(rawped, true, true)
-        Wait(1)
-        TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
-        Wait(1)
-        TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
-        if Config.isWagonBlipVisible then
-            CreateWagonBlip(wagonVehicle, wagonName)
-        end
-        print('Wagon and ped has been blipped')
-    end
-end)
+RegisterNetEvent('RootLodge:LootWagons:C:SetupMission')
+AddEventHandler('RootLodge:LootWagons:C:SetupMission', function()
+    -- Move everything from the thread above and RootLodge:LootWagons:C:SpawnLootWagons here
+    for _, config in ipairs(Config.WagonMaxSpawnAmount) do
+        local wagonType = config.WagonType
+        local maxAmount = config.MaxAmount
+        local currentCount = currentCountForCategory(wagonType)
 
-Citizen.CreateThread(function()
-    while true do
-        Wait(8000)  -- Check every 8 seconds
-        local players = GetActivePlayers()
-        if #players > 0 then  -- Only proceed if there are active players
-            print('Players are active')
-            for _, config in ipairs(Config.WagonMaxSpawnAmount) do
-                local wagonType = config.WagonType
-                local maxAmount = config.MaxAmount
-                local currentCount = currentCountForCategory(wagonType)
-
-                if currentCount < maxAmount then
-                    local remainingAmount = maxAmount - currentCount
-                    TriggerEvent('RootLodge:LootWagons:C:SpawnLootWagons', wagonType, remainingAmount)
-                else
-                    if currentCount == maxAmount then
-                        print('Max amount of wagons spawned')
-                    end
+        if currentCount < maxAmount then
+            local remainingAmount = maxAmount - currentCount
+            for_, wagonConfig in ipairs(Config.Wagons) do
+                -- make sure to check if the wagon type matches the wagon type in the config
+                -- if the wagon type doesn't match, then continue to the next wagon config
+                if wagonConfig.WagonType ~= wagonType then
+                    break
                 end
+
+                wagonModel = wagonConfig.WagonModel
+                wagonName = WagonConfig.WagonName
+                IncreaseWagonCount(wagonType)
+                local wagonModel = GetHashKey(wagonModel)
+                requestmodel23(wagonModel)
+                local spawnIndex = math.random(#Config.WagonSpawnLocations)
+                local spawnPoint = Config.WagonSpawnLocations[spawnIndex]
+                local rawpedModel = Config.PedsInWagons[math.random(#Config.PedsInWagons)]
+                local pedModel = GetHashKey(rawpedModel)
+                requestmodel23(pedModel)
+                local pedcoords = { x = spawnPoint.x, y = spawnPoint.y, z = spawnPoint.z, h = spawnPoint.h }
+                local notRawWagonped = VORPutils.Peds:Create(rawpedModel, pedcoords.x, pedcoords.y, pedcoords.z, pedcoords.h, 'world', false)
+                local rawped = notRawWagonped:GetPed()
+                table.insert(ActiveEnemyNpcs, rawped)
+                SetEntityVisible(rawped, true)
+                local wagonVehicle = CreateVehicle(wagonModel, spawnPoint.x, spawnPoint.y, spawnPoint.z, spawnPoint.h, true, true)
+                table.insert(LootWagons, { WagonVehicle = wagonVehicle, WagonType = wagonType })
+                activeWagonIDCounter = activeWagonIDCounter + 1
+                activeWagons[activeWagonIDCounter] = {
+                    id = activeWagonIDCounter,
+                    type = wagonType,
+                    vehicle = wagonVehicle,
+                }
+                activePedIDCounter = activePedIDCounter + 1
+                activePeds[activePedIDCounter] = {
+                    id = activePedIDCounter,
+                    ped = rawped,
+                    vehicle = wagonVehicle,
+                    loottype = wagonType,
+                }
+                SetEntityAsMissionEntity(wagonVehicle, true, true)
+                SetEntityAsMissionEntity(rawped, true, true)
+                Wait(1)
+                TaskWarpPedIntoVehicle(rawped, wagonVehicle, -1)
+                Wait(1)
+                TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
+                if Config.isWagonBlipVisible then
+                    CreateWagonBlip(wagonVehicle, wagonName)
+                end
+                print('Wagon and ped has been blipped')
+            end
+        else
+            if currentCount == maxAmount then
+                print('Max amount of wagons spawned')
             end
         end
     end
 end)
+
+-- TO CHECK FOR PLAYERS WE CAN JUST CHECK IF THEY PRESS LITERALLY ANY BUTTON!!!!!!1
+-- DO NOT FORGET TO ADD RESET KILL EVENT HANDLER
+
+-- trigger the MainMission event when the player presses a button
+TriggerEvent('RootLodge:LootWagons:C:SetupMission')
+TriggerEvent('RootLodge:LootWagons:C:MainMission')
 
 function currentCountForCategory(wagonType)
     if wagonType == "Oil" then
