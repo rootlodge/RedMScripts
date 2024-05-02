@@ -137,7 +137,15 @@ function SetupMission()
     TriggerEvent('RootLodge:LootWagons:C:MainMission')
 end
 
-SetupMission()
+-- RUN THE SETUP MISSION FUNCTION ON RESOURCE START
+AddEventHandler('onResourceStart', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+        return
+    end
+
+    SetupMission()
+end)
+
 
 function currentCountForCategory(wagonType)
     if wagonType == "Oil" then
