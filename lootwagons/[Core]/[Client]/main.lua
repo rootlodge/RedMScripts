@@ -59,25 +59,23 @@ TotalKilled = 0
 --------------------------------------------------------------------------------
 RegisterNetEvent('RootLodge:LootWagons:C:SetupMission')
 AddEventHandler('RootLodge:LootWagons:C:SetupMission', function()
-    -- Move everything from the thread above and RootLodge:LootWagons:C:SpawnLootWagons here
+    -- Iterate through each wagon configuration from the maximum spawn amount settings
     for _, config in ipairs(Config.WagonMaxSpawnAmount) do
         local wagonType = config.WagonType
         local maxAmount = config.MaxAmount
         local currentCount = currentCountForCategory(wagonType)
 
+        -- Proceed only if the current count is less than the maximum allowed
         if currentCount < maxAmount then
             local remainingAmount = maxAmount - currentCount
-            for_, wagonConfig in ipairs(Config.Wagons) do
-                -- make sure to check if the wagon type matches the wagon type in the config
-                -- if the wagon type doesn't match, then continue to the next wagon config
+            for _, wagonConfig in ipairs(Config.Wagons) do
+                -- Skip this iteration if the wagon type doesn't match the target type
                 if wagonConfig.WagonType ~= wagonType then
-                    return false
+                    goto continue
                 end
 
-                wagonModel = wagonConfig.WagonModel
-                wagonName = WagonConfig.WagonName
-                IncreaseWagonCount(wagonType)
-                local wagonModel = GetHashKey(wagonModel)
+                -- Continue with the spawning process for matching wagon type
+                local wagonModel = GetHashKey(wagonConfig.WagonModel)
                 requestmodel23(wagonModel)
                 local spawnIndex = math.random(#Config.WagonSpawnLocations)
                 local spawnPoint = Config.WagonSpawnLocations[spawnIndex]
@@ -104,6 +102,7 @@ AddEventHandler('RootLodge:LootWagons:C:SetupMission', function()
                     vehicle = wagonVehicle,
                     loottype = wagonType,
                 }
+                IncreaseWagonCount(wagonType)
                 SetEntityAsMissionEntity(wagonVehicle, true, true)
                 SetEntityAsMissionEntity(rawped, true, true)
                 Wait(1)
@@ -111,9 +110,11 @@ AddEventHandler('RootLodge:LootWagons:C:SetupMission', function()
                 Wait(1)
                 TaskVehicleDriveWander(rawped, wagonVehicle, 25.0, 786603)
                 if Config.isWagonBlipVisible then
-                    CreateWagonBlip(wagonVehicle, wagonName)
+                    CreateWagonBlip(wagonVehicle, wagonConfig.WagonName)
                 end
-                print('Wagon and ped has been blipped')
+                print('Wagon and ped have been deployed with blip')
+
+                ::continue::
             end
         else
             if currentCount == maxAmount then
@@ -122,6 +123,7 @@ AddEventHandler('RootLodge:LootWagons:C:SetupMission', function()
         end
     end
 end)
+
 
 -- TO CHECK FOR PLAYERS WE CAN JUST CHECK IF THEY PRESS LITERALLY ANY BUTTON!!!!!!1
 -- DO NOT FORGET TO ADD RESET KILL EVENT HANDLER
